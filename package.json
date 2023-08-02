@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev" : "tailwindcss -i static/tw/tailwind-input.css -o static/css/tw-output.css --watch",
+    "run" : "tailwindcss -i static/tw/tailwind-input.css -o static/css/tw-output.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}
