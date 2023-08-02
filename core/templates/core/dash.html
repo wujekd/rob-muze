@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block title %}Moj Profil{% endblock title %}
+{% block content %}
+
+<div class="mt-6 px-6 py-12 bg-gray-100 text-gray-900 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">My Items</h2>
+    <div class="grid grid-cols-3 gap-3 mt-40">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <p>Email: {{ user.email }}</p>
+        <p>Date of Registration: {{ user.date_joined }}</p>
+        <p>Masz: {{ profil.points }} punktów</p>
+</div>
+{% endblock %}
