@@ -13,14 +13,12 @@
     {% comment %} N A V - B A R {% endcomment %}
         <nav class="nav">
             <div class="container flex items-center justify-between h-20">
-                <h1 class="relative z-30 font-semibold text-2xl">
+                <h1 class="relative z-30 font-semibold text-2xl hover:scale-125 transition duration-500">
                     Rob Muze
                 </h1>
                 <div class="flex items-center flex-row gap=2">
                     {% comment %} M E N U - O P C J E {% endcomment %}
-                    <ul id="menu"
-                    {% comment %} class="" {% endcomment %}
-                    >
+                    <ul id="menu">
                         <a href="{% url 'core:index' %}" class="nav-link">Glowna</a>
                         <a href="{% url 'samples:samples' %}" class="nav-link">Sample</a>
                         <a href="{% url 'ankiety:ankiety' %}" class="nav-link">Ankiety</a>
