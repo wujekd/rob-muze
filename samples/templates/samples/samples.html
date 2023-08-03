@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+{% block title %}
+Browse
+{% endblock title %}
+
+{% block content %}
+
+
+
+
+
+<section>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-20">
+
+        <h3>Posiadasz {{ points }} punktow.</h3>
+
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Image</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nazwa
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Opis
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Rodzaj
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Cena
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Sprawdz</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sampel in sample %}
+                <tr class="product-td">
+                    <td class="w-32 p-4">
+                        <img src="{{ sampel.image.url }}" style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" />
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        {{ sampel.title }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ sampel.description }}
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        <audio controls style="border-radius: 15%">
+                            <source src="{{ sampel.mp3_file.url }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                          </audio>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p>{{ sampel.cena }}pkt.</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="{% url 'samples:sampel' sampel.id %}" class="font-medium text-red-600 dark:text-red-500 hover:underline">Sprawdz</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{% url 'samples:message' %}">MSG</a>
+
+</section>
+
+
+
+{% endblock content %}
