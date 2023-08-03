@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block title %}No points{% endblock %}
+{% block content %}
+
+<div class="col-span-2 p-6 rounded-xl mt-40">
+    <div class="mt=20">
+
+        <h1>UR TOO POOR</h1>
+        <h2>To download {{ sampel.title }} you need {{ sampel.cena }}. 
+            Unfortunately, you only have {{ points }} points.</h2>
+        <a href="{% url 'ankiety:ankiety' %}">Go answer some polls to get your points!</a>
+
+    </div>
+    </div>
+</div>
+
+{% endblock content %}

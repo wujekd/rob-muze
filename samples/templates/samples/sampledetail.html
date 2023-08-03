@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+{% block title %}ankieta otw{% endblock %}
+{% block content %}
+
+
+
+<div class="col-span-2 p-6 rounded-xl mt-40">
+
+    <h1>{{ sample.title }}</h1>
+
+    <p><strong>MP3 File:</strong> <a href="{{ sample.mp3_file.url }}" target="_blank">{{ sample.mp3_file.name }}</a></p>
+
+    <p><strong>Description:</strong> {{ sample.description }}</p>
+
+    <p><strong>Tags:</strong> {{ sample.tags }}</p>
+
+    <p><strong>Added Date:</strong> {{ sample.added_date }}</p>
+
+    {% if sample.image %}
+        <img src="{{ sample.image.url }}" alt="{{ sample.title }} Image" width="200">
+    {% else %}
+        <p>No image available</p>
+    {% endif %}
+
+    <p><strong>Artist:</strong> {{ sample.artist }}</p>
+
+    <p><strong>Cena:</strong> {{ sample.cena }}</p>
+
+</div>
+
+<a href="{% url 'samples:download' sample.id %}">download</a>
+
+
+{% endblock %}
