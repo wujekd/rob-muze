@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 
 class Sampel(models.Model):
     title = models.CharField(max_length=200)
-    mp3_file = models.FileField(upload_to='music/')  # 'music/' is the subdirectory within 'media' to store the files
+    demo = models.FileField(upload_to='music/')  # 'music/' is the subdirectory within 'media' to store the files
+    file = models.FileField(upload_to='music/', null=True)
     description = models.TextField()
     tags = models.CharField(max_length=100, blank=True, null=True)
     added_date = models.DateTimeField(auto_now_add=True)
