@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'samples',
     'account',
     'ankiety',
+    'collabs',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +146,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'robmuzepl@gmail.com'
+EMAIL_HOST_PASSWORD = 'ssfwklypjrtoxeux'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+PASSWORD_RESET_TIMEOUT = 14400
 
 STATIC_ROOT = BASE_DIR.parent / 'local-cdn' / 'static'
 # MEDIA_URL = 'media/'

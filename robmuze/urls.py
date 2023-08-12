@@ -26,7 +26,8 @@ urlpatterns = [
     path('sample/', include('samples.urls')),
     path('', include('core.urls')),
     # path('dash/', include('userdash.urls'), name='dash')
-    path('ankiety/', include('ankiety.urls'))
+    path('ankiety/', include('ankiety.urls')),
+    path('kolab/', include('collabs.urls'))
 ]
 
 
