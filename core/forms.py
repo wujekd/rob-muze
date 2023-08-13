@@ -34,4 +34,10 @@ class SignupForm(UserCreationForm):
         'placeholder ' : 'Repeat your password',
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
-    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        count = User.objects.filter(email=email).count()
+        print(count)
+        if count > 0:
+            raise forms.ValidationError('Ten adres email jest juz zajety!')
+        return email
