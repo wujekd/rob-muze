@@ -6,6 +6,7 @@ from django.db.models import Q, Count
 from account.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 
@@ -21,21 +22,22 @@ def ankiety(request):
     # for pytanie in ankiety:
     #     if pytanie not in answered:
     #         unanswered.append(pytanie)
-    
-    ankiety = AnkietaOtw.objects.annotate(num_answer=Count('odpowiedzotw',
-                                                 filter=Q(odpowiedzotw__user=request.user)))
-    answered = ankiety.filter(num_answer__gt=0)
-    unanswered = ankiety.filter(num_answer=0)
-    
+    if request.user.is_authenticated:
+        ankiety = AnkietaOtw.objects.annotate(num_answer=Count('odpowiedzotw',
+                                                    filter=Q(odpowiedzotw__user=request.user)))
+        answered = ankiety.filter(num_answer__gt=0)
+        unanswered = ankiety.filter(num_answer=0)
         
-    print(answered)
-    print(unanswered)
-    return render(request, 'ankiety/ankiety.html', {
-        'answered' : answered,
-        'unanswered' : unanswered,
-    })
-
-
+            
+        # print(answered)
+        # print(unanswered)
+        return render(request, 'ankiety/ankiety.html', {
+            'answered' : answered,
+            'unanswered' : unanswered,
+        })
+    else:
+        messages.error(request, 'Musisz sie zalogowac zeby odpowiadac na ankiety!')
+        return redirect('core:index')
 
 
 @login_required

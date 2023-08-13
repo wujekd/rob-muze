@@ -11,13 +11,21 @@ from django.contrib import messages
 
 def samples(request):
     sample = Sampel.objects.all()
-    user_acc = Account.objects.get(user=request.user)
-    points = user_acc.points
     
-    return render(request, 'samples/samples.html', {
-        'sample' : sample,
-        'points' : points,
-    })
+    if request.user.is_authenticated:
+        
+        user_acc = Account.objects.get(user=request.user)
+        points = user_acc.points
+        
+        return render(request, 'samples/samples.html', {
+            'sample' : sample,
+            'points' : points,
+        })
+    else:
+        return render(request, 'samples/samples.html', {
+            'sample' : sample,
+        })
+        
     
 def sample_detail(request, pk):
     sampel = get_object_or_404(Sampel, pk=pk)
