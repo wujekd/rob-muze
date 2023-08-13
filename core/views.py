@@ -10,6 +10,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from.tokens import account_activation_token
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -27,7 +28,20 @@ def index(request):
                   )
 
 def activate(request, uidb64, token):
-    return redirect('core:index')
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except:
+        user = None
+        
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Twoje konto zostalo pomyslnie aktywowane! Mozesz sie zalaogowac.')
+        return redirect('core:login')
+    else:
+        messages.error(request, 'Link aktywacyjny nie dziala poprawnie.')
+        return redirect('core:index')
 
 def activateEmail(request, user, to_email):
     mail_subject = 'Aktywoj swoje konto na RobMuze.pl'
