@@ -54,12 +54,15 @@ def download_file(request, pk):
         user_acc.points -= sampel.cena
         user_acc.save()
         
-        file_path = Sampel.objects.get(pk=pk).mp3_file.url
+        file_path = Sampel.objects.get(pk=pk).demo.url
         file_path = file_path[1:]
 
         file = open(file_path, 'rb')
         response = FileResponse(file, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{file_path.split("/")[-1]}"'
+        
+        download_record = Downloads.objects.create(sample=sampel, user=user)
+        download_record.save()
         
         messages.add_message(request, messages.SUCCESS, 'Pobrano ' + sampel.title + '!', extra_tags='bg-green-800')
         # Downloads.objects.create(user=user, sample=sampel)

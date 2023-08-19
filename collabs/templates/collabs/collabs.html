@@ -4,8 +4,18 @@ Kolaboracje
 {% endblock title %}
 
 {% block content %}
-    <div class="w=1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl mt-40 text-gray-800">
-        <h1 class="mb-6 text-3xl">Sign up</h1>
- {% endcomment %}
-    </div>
+   
+<br><br><br><br>
+
+
+{%for collab in collabs %}
+<h2>{{collab.title}}</h2>
+<p>{{collab.desc}}</p><a href="{% url 'collabs:collab' collab.id %}">
+    <button style="background-color: #007bff; color: white; padding: 10px 40px; border: none; border-radius: 15px; cursor: pointer;">Dowiedz sie wiecej</button>
+  </a>
+  <br>
+
+{% endfor %}
+
+
 {% endblock content %} 
