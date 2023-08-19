@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Collab
+from .forms import CollabSubform
 
 def collabs(request):
     collabs = Collab.objects.all()
@@ -14,4 +15,12 @@ def collab(request, pk):
         'collab' : collab
     })
 
-# create the form 
+def przeslij(request, pk):
+    collab = Collab.objects.get(pk=pk)
+    
+    form = CollabSubform
+    
+    return render(request, 'collabs/collab_submit.html', {
+        'collab' : collab,
+        'form' : form,
+    })

@@ -10,6 +10,7 @@ class Collab(models.Model):
 class CollabSub(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
+    title = models.TextField(max_length=40, null=True)
     msg = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='collabs/downloads', null=True)

@@ -7,7 +7,11 @@ Signup
   
 <br><br><br><br>
 
-{{collab.title}}
+<h1>{{collab.title}}</h1>
+<br>
 {{collab.desc}}
+<a href="{% url 'collabs:przeslij' collab.id %}">
+<button style="background-color: #007bff; color: white; padding: 10px 40px; border: none; border-radius: 15px; cursor: pointer;">
+    Przeslij swoje nagranie.</button></a>
 
 {% endblock content %} 
