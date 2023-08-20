@@ -3,6 +3,7 @@ from .forms import SignupForm, SignupForm2
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from account.models import Account
+from collabs.models import CollabSub
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.template.loader import render_to_string
@@ -83,20 +84,20 @@ def signup(request):
     return render(request, 'core/signup.html', {
         'form' : form
     })
-    
-    
+
     
     
 @login_required
 def profil(request):
-    # Access the authenticated user object using 'request.user'
+
     user = request.user
     profil = Account.objects.filter(user=user).first()
+    collabs = CollabSub.objects.filter(user=user)
 
-    # You can add more data to the context if needed
     context = {
         'user': user,
         'profil':profil,
+        'collabs' : collabs
     }
 
     return render(request, 'core/dash.html', context)

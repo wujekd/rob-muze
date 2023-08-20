@@ -1,13 +1,32 @@
 {% extends 'core/base.html' %}
+{% load custom_filters %}
+
 {% block title %}Moj Profil{% endblock title %}
 {% block content %}
-
+<br><br>
 <div class="mt-6 px-6 py-12 bg-gray-100 text-gray-900 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">My Items</h2>
-    <div class="grid grid-cols-3 gap-3 mt-40">
+
+{% if collabs %}
+        <h2 class="mb-12 text-2xl text-center">Przeslane nagrania</h2>
+    {% for collab in collabs %}
+        <div class="grid grid-cols-3 gap-3 mt-20">
+            <h1>{{ collab.title }}</h1>
+            <p>{{ collab.msg }}</p>
+            <p>{{ collab.date }}</p>
+            <p>Nazwa przeslanego pliku: <br>{{ collab.file.name|basename }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <h2 class="mb-12 text-2xl text-center">Nie masz jeszcze zadnych przeslanych nagran.</h2>
+{% endif %}
+
+
+    <h2 class="mb-12 text-2xl text-center">Twoje konto</h2>
+    <div class="grid grid-cols-3 gap-3 mt-20">
         <h1>Welcome, {{ user.username }}!</h1>
         <p>Email: {{ user.email }}</p>
         <p>Date of Registration: {{ user.date_joined }}</p>
         <p>Masz: {{ profil.points }} punktów</p>
+    </div>
 </div>
 {% endblock %}
