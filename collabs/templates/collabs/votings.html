@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% block title %}
+Kolaboracje
+{% endblock title %}
+
+{% block content %}
+   
+<br><br><br><br>
+
+<div>
+<h1>otwarte glosowania:<br>
+</h1>
+</div>
+
+{% for voting in votings %}
+<div>
+    <p>{{ voting.collab_name }}</p>
+    <a href="{% url 'collabs:voting' voting.pk %}">zobacz</a>
+</div>
+{% endfor %}
+
+
+{% endblock content %} 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Collab, CollabSub
+from .models import Collab, CollabSub, Voting
 from .forms import CollabSubform
 
 def collabs(request):
@@ -42,3 +42,28 @@ def przeslij(request, pk):
             'collab' : collab,
             'form' : form,
     })
+        
+
+
+def votings(request):
+    votings = Voting.objects.all()
+    
+    return render(request, 'collabs/votings.html', {
+        'votings' : votings
+    })
+    
+def voting(request, pk):
+    voting = Voting.objects.get(pk=pk)
+    collab = Collab.objects.get(pk=voting.collab.id)
+    subs = CollabSub.objects.filter(collab=collab)
+    
+    return render(request, 'collabs/voting.html', {
+        'voting' : voting,
+        'collab' : collab,
+        'subs' : subs,
+    })
+
+
+def vote(request, pk):
+    pass
+    
