@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Collab, CollabSub, Voting
+from .models import Collab, CollabSub, Voting, Vote
 from .forms import CollabSubform
 
 def collabs(request):
@@ -56,14 +56,38 @@ def voting(request, pk):
     voting = Voting.objects.get(pk=pk)
     collab = Collab.objects.get(pk=voting.collab.id)
     subs = CollabSub.objects.filter(collab=collab)
+    vote_count = Vote.objects.filter(voting=voting).count()
     
     return render(request, 'collabs/voting.html', {
         'voting' : voting,
         'collab' : collab,
         'subs' : subs,
+        'vote_count' : vote_count
     })
 
 
 def vote(request, pk):
-    pass
     
+    if request.method == 'POST':
+        voter_ip = request.META.get('REMOTE_ADDR')
+        if #no ip in votes then:
+            id = request.POST.get('submission_id')
+            sub = CollabSub.objects.get(pk=id)
+            voting = Voting.objects.get(collab=sub.collab)
+            
+            vote = Vote.objects.create(vote_on=sub, voting=voting, voter_ip=voter_ip)
+            vote.save()
+            
+            return redirect('collabs:votings')
+        
+        else:
+            pass
+            #u already voted
+        
+    
+    else:
+        sub = CollabSub.objects.get(pk=pk)
+        
+        return render(request, 'collabs/vote.html', {
+            'sub' : sub
+        })

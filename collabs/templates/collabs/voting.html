@@ -3,15 +3,47 @@
 Kolaboracje
 {% endblock title %}
 
+
 {% block content %}
-   
-<br><br><br><br>
 
+<br><br><br>
+    <h1>Collab Voting: {{ collab.title }}</h1>
+    <p>Description: {{ collab.desc }}</p>
+    <p>Ilosc glosow {{ vote_count }}</p>
+{% if collab.download_pack %}
+    <p>Oryginalny podklad</p>
+    <audio controls class="audio-player">
+        <source src="{{ collab.download_pack.url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+{% endif %}
 
+    <h2>Submissions</h2>
+    <ul>
+        {% for sub in subs %}
+            <li>
+                <h3>{{ sub.user.username }}</h3>
+                <p>{{ sub.title }}</p>
+                <p>{{ sub.msg }}</p>
+                
+                <audio controls class="audio-player">
+                    <source src="{{ sub.file.url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <a href="{% url 'collabs:vote' sub.id %}">Zaglosuj</a>
+            </li>
+        {% endfor %}
+    </ul>
 
-{% for sub in subs %}
-    <p>{{ sub.title }}</p>
-{% endfor %}
-
-
-{% endblock content %} 
+<script>
+    document.addEventListener('play', function(e){
+        var audios = document.getElementsByTagName('audio');
+        for(var i = 0, len = audios.length; i < len;i++){
+            if(audios[i] != e.target){
+                audios[i].pause();
+            }
+        }
+    }, true);
+</script>
+{% endblock %}
