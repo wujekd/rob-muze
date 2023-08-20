@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}
+Kolaboracje
+{% endblock title %}
+
+
+{% block content %}
+
+<br><br><br>
+
+<p>zaglosuj na {{ sub.title }}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="submission_id" value="{{ sub.id }}">
+                <button type="submit">Vote</button>
+            </form>
+  
+<script>
+    document.addEventListener('play', function(e){
+        var audios = document.getElementsByTagName('audio');
+        for(var i = 0, len = audios.length; i < len;i++){
+            if(audios[i] != e.target){
+                audios[i].pause();
+            }
+        }
+    }, true);
+</script>
+{% endblock %}
