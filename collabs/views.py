@@ -70,19 +70,26 @@ def vote(request, pk):
     
     if request.method == 'POST':
         voter_ip = request.META.get('REMOTE_ADDR')
-        if #no ip in votes then:
-            id = request.POST.get('submission_id')
-            sub = CollabSub.objects.get(pk=id)
-            voting = Voting.objects.get(collab=sub.collab)
-            
+        id = request.POST.get('submission_id')
+        sub = CollabSub.objects.get(pk=id)
+        voting = Voting.objects.get(collab=sub.collab)
+        ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
+        if not ip_check:
             vote = Vote.objects.create(vote_on=sub, voting=voting, voter_ip=voter_ip)
             vote.save()
             
-            return redirect('collabs:votings')
+            print('IP CHECK PASSED - VOTE SAVED')
+
+            return render(request, 'collabs/voted.html', {
+                'vote_success' : True
+                #pass what voted on
+            })
         
         else:
-            pass
-            #u already voted
+            print('IP CHECK ERROR')
+            return render(request, 'collabs/voted.html', {
+                'vote_success' : False
+            })
         
     
     else:
