@@ -4,8 +4,17 @@
 {% block title %}Moj Profil{% endblock title %}
 {% block content %}
 <br><br>
-<div class="mt-6 px-6 py-12 bg-gray-100 text-gray-900 rounded-xl">
-
+<div class="text-green-100 rounded-xl">
+<div class="mb-10 mt-6 px-6 py-12 bg-primary bg-opacity-50 shadow-lg">
+    <h2 class="mb-12 text-2xl text-center">Twoje konto</h2>
+    <div class="grid grid-cols-3 gap-3 mt-20">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <p>Email: {{ user.email }}</p>
+        <p>Date of Registration: {{ user.date_joined }}</p>
+        <p>Masz: {{ profil.points }} punktów</p>
+    </div>
+</div>
+<div class="mt-6 px-6 py-12 bg-primary bg-opacity-50 shadow-lg">
 {% if collabs %}
         <h2 class="mb-12 text-2xl text-center">Przeslane nagrania</h2>
     {% for collab in collabs %}
@@ -19,14 +28,9 @@
 {% else %}
     <h2 class="mb-12 text-2xl text-center">Nie masz jeszcze zadnych przeslanych nagran.</h2>
 {% endif %}
-
-
-    <h2 class="mb-12 text-2xl text-center">Twoje konto</h2>
-    <div class="grid grid-cols-3 gap-3 mt-20">
-        <h1>Welcome, {{ user.username }}!</h1>
-        <p>Email: {{ user.email }}</p>
-        <p>Date of Registration: {{ user.date_joined }}</p>
-        <p>Masz: {{ profil.points }} punktów</p>
     </div>
+
+
+    
 </div>
 {% endblock %}

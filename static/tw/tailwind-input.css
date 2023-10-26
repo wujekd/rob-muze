@@ -14,7 +14,7 @@
     }
     body {
         font-family: 'Nunito', sans-serif;
-        @apply bg-gray-100 dark:bg-gray-700 text-stone-800 dark:text-stone-200 mx-6;
+        @apply bg-background
     }
     h1,h2,h3,h4,h5,h6 {
         font-family: 'Open Sans', sans-serif;
@@ -25,7 +25,7 @@
     .nav {
         @apply
             fixed top-0 left-0 z-40
-            bg-gray-50 dark:bg-gray-800
+            bg-primary
             py-0
             w-full backdrop-blur
     }
@@ -36,17 +36,20 @@
             items-center gap-4 md:gap-12
             pt-28 pb-8 md:p-0
             w-auto
-            bg-gray-50 dark:bg-slate-400
+            bg-background
             bg-transparent md:dark:bg-transparent
             transition duration-500
             shadow-none
-    }
+}
+
     .nav-link {
         @apply
         font-semibold
         border-b-4 border-transparent 
-        hover:border-blue-300
+        hover:scale-110
+        text-white
 }
+
     .home-section {
         @apply
         grid items-center
@@ -55,9 +58,11 @@
         md:h-screen
         md:overflow-hidden
     }
+
     .btn-primary {
         @apply
-        bg-blue-900
+        text-white
+        bg-primary
         hover:brightness-110
         font-bold text-white
         px-4 py-2.5
@@ -73,15 +78,9 @@
         overflow-hidden
         order-1 md:order-2
     }
+
     .product-td {
         @apply
-        bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600
+        bg-secondary hover:bg-primary
     }
-    .img-pre {
-        @apply
-        rounded-full w-64 h-64 overflow-hidden bg-blue-200
-      }
-
-
-
 }
