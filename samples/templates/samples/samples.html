@@ -9,15 +9,19 @@ Browse
 
 
 
-<section>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-20">
-{% if points %}
+<section class="mt-20">
+    {% if points %}
         <h3>Posiadasz {{ points }} punktow.</h3>
 {% else %}
         <h3>Zaloguj sie aby uzyskac dostep do pobierania sampli</h3>
 {% endif %}
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+
+
+    <div class="flex justify-center overflow-x-auto sm:rounded-lg">
+
+        <table class="table-auto bg-secondary bg-opacity-50 text-sm text-left text-white shadow-lg">
+            <thead class="text-xs uppercase bg-primary">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Image</span>
@@ -43,7 +47,8 @@ Browse
                 {% for sampel in sample %}
                 <tr class="product-td">
                     <td class="w-32 p-4">
-                        <img src="{{ sampel.image.url }}" style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" />
+                        <img src="{{ sampel.image.url }}" 
+                        style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" />
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{ sampel.title }}
@@ -51,7 +56,7 @@ Browse
                     <td class="px-6 py-4">
                         {{ sampel.description }}
                     </td>
-                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    <td class="py-4 font-semibold text-gray-900 dark:text-white">
                         <audio controls style="border-radius: 15%">
                             <source src="{{ sampel.demo.url }}" type="audio/mpeg">
                             Your browser does not support the audio element.
@@ -69,10 +74,21 @@ Browse
         </table>
     </div>
 
-    <a href="{% url 'samples:message' %}">MSG</a>
+{% comment %} <a href="{% url 'samples:message' %}">MSG</a> {% endcomment %}
 
 </section>
 
+<script>
+    document.addEventListener('play', function(e) {
+        var audios = document.getElementsByTagName('audio');
+    
+        for (var i = 0, len = audios.length; i < len; i++) {
+            if (audios[i] != e.target) {
+                audios[i].pause();
+            }
+        }
+    }, true);
+</script>
 
 
 {% endblock content %}
