@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% block title %}Contact{% endblock title %}
 {% block content %}
+{% load static %}
 </br></br>
 
 <div class=" flex bg-secondary bg-opacity-50 mt-10 pt-4">
@@ -29,29 +30,9 @@
 
 
 <div class="mt-10">
-    <table>
-        <thead class="bg-green-800">
-            <tr>
-                <th>Tytol</th>
-                <th>Pytanie</th>
-                <th>Data</th>
-                <th>Kategoria</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ankieta in answered %}
-            <tr>
-                <td>{{ ankieta.tytol }}</td>
-                <td>{{ ankieta.pytanie }}</td>
-                <td>{{ ankieta.data }}</td>
-                <td>{{ ankieta.kategoria }}</td>
-                <td><a href="{% url 'ankiety:ankietaotw' ankieta.id %}">Zobacz odpowiedz</a>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    
 </br>
-<table>
+<table class='mx-10'>
     <thead class="bg-green-800">
         <tr>
             <th>Tytol</th>
@@ -72,11 +53,33 @@
         {% endfor %}
     </tbody>
 </table>
+<table class="mx-10">
+    <thead class="bg-green-800">
+        <tr>
+            <th>Tytol</th>
+            <th>Pytanie</th>
+            <th>Data</th>
+            <th>Kategoria</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ankieta in answered %}
+        <tr>
+            <td>{{ ankieta.tytol }}</td>
+            <td>{{ ankieta.pytanie }}</td>
+            <td>{{ ankieta.data }}</td>
+            <td>{{ ankieta.kategoria }}</td>
+            <td><a href="{% url 'ankiety:ankietaotw' ankieta.id %}">Zobacz odpowiedz</a>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% comment %} <script>
     alert('{{ message }}');
 </script> {% endcomment %}
 
 </div>
+<img src="{% static 'images/picc1.png' %}">
 
 <script type="text/javascript">
     textarea = document.getElementById('id_answer');
