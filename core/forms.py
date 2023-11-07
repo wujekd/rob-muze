@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -70,6 +72,7 @@ class SignupForm2(forms.Form):
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password',
         'class': 'w-full py-4 px-6 rounded-xl'}))
     
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     # def clean_email(self):
     #     email = self.cleaned_data.get('email')
     #     if User.objects.filter(email=email).exists():
@@ -87,3 +90,11 @@ class SignupForm2(forms.Form):
         if profesja == 'Wybierz':
             raise forms.ValidationError('Wybierz z listy czym zajmujesz sie w muzyce!')
         return profesja
+    
+    # def clean_email(self):
+    #     email = self.cleaned_data.get('email')
+    #     count = User.objects.filter(email=email).count()
+    #     print(count)
+    #     if count > 0:
+    #         raise forms.ValidationError('Ten adres email jest juz zajety!')
+    #     return email

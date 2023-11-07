@@ -1,8 +1,34 @@
 {% extends 'core/base.html' %}
 {% block title %}Contact{% endblock title %}
 {% block content %}
+</br></br>
 
-<div>
+<div class=" flex bg-secondary bg-opacity-50 mt-10 pt-4">
+    <div class="text-gray-100 m-10 pl-5">
+        <p>losowe pytanie: </br></p>
+        <h1>{{ random_poll.tytol }} </h1>
+    </div>
+    <div class="grow"> 
+    <form method="post" action=".">
+        {% csrf_token %}
+                {{ form.answer }}
+           
+      {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+        
+            <button class="btn-primary m-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="mt-10">
     <table>
         <thead class="bg-green-800">
             <tr>
@@ -52,5 +78,13 @@
 
 </div>
 
+<script type="text/javascript">
+    textarea = document.getElementById('id_answer');
+    textarea.addEventListener('input', autoResize, false);
 
+    function autoResize() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    }
+</script>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import AnkietaOtw_form
+from .forms import RandomPollForm
 from .models import AnkietaOtw, OdpowiedzOtw
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q, Count
@@ -7,6 +8,7 @@ from account.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import random
 
 # Create your views here.
 
@@ -21,19 +23,23 @@ def ankiety(request):
     #         answered.append(odpowiedz.ankietaotw)
     # for pytanie in ankiety:
     #     if pytanie not in answered:
-    #         unanswered.append(pytanie)
+    #         unanswered.append(pytanie) 
+    
     if request.user.is_authenticated:
         ankiety = AnkietaOtw.objects.annotate(num_answer=Count('odpowiedzotw',
                                                     filter=Q(odpowiedzotw__user=request.user)))
         answered = ankiety.filter(num_answer__gt=0)
         unanswered = ankiety.filter(num_answer=0)
+        random_unanswered_poll = random.choice(unanswered) if unanswered else None
         
-            
+        form = AnkietaOtw_form()    
         # print(answered)
         # print(unanswered)
         return render(request, 'ankiety/ankiety.html', {
             'answered' : answered,
             'unanswered' : unanswered,
+            'random_poll' : random_unanswered_poll,
+            'form' : form,
         })
     else:
         messages.error(request, 'Musisz sie zalogowac zeby odpowiadac na ankiety!')

@@ -4,7 +4,7 @@ Signup
 {% endblock title %}
 
 {% block content %}
-    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-40 mx-10 text-white">
+    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10 text-black">
         <h1 class="mb-6 text-3xl">Zarejestruj nowe konto</h1>
         <form method="post" action=".">
             {% csrf_token %}
@@ -28,6 +28,10 @@ Signup
             <div class="mb-3">
                 <label class="inline-block mb-2">Powtorz Haslo</label><br>
                 {{ form.password2 }}
+            </div>
+            <div class="mb-3">
+                <label class="inline-block mb-2">Powtorz Haslo</label><br>
+                {{ form.captcha }}
             </div>
             
             
