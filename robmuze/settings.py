@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'captcha',
     'core',
     'samples',
     'account',
@@ -101,6 +102,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+
+RECAPTCHA_PUBLIC_KEY = '6LdrDwIpAAAAANI2vT68TgSDBw0V7uU-xreJeE6u'
+RECAPTCHA_PRIVATE_KEY = '6LdrDwIpAAAAAO2THgaOldnKu4uH1EXDK9lltHOO'
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
