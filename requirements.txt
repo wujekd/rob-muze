@@ -1,2 +1,4 @@
 Django<4.2
-django-recaptcha
+django-recaptcha==4.0.0
+pillow
+six
