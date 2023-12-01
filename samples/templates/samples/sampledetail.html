@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-{% block title %} {{ sample.title }} {% endblock %}
+{% block title %}ankieta otw{% endblock %}
 {% block content %}
 
 <div class="mt-20 pt-5">
@@ -11,15 +11,7 @@
                 </div>
                 <div class="flex -mx-2 mb-4">
                     <div class="w-1/2 px-2">
-                        {% if request.user.is_authenticated %}
-                    
                         <a href="{% url 'samples:download' sample.id %}"><button class="btn-primary">Pobierz Sample!</button></a>
-                        
-                        
-                        {% else %} 
-                        <div style="display: inline"><button style="background-color: red" class="btn-primary">Pobierz Sample!</button><h2>Zaloguj sie zeby pobierac sample!</h2></div>
-                        {% endif %}
-                        
                         
                     </div>
                 </div>

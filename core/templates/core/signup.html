@@ -30,8 +30,9 @@ Signup
                 {{ form.password2 }}
             </div>
             <div class="mb-3">
+                <label class="inline-block mb-2">Powtorz Haslo</label><br>
                 {{ form.captcha }}
-            </div> 
+            </div>
             
             
             {% if form.errors or form.non_field_errors %}
