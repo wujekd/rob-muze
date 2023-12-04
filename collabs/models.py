@@ -27,7 +27,8 @@ class CollabSub(models.Model):
 class Voting(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    collab_name = models.TextField(max_length=30, blank=True)
+    voting_name = models.CharField(max_length=30, blank=True)
+    description = models.TextField(max_length=150, blank=True)
     def __str__(self):
         return f'Glosowanie - {self.collab.title}'
     
@@ -39,8 +40,11 @@ class Voting(models.Model):
 class Vote(models.Model):
     voting = models.ForeignKey(Voting, on_delete=models.CASCADE)
     vote_on = models.ForeignKey(CollabSub, on_delete=models.CASCADE)
-    voter_ip = models.GenericIPAddressField()
+    voter_ip = models.GenericIPAddressField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f'{self.voting.collab_name} - glos na - {self.vote_on.title} - {self.vote_on.user} - {self.voter_ip}'
+        if self.voter_ip == None:
+            return f'{self.voting.voting_name} - glos na - {self.vote_on.title} - {self.vote_on.user}'
+        else:
+            return f'{self.voting.voting_name} - glos na - {self.vote_on.title} - {self.vote_on.user} - {self.voter_ip}'
