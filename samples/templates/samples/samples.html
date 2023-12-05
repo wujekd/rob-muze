@@ -38,9 +38,6 @@ Browse
                     <th scope="col" class="px-6 py-3">
                         Cena
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        <span class="sr-only">Sprawdz</span>
-                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -64,9 +61,6 @@ Browse
                     </td>
                     <td class="px-6 py-4">
                         <p>{{ sampel.cena }}pkt.</p>
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="{% url 'samples:sampel' sampel.id %}" class="font-medium text-red-600 dark:text-red-500 hover:underline">Sprawdz</a>
                     </td>
                 </tr>
                 {% endfor %}

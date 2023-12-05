@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Collab, CollabSub, Voting, Vote
 from .forms import CollabSubform
+from django.contrib import messages
 
 def collabs(request):
     collabs = Collab.objects.all()
@@ -33,7 +34,7 @@ def przeslij(request, pk):
             file=file
         )
         collab_sub.save()
-        return redirect('core:index')
+        return redirect('core:profil')
     
     else:
         form = CollabSubform
