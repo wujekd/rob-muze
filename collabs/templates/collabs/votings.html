@@ -13,10 +13,15 @@ Kolaboracje
 </div>
 
 {% for voting in votings %}
-<div>
-    <p>{{ voting.collab_name }}</p>
-    <a href="{% url 'collabs:voting' voting.pk %}">zobacz</a>
-</div>
+
+    
+    <a href="{% url 'collabs:voting' voting.pk %}">
+        <div style="margin: 5px; background-color: green">
+        <p>{{ voting.collab_name }}</p></br>
+        {{ voting.voting_name }}
+    </div>
+    </a>
+
 {% endfor %}
 
 

@@ -7,16 +7,22 @@ Kolaboracje
    
 <br><br><br><br>
 
+
 <a href="{% url 'collabs:votings' %}">yo</a>
 
+
+
+<div style="display: flex; flex-direction:column; margin: 5px">
 {% for collab in collabs %}
+<div style="background-color: aliceblue; display: flex; align-items: center; margin: 5px">
   <h2>{{collab.title}}</h2>
   <p>{{collab.desc}}</p>
   <a href="{% url 'collabs:collab' collab.id %}">
   <button style="background-color: #007bff; color: white; padding: 10px 40px; border: none; border-radius: 15px; cursor: pointer;">
       Dowiedz sie wiecej</button></a>
     <br>
+</div>
 {% endfor %}
+</div>
 
-
-{% endblock %} 
+{% endblock %}

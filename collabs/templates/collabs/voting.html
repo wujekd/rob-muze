@@ -7,9 +7,11 @@ Kolaboracje
 {% block content %}
 
 <br><br><br>
+<div class='container'>
     <h1>Collab Voting: {{ collab.title }}</h1>
     <p>Description: {{ collab.desc }}</p>
     <p>Ilosc glosow {{ vote_count }}</p>
+</div>
 {% if collab.download_pack %}
     <p>Oryginalny podklad</p>
     <audio controls class="audio-player">
