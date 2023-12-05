@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+
 class Collab(models.Model):
     title = models.TextField(max_length=30)
     desc = models.TextField(max_length=300)
@@ -24,6 +26,9 @@ class CollabSub(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.collab.title}"
     
+   
+    # ±±±±±±
+
 class Voting(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
@@ -36,7 +41,6 @@ class Voting(models.Model):
         self.collab_name = self.collab.title  # Set collab name when saving
         super(Voting, self).save(*args, **kwargs)
 
-    
 class Vote(models.Model):
     voting = models.ForeignKey(Voting, on_delete=models.CASCADE)
     vote_on = models.ForeignKey(CollabSub, on_delete=models.CASCADE)
