@@ -13,7 +13,6 @@ Kolaboracje
 {% for collab in collabs %}
 
 <div class="item">
- 
     <div class="logo"><img src="/rob_muze_logo.PNG" alt=""/></div>
     <div class="text">
     <h2 style="white-space: nowrap">{{collab.title}}</h2>
@@ -23,14 +22,26 @@ Kolaboracje
   <a href="{% url 'collabs:collab' collab.id %}"><button class="tableButtons">Dowiedz sie wiecej</button></a>
 </div>
 {% endfor %}
-
-<div class="innerCont"> 
-
-<h2>Aktywne glosowania:</h2>
-
-
-<p></p>
-
 </div>
+
+<div style="margin-top: 16px" class="mainContainer"> 
+
+<h1 class="test">Aktywne Glosowania</h1>
+ <div class="rowCont">
+  {% for voting in votings %}
+  <div class="smallItem">
+    <h2>{{ voting.name }}</h2>
+    <ul>
+    {% for tag in voting.tags %}
+   
+      <li>{{tag}}</li>
+      {% endfor %}
+    </ul>
+  
+  </div>
+  {% endfor %}
+</div> 
+
+
 
 {% endblock %}

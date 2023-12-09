@@ -19,7 +19,7 @@ body{
   }
 
   .item {
-    background-color: rgba(15, 20, 15, 0.344);
+    background-color: rgba(15, 20, 15, 0.363);
     display: flex; 
     justify-content: space-between;
 
@@ -30,6 +30,10 @@ body{
     font-size: 15px;
 
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+  }
+  .item:hover{
+    background-color: rgba(15, 20, 15, 0.547);
   }
   .item p{
     flex-shrink: 3;
@@ -59,6 +63,24 @@ body{
   .ankiety {
     /* background-color: #3333336d; */
   }
+  .rowCont{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+  }
+  .smallItem{
+    width: 33%;
+    /* margin: 10px; */
+    margin-top:  17px;
+    padding: 10px;
+    transition: background-color 0.3s;
+  }
+  .smallItem:hover {
+    background-color: rgba(15, 20, 15, 0.344);
+  }
+
 .text{
   width: 100%;
   display: flex;

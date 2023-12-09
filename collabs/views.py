@@ -5,8 +5,13 @@ from django.contrib import messages
 
 def collabs(request):
     collabs = Collab.objects.all()
+    active_votings = Voting.objects.filter(active = True)
+    for voting in active_votings:
+        voting.tags_list = voting.tags.split(',')
+        
     return render(request, 'collabs/collabs.html', {
         'collabs' : collabs,
+        'votings' : active_votings,
     })
 
 def collab(request, pk):
