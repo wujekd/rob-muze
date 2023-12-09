@@ -27,13 +27,14 @@ class CollabSub(models.Model):
         return f"{self.user.username} - {self.collab.title}"
     
    
-    # ±±±±±±
 
 class Voting(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    voting_name = models.CharField(max_length=30, blank=True)
+    name = models.CharField(max_length=30, blank=True)
+    active = models.BooleanField(default= True)
     description = models.TextField(max_length=150, blank=True)
+    tags = models.CharField(max_length=50, blank=True)
     def __str__(self):
         return f'Glosowanie - {self.collab.title}'
     
