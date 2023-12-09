@@ -7,15 +7,7 @@ Browse
 
 
 
-
-
 <section class="mt-20">
-    {% if points %}
-        <h3>Posiadasz {{ points }} punktow.</h3>
-{% else %}
-        <h3>Zaloguj sie aby uzyskac dostep do pobierania sampli</h3>
-{% endif %}
-
 
 
     <div  class="flex justify-center overflow-x-auto sm:rounded-lg">
@@ -44,11 +36,12 @@ Browse
                 {% for sampel in sample %}
                 <tr class="product-td">
                     <td class="w-32 p-4">
-                        <img src="{{ sampel.image.url }}" 
-                        style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" />
+                        <a href="{% url 'samples:sampel' sampel.id %}"><img src="{{ sampel.image.url }}" 
+                            style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" /></a>
+                        
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {{ sampel.title }}
+                        <a href="{% url 'samples:sampel' sampel.id %}"><div>{{ sampel.title }}</a>
                     </td>
                     <td class="px-6 py-4">
                         {{ sampel.description }}
