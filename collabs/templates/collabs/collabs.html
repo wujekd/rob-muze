@@ -4,33 +4,32 @@ Kolaboracje
 {% endblock title %}
 
 {% block content %}
-   
+
 <br><br><br><br>
 <div class="mainContainer"> 
 <h1 class="test">Aktywne Kolaboracje</h1>
 
 
-<div >
 {% for collab in collabs %}
 
 <div class="item">
-  <h2>{{collab.title}}</h2>
-  <p>{{collab.desc}}</p>
-  <a href="{% url 'collabs:collab' collab.id %}">
-  <button class="tableButtons">
-      Dowiedz sie wiecej</button></a>
-    <br>
+ 
+    <div class="logo"><img src="/rob_muze_logo.PNG" alt=""/></div>
+    <div class="text">
+    <h2 style="white-space: nowrap">{{collab.title}}</h2>
+    <p>{{collab.desc|slice:"128" }}...</p>
+    </div>
+<!-- </div> -->
+  <a href="{% url 'collabs:collab' collab.id %}"><button class="tableButtons">Dowiedz sie wiecej</button></a>
 </div>
 {% endfor %}
-</div>
 
 <div class="innerCont"> 
 
-  <h2>Aktywne glosowania:</h2>
+<h2>Aktywne glosowania:</h2>
 
-  <p>
 
-  </p>
+<p></p>
 
 </div>
 
