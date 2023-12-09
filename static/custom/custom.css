@@ -19,7 +19,7 @@ body{
   }
 
   .item {
-    background-color: rgba(9, 45, 2, 0.344);
+    background-color: rgba(15, 20, 15, 0.344);
     display: flex; 
     justify-content: space-between;
 
