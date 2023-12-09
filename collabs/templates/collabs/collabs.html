@@ -2,7 +2,7 @@
 {% block title %}
 Kolaboracje
 {% endblock title %}
-
+{% load static %}
 {% block content %}
 
 <br><br><br><br>
@@ -31,17 +31,21 @@ Kolaboracje
   {% for voting in votings %}
   <div class="smallItem">
     <h2>{{ voting.name }}</h2>
-    <ul>
-    {% for tag in voting.tags %}
-   
-      <li>{{tag}}</li>
-      {% endfor %}
-    </ul>
-  
+    
+    {% with voting.tagList as tags_list %}
+    {% if tags_list %}
+    <div class="iconHolder">
+        {% for tag in tags_list %}
+        <img class="icon" src="{% static 'images/icons/' %}{{ tag }}.png" alt=""/>
+
+            {% comment %} <span class="tag">{{ tag }}</span> {% endcomment %}
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
   </div>
   {% endfor %}
 </div> 
-
 
 
 {% endblock %}
