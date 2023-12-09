@@ -35,11 +35,15 @@ class Voting(models.Model):
     active = models.BooleanField(default= True)
     description = models.TextField(max_length=150, blank=True)
     tags = models.CharField(max_length=50, blank=True)
+    
+    def tagList(self):
+        return self.tags.split(',')
+    
     def __str__(self):
         return f'Glosowanie - {self.collab.title}'
     
     def save(self, *args, **kwargs):
-        self.collab_name = self.collab.title  # Set collab name when saving
+        self.name = self.collab.title  # Set collab name when saving
         super(Voting, self).save(*args, **kwargs)
 
 class Vote(models.Model):
