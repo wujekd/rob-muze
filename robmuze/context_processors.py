@@ -14,4 +14,7 @@ def user_points(request):
 def downloadCounter(request):
     if request.user.is_authenticated:
         count = Downloads.objects.filter(user=request.user).count()
-        return {'downloadCounter': count }
+    else:
+        count = None
+        
+    return {'downloadCounter': count }
