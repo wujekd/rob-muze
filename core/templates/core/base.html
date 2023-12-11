@@ -39,11 +39,14 @@
                       </ul> 
                     </div>
                 </div>
+
                 <div class="shrink">
+                    {% if request.user.is_authenticated %}
                 <div class="flex flex-col">
                 <p>{{  user_points }} pkt.</p>
                 <p>Pobrań {{ downloadCounter}} </p>
-                </div></div>
+                </div>
+                {% endif %}</div>
             <div>
         </nav>
 
