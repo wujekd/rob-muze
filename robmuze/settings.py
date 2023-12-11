@@ -77,7 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 
-                
+                'robmuze.context_processors.unanswered_polls',
                 'robmuze.context_processors.downloadCounter',
                 'robmuze.context_processors.user_points',
                 
