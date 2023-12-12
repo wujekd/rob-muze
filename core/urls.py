@@ -15,5 +15,6 @@ urlpatterns = [
     path('profil/', views.profil, name='profil'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
-    path('editmail/', views.editEmail, name="editMail")
+    path('editmail/', views.editEmail, name="editMail"),
+    path('zmienhaslo', views.ChangePasswordView.as_view(), name='changePassword')
 ]

@@ -16,7 +16,7 @@ body{
   }
 .accForm{
   color: #102a45
-  
+
 }
   .mainContainer {
     background-color: rgba(72, 69, 69, 0.36); padding: 20px;
@@ -25,7 +25,9 @@ body{
     justify-content: center;
     align-items: center;
   }
-
+.textfield {
+  color: #333;
+}
   .item {
     background-color: rgba(15, 20, 15, 0.363);
     display: flex; 
@@ -134,4 +136,7 @@ body{
 
   .iconHolder {
     display: flex;
+  }
+  h3 {
+    font-size: large;
   }
