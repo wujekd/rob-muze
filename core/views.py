@@ -14,9 +14,17 @@ from.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from core.forms import emailUpdate
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 
 
 # Create your views here.
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = './core/password.html'
+    success_message = "Haslo zostalo zmienione!"
+    success_url = reverse_lazy('core:profil')
 
 
 def index(request):
@@ -94,7 +102,6 @@ def profil(request):
     user = request.user
     profil = Account.objects.filter(user=user).first()
     collabs = CollabSub.objects.filter(user=user)
-
     context = {
         'user': user,
         'profil':profil,
