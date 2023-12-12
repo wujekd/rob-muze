@@ -14,7 +14,10 @@ body{
       text-decoration: underline; /* Add your preferred style for emphasis */
       color: red;
   }
-
+.accForm{
+  color: #102a45
+  
+}
   .mainContainer {
     background-color: rgba(72, 69, 69, 0.36); padding: 20px;
     display: flex;

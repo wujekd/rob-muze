@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
+from account.models import Account
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder ' : 'Your username',
@@ -99,3 +101,15 @@ class SignupForm2(forms.Form):
     #     if count > 0:
     #         raise forms.ValidationError('Ten adres email jest juz zajety!')
     #     return email
+    
+    
+    
+class emailUpdate(forms.ModelForm):
+    email = forms.EmailField(required=True,
+                                widget=forms.TextInput(attrs={'class' : 'accForm'}))
+    
+    class Meta:
+        model = User
+        fields = ['email']
+        
+        

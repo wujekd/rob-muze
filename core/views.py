@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes, force_str
 from.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from core.forms import emailUpdate
 
 
 # Create your views here.
@@ -101,3 +102,22 @@ def profil(request):
     }
 
     return render(request, 'core/dash.html', context)
+
+
+
+
+
+def editEmail(request):
+    if request.method == 'POST':
+        emailForm = emailUpdate(request.POST, 
+                                # request.FILES,
+                                instance=request.user)
+        
+        if emailForm.is_valid():
+            emailForm.save()
+            messages.success(request, "Email Zaaktualizowany!")
+            return redirect(to='core:profil')
+    else:
+        emailForm = emailUpdate(instance=request.user)
+        
+    return render(request, 'core/editmail.html', {"emailForm" : emailForm})
