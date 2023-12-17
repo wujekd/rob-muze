@@ -10,6 +10,13 @@ class Collab(models.Model):
     download_pack = models.FileField(upload_to='collabs/downloads', null=True, blank=True)
     glosowanie = models.BooleanField(default=False)
     
+    # tag fields
+    wokal = models.BooleanField(default=False)
+    instrument = models.BooleanField(default=False)
+    rap = models.BooleanField(default=False)
+    # use for tagname in tags --> <a href media/tags/tagname
+    
+    
     def __str__(self):
         return f'{self.title} - {self.date.date()}'
     
