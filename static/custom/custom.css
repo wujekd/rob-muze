@@ -90,7 +90,9 @@ body{
   .smallItem:hover {
     background-color: rgba(15, 20, 15, 0.344);
   }
-
+.detailBig{
+  flex-grow: 3;
+}
 .text{
   width: 100%;
   display: flex;
@@ -110,7 +112,9 @@ body{
     margin-left: auto;
     margin-left: 0px;
   }
-
+.collabList{
+  height: 30wh;
+}
 .collabContainer{
   background-color: #333;
   color: aliceblue;
