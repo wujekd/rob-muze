@@ -21,6 +21,8 @@ class Sampel(models.Model):
         # null=False,  # Specifies whether the field can be set to None (True) or not (False)
         # validators=[models.MinValidator(0)],  # Adds a minimum value validator (change '0' to your desired minimum points)
     )
+    def __str__(self):
+        return f'{self.title} - {self.file} - {self.added_date.date()}'
     
     
 class Downloads(models.Model):
