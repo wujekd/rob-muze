@@ -17,6 +17,7 @@ from core.forms import emailUpdate
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.core.exceptions import ValidationError
 
 
 # Create your views here.
@@ -73,6 +74,10 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm2(request.POST)
         if form.is_valid():
+            username = form.cleaned_data['username']
+            if User.objects.filter(username=username).exists():
+                form.add_error('username', "Ta nazwa uzytkownika jest juz zajeta")
+                return render(request, "core/signup.html", {"form" : form})
             user = get_user_model().objects.create(
                 username=form.cleaned_data['username'],
                 email=form.cleaned_data['email'],

@@ -7,22 +7,23 @@ Kolaboracje
    
 <br><br><br><br>
 
-<div>
-<h1>otwarte glosowania:<br>
+<div class="mainContainer">
+<h1 class="test">Otwarte Glosowania:<br>
 </h1>
-</div>
+
 
 {% for voting in votings %}
 
     
     <a href="{% url 'collabs:voting' voting.pk %}">
         <div style="margin: 5px; background-color: green">
-        <p>{{ voting.collab_name }}</p></br>
-        {{ voting.voting_name }}
+        <p>{{ voting.collab.title }}</p>
+        {{ voting.name }}
     </div>
     </a>
 
 {% endfor %}
+</div>
 
 
 {% endblock content %} 

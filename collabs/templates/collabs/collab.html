@@ -26,10 +26,12 @@ Signup
     <div class="item">
         <div class="detailSmall">
             <p>{{ collab.date }}</p>
-            {% if colab.glosowanie %}<p>Glosowanie Aktywne</p>
+            <p>Glosowanie:
+            {% if colab.glosowanie %} V
             {% else %}
-            <p>Glosowanie nieaktywne</p>
+            X
             {% endif %}
+            <p>
         </div>
         <div class="detailBig">
             <div class="collabDesc">
@@ -39,7 +41,14 @@ Signup
     </div>
 
 
+    <p>co jest w paczce?</p>
+    <p>podklad .wav</p>
+    <p>nuty .pdf</p>
+    <p>posluchaj demo</p>
+<p>pobierz pliki</p>
 
+<p>Nagranie musi miec format pliku wave '.wav' o czestotliwosci probkowania 48kHz oraz glebii bitowej 24b</p>
+<p>add the js upload warning before proceeding to upload page (cear the div with and inject the warning)</p>
 
 
 
