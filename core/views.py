@@ -55,6 +55,7 @@ def activate(request, uidb64, token):
         messages.error(request, 'Link aktywacyjny nie dziala poprawnie.')
         return redirect('core:index')
 
+
 def activateEmail(request, user, to_email):
     mail_subject = 'Aktywoj swoje konto na RobMuze.pl'
     message = render_to_string('template_activate_acc.html', {
@@ -70,14 +71,20 @@ def activateEmail(request, user, to_email):
     else:
         messages.error(request, f'cos sie spierdolilo. sprawdz czy {to_email} to poprawny adres email')
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm2(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
+            offensive_words = ['kurwa', 'skurwiel', 'chuj']
+            if any(word in username for word in offensive_words):
+                form.add_error('username', "Nazwa uzytkownika nie moze zawierac wulgarnych slow, chamie.")
+                return render(request, "core/signup.html", {"form" : form})
             if User.objects.filter(username=username).exists():
                 form.add_error('username', "Ta nazwa uzytkownika jest juz zajeta")
                 return render(request, "core/signup.html", {"form" : form})
+            
             user = get_user_model().objects.create(
                 username=form.cleaned_data['username'],
                 email=form.cleaned_data['email'],
