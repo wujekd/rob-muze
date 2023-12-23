@@ -17,11 +17,10 @@ Glowna
         <div class="md:w-2/3 md:pl-6 h-">
             <h2 class="text-3xl font-semibold mb-4">Sample</h2>
             <p class="text-white mb-4">Zbior unikatowych sampli i nagran.</br>Materialy do produkcji muzycznej.</p>
-            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Sprawdz!</button>
+            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Sprawdz!</button></a>
         </div>
     </div>
 
-    {{ unanswered_polls_exist }}
     {% comment %} <div class="flex flex-col md:flex-row md:w-4/5 bg-opacity-50 bg-secondary p-8 rounded-lg shadow-lg">
         <div class="md:w-1/3 mb-4 md:mb-0">
             <img src="your-image-url.jpg" alt="Image" class="w-full rounded-lg">
@@ -34,8 +33,6 @@ Glowna
     </div> {% endcomment %}
 </div>
 
-
-{% comment %} asdfgdfgdfsg {% endcomment %}
 
 <div class="p-4 place-content-center max-w-xl mx-auto bg-secondary bg-opacity-50 shadow-lg">
 
@@ -83,10 +80,28 @@ Glowna
         </div>
     </div>
 
-
+</div>
+<style>
+    #content {
+        transition: opacity 0.5s; 
+    }
+    </style>
+<div class="mainContainer" id="content">
+    <p>transition test</p>
+    <button onclick="showConfirmation()">Download</button>
 </div>
 
 
+<script>
+function showConfirmation() {
+    var content = document.getElementById('content');
+    content.style.opacity = '0';
+    setTimeout(function() {
+        content.innerHTML = '<p>Make sure that you have a stable connection because you won\'t be able to re-download.</p>';
+        content.style.opacity = '1';
+    }, 500);  // transition duration
+}
+</script>
 
 </section>
 

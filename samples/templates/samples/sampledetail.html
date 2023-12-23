@@ -2,83 +2,101 @@
 {% block title %} {{ sample.title }} {% endblock %}
 {% block content %}
 
-<div class="mt-20 pt-5">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 md:w-4/5 bg-opacity-50 bg-secondary p-8 rounded-lg shadow-lg mb-4">
-        <div class="flex flex-col md:flex-row -mx-4">
-            <div class="md:flex-1 flex-grow-0 px-4">
-                <div class="rounded-lg bg-gray-300 dark:bg-gray-700 mb-4 h-96">
-                    <img class="w-full h-96 object-cover" src="{{ sample.image.url }}" alt="{{ sample.title }} Image">
+
+</br></br></br>
+
+<div class="mx-auto px-4 bg-opacity-50 bg-secondary p-8 rounded-lg shadow-lg mb-4">
+    <div class="flex flex-col -mx-4">
+        <div class="flex-grow-0 px-4">
+            <div class="rounded-lg bg-gray-300 dark:bg-gray-700 mb-4 h-96">
+                <img class="w-full h-96 object-cover" src="{{ sample.image.url }}" alt="{{ sample.title }} Image">
+            </div>
+        </div>
+        <div class="px-4" id="dynamic">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{ sample.title }}</h2>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{sample.description}}</p>
+            <div class="flex mb-4">
+                <div class="item">
+                    <span class="font-bold text-gray-700 dark:text-gray-300">
+                        <p><strong>Added Date:</strong> {{ sample.added_date }}</p>
+                    </span>
+                    <span class="text-gray-600 dark:text-gray-300">
+                        <p><strong>Artist:</strong> {{ sample.artist }}</p>
+                        <p><strong>Cena:</strong> {{ sample.cena }}</p>
+                    </span>
                 </div>
-                <div class="flex -mx-2 mb-4">
-                    <div class="w-1/2 px-2">
-                        {% if request.user.is_authenticated %}
-                    
-                        <a href="{% url 'samples:download' sample.id %}"><button class="btn-primary">Pobierz Sample!</button></a>
-                        
-                        
-                        {% else %} 
-                        <div style="display: inline"><button style="background-color: red" class="btn-primary">Pobierz Sample!</button><h2>Zaloguj sie zeby pobierac sample!</h2></div>
-                        {% endif %}
-                        
-                        
-                    </div>
+                <div class="item">
+                    <span class="font-bold text-gray-700 dark:text-gray-300">{{ sample.tags }}</span>
                 </div>
             </div>
-            <div class="md:flex-1 px-4">
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{ sample.title }}</h2>
-                <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
-                    ante justo. Integer euismod libero id mauris malesuada tincidunt.
-                </p>
-                <div class="flex mb-4">
-                    <div class="mr-4">
-                        <span class="font-bold text-gray-700 dark:text-gray-300"><p><strong>Added Date:</strong> {{ sample.added_date }}</p></span>
-                        <span class="text-gray-600 dark:text-gray-300"><p><strong>Artist:</strong> {{ sample.artist }}</p>
-
-                            <p><strong>Cena:</strong> {{ sample.cena }}</p></span>
-                    </div>
-                    <div>
-                        <span class="font-bold text-gray-700 dark:text-gray-300">{{ sample.tags }}</span>
-                        <span class="text-gray-600 dark:text-gray-300">In Stock</span>
-                    </div>
-                </div>                
-                <div>
-                    <span class="font-bold text-gray-700 dark:text-gray-300">Product Description:</span>
-                    <p class="text-druk dark:text-gray-300 text-sm mt-2">
-                        {{ sample.description }}
-                    </p>
+            <div class="flex -mx-2 mb-4">
+                <div class="w-1/2 px-2">
+                    {% if request.user.is_authenticated %}
+                      
+                            <button class="btn-primary" onclick="showConfirmation()">Pobierz!</button>
+        
+                    {% else %} 
+                        <div style="display: inline">
+                            <button style="background-color: red" class="btn-primary">Pobierz!</button>
+                            <h2>Zaloguj sie zeby pobierac sample!</h2>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% comment %} 
-<div class="col-span-2 p-6 rounded-xl mt-40">
-
-    <h1>{{ sample.title }}</h1>
-
-    <p><strong>MP3 File:</strong> <a href="{{ sample.mp3_file.url }}" target="_blank">{{ sample.mp3_file.name }}</a></p>
-
-    <p><strong>Description:</strong> {{ sample.description }}</p>
-
-    <p><strong>Tags:</strong> {{ sample.tags }}</p>
-
-    <p><strong>Added Date:</strong> {{ sample.added_date }}</p>
-
-    {% if sample.image %}
-        <img src="{{ sample.image.url }}" alt="{{ sample.title }} Image" width="200">
-    {% else %}
-        <p>No image available</p>
-    {% endif %}
-
-    <p><strong>Artist:</strong> {{ sample.artist }}</p>
-
-    <p><strong>Cena:</strong> {{ sample.cena }}</p>
-
-</div>
-
-<a href="{% url 'samples:download' sample.id %}">download</a>
 
 
- {% endcomment %}
- {% endblock %}
+<script>
+    var downloadUrl = "{% url 'samples:download' sample.id %}";
+    var originalContent = null;
+
+    function showConfirmation() {
+        var content = document.getElementById('dynamic');
+        originalContent = content.innerHTML; 
+        var height = content.offsetHeight;  // get the current height of the div
+        content.style.opacity = '0';
+        setTimeout(function() {
+            content.style.display = 'flex';  // make the parent a flex container
+            content.style.justifyContent = 'center';  // center children horizontally
+            content.style.alignItems = 'center';  // center children vertically
+            content.innerHTML = '<p>Make sure that you have a stable connection because you won\'t be able to re-download.</p>' +
+            '<button id="countdownButton" style="width: 168px;" disabled class="btn-primary">5</button>' +
+            '<button onclick="goBack()" class="btn-primary">Back</button>';
+            content.style.minHeight = height + 'px';  // set the min-height of the div
+            content.style.opacity = '1';
+    
+            // Start the countdown
+            var countdown = 5;
+            var countdownButton = document.getElementById('countdownButton');
+            var countdownInterval = setInterval(function() {
+                countdown--;
+                if (countdown >= 1) {
+                    countdownButton.innerText = countdown;
+                } else {
+                    // Stop the countdown and change the button
+                    clearInterval(countdownInterval);
+                    countdownButton.innerText = 'Pobierz!';
+                    countdownButton.disabled = false;
+                    countdownButton.onclick = function() {
+                        window.location.href = downloadUrl;
+                    };
+                }
+            }, 1000);
+        }, 500);  
+    }
+
+    function goBack() {
+        var content = document.getElementById('dynamic');
+        content.style.opacity = '0';
+        setTimeout(function() {
+            content.style.display = 'block';  // restore the original display value
+            content.innerHTML = originalContent;  // restore the original content of the div
+            content.style.opacity = '1';
+        }, 500);
+    }
+    </script>
+    
+
+{% endblock %}
