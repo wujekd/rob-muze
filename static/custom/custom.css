@@ -146,3 +146,6 @@ body{
   h3 {
     font-size: large;
   }
+  .nobreak{
+    white-space: nowrap;
+  }
