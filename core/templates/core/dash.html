@@ -11,8 +11,8 @@
     <div class="form-group">
         <a href="{% url 'core:changePassword' %}">Zmien Haslo</a>
         <hr>
-        <label class="small mb-1">Change Avatar:</label>
-        {{ profile_form.avatar }}
+        {% comment %} <label class="small mb-1">Change Avatar:</label>
+        {{ profile_form.avatar }} {% endcomment %}
     </div>
     <div><a href="{% url 'core:editMail' %}"><button>Zmien Email</button></a>
 <div class="item">

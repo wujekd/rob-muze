@@ -8,9 +8,8 @@
 <div class="mx-auto px-4 bg-opacity-50 bg-secondary p-8 rounded-lg shadow-lg mb-4">
     <div class="flex flex-col -mx-4">
         <div class="flex-grow-0 px-4">
-            <div class="rounded-lg bg-gray-300 dark:bg-gray-700 mb-4 h-96">
-                <img class="w-full h-96 object-cover" src="{{ sample.image.url }}" alt="{{ sample.title }} Image">
-            </div>
+                <img style="max-height: 300px; max-width: 500px;" class="w-full h-96 object-cover" src="{{ sample.image.url }}" alt="{{ sample.title }} Image">
+        
         </div>
         <div class="px-4" id="dynamic">
             <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{ sample.title }}</h2>

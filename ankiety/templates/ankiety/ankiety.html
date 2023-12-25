@@ -4,6 +4,7 @@
 {% load static %}
 </br></br>
 
+{% if unanswered %}
 <div class="flex bg-secondary bg-opacity-50 mt-10 pt-4">
     <div class="text-gray-100 m-10 pl-5">
         <p>losowe pytanie: </br></p>
@@ -28,11 +29,11 @@
         </form>
     </div>
 </div>
-
+{% endif %}
 
 <div class="mainContainer">
     
-
+{% if unanswered %}
 <div class="item">
 <table class='ankiety'>
     <thead>
@@ -57,7 +58,11 @@
 
 </table>
 </div>
+{% else %}
+<div class="item">Wszystkie pytanie zostaly odpowiedziane!</div>
+{% endif %}
 
+{% if answered %}
 <div class="item">
 <table class="ankiety">
     <thead>
@@ -68,6 +73,7 @@
             <th>Kategoria</td>
         </tr>
     </thead>
+
     <tbody>
         {% for ankieta in answered %}
         <tr>
@@ -82,9 +88,8 @@
 </table>
 </div>
 
-</div>
-<img src="{% static 'images/picc1.png' %}">
-</div>
+{% endif %}
+
 
 <script type="text/javascript">
     textarea = document.getElementById('id_answer');
