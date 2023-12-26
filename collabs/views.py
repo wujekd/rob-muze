@@ -23,6 +23,7 @@ def collab(request, pk):
 
 def przeslij(request, pk):
     collab = Collab.objects.get(pk=pk)
+    form = CollabSubform(request.POST, request.FILES)
     
     if request.method == 'POST':
         collab_id = collab.id
@@ -30,24 +31,23 @@ def przeslij(request, pk):
         description = request.POST.get('msg')
         file = request.FILES.get('file')
         
-        # Create a new CollabSub instance and associate it with the collab_id
-        collab_sub = CollabSub.objects.create(
-            user=request.user,
-            collab_id=collab_id,
-            title=title,
-            msg=description,
-            file=file
-        )
-        collab_sub.save()
-        return redirect('core:profil')
-    
+        if form.is_valid():
+            collab_sub = CollabSub.objects.create(
+                user=request.user,
+                collab_id=collab_id,
+                title=title,
+                msg=description,
+                file=file
+            )
+            collab_sub.save()
+            return redirect('core:profil')
     else:
         form = CollabSubform
-        
-        return render(request, 'collabs/collab_submit.html', {
-            'collab' : collab,
-            'form' : form,
-    })
+    
+    return render(request, 'collabs/collab_submit.html', {
+        'collab' : collab,
+        'form' : form,
+})
         
 
 
