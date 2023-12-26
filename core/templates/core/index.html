@@ -8,8 +8,10 @@ Glowna
 
 <section class="mt-20">
 
-<div class="flex flex-col justify-center items-center mt-20 h-4/5">
-    <div class="flex flex-col bg-opacity-100 bg-secondary p-8 rounded-lg shadow-lg h-2/3" style="width: 92vw; max-width: 1000px; max-height: 500px; display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;" id="upperDiv">
+<div class="flex flex-col justify-center items-center m-20 h-4/5 slideContainer bg-secondary p-8 rounded-lg shadow-lg" id="upperDiv">
+
+    <div class="slides h-2/3 fade" id="slide1" 
+    style="width: 92vw; max-width: 1000px; max-height: 500px;">
         <div class="mb-4">
             <img src="{% static 'images/coolpics/aistudio.jpeg' %}" alt="Image" class="w-full rounded-lg" style="width: 30vw; max-width: 270px">
         </div>
@@ -20,6 +22,24 @@ Glowna
         </div>
     </div>
 
+
+    <div class="slides h-2/3 fade" id="slide2" 
+    style="width: 92vw; max-width: 1000px; max-height: 500px;">
+        <div class="mb-4">
+            <img src="{% static 'images/coolpics/aistudio.jpeg' %}" alt="Image" class="w-full rounded-lg" style="width: 30vw; max-width: 270px">
+        </div>
+        <div class="pl-6" style="display:flex; flex-direction: column; align-items:center">
+            <h2 class="text-3xl font-semibold mb-4">Slide 2</h2>
+            <p class="text-white mb-4">Testowy slajd 2.</br>TEST test test.</p>
+            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Zobacz!</button></a>
+        </div>
+    </div>
+
+    <div style="text-align:center">
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+      </div>
 
 </div>
 
@@ -76,37 +96,117 @@ Glowna
             document.body.classList.add('loaded');
         }, 650);  // adjust this delay to suit your needs
     });
+    
+    window.onload = function() {
+        var slideIndex = 0;
+        var slides = document.getElementsByClassName("slides");
+        var dots = document.getElementsByClassName('dot');
+    
+
+function showSlide(n){
+    var i;
+    for (i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active-slide");
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active-dot", "");
+    }
+    slides[n].classList.add("active-slide");
+    dots[n].className += " active-dot";
+}
+
+// Function to increment slideIndex and display the next slide
+function nextSlide() {
+    slideIndex++;
+    if (slideIndex >= slides.length) {slideIndex = 0}
+    showSlide(slideIndex);
+}
+
+// Display the first slide
+showSlide(slideIndex);
+
+// Switch to the next slide every 4 seconds
+setInterval(nextSlide, 4000);
+    
+// Add event listeners to dots
+for (let i = 0; i < dots.length; i++) {
+    dots[i].addEventListener('click', function() {
+        slideIndex = i;
+        showSlide(i);
+    });
+}}
+    
 </script>
 
 <style>
-    #upperDiv {
+    .fade {
+        animation-name: fade;
+        animation-duration: 0.6s;
+      }
+      
+      @keyframes fade {
+        from {opacity: 0} 
+        to {opacity: 1}
+      }
 
-        z-index: 2;
+
+
+
+.slides {
+    display: none;
+}
+
+.active-slide {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-evenly;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #474646;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active-dot {
+    background-color: #d5cccc;
+}
+
+.slideContainer {
+    position: relative;
+}
+
+#upperDiv {
+    position: relative;
+    z-index: 2;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#lowerDiv {
+    position: relative;
+    z-index: 1;
+    transform: translateY(-100%);
+    animation: slideDown 2s ease-in-out forwards;
+}
+
+body.loaded #lowerDiv {
+    opacity: 1;
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
     }
-    
-    #lowerDiv {
-        opacity: 0;
-        /* This will place the lower div behind the upper div */
-        position: relative;
-        z-index: 1;
-        /* This will apply the slide down animation */
-        animation: slideDown 2s ease-in-out forwards;
+    100% {
+        transform: translateY(0);
     }
-    
-    /* This will change the opacity and transform of the lower div after a delay */
-    body.loaded #lowerDiv {
-        opacity: 1;
-    }
-    
-    /* Define the slide down animation */
-    @keyframes slideDown {
-        0% {
-            transform: translateY(-100%);
-        }
-        100% {
-            transform: translateY(0);
-        }
-    }
+}
 </style>
 
 {% endblock %}
