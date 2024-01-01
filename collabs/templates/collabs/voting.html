@@ -8,27 +8,32 @@ Kolaboracje
 
 <br><br><br>
 <div class='mainContainer'>
-    <h1>Collab Voting: {{ collab.title }}</h1>
-    <p>Description: {{ collab.desc }}</p>
+    
+    <h1>Glosowanie: {{ collab.title }}</h1>
+    <p>Opis {{ collab.desc }}</p>
     <p>Ilosc glosow {{ vote_count }}</p>
-</div>
 
-<div class="mainContainer">
-{% if collab.download_pack %}
+    {% if collab.download_pack %}
     <p>Oryginalny podklad</p>
     <audio controls class="audio-player">
         <source src="{{ collab.download_pack.url }}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 {% endif %}
+</div>
+<br/>
+<div class="mainContainer">
 
-    <h2>Submissions</h2>
+
+    <h2>Przeslane Odpowiedzi:</h2>
     <ul>
         {% for sub in subs %}
+        <div class="item">
             <li>
                 <h3>{{ sub.user.username }}</h3>
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
+                <p>ilosc glosow {{ sub.vote_count }}</p>
                 
                 <audio controls class="audio-player">
                     <source src="{{ sub.file.url }}" type="audio/mpeg">
@@ -37,6 +42,7 @@ Kolaboracje
                 
                 <a href="{% url 'collabs:vote' sub.id %}">Zaglosuj</a>
             </li>
+        </div>
         {% endfor %}
     </ul>
 </div>
