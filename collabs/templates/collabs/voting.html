@@ -7,11 +7,13 @@ Kolaboracje
 {% block content %}
 
 <br><br><br>
-<div class='container'>
+<div class='mainContainer'>
     <h1>Collab Voting: {{ collab.title }}</h1>
     <p>Description: {{ collab.desc }}</p>
     <p>Ilosc glosow {{ vote_count }}</p>
 </div>
+
+<div class="mainContainer">
 {% if collab.download_pack %}
     <p>Oryginalny podklad</p>
     <audio controls class="audio-player">
@@ -37,6 +39,7 @@ Kolaboracje
             </li>
         {% endfor %}
     </ul>
+</div>
 
 <script>
     document.addEventListener('play', function(e){

@@ -61,6 +61,6 @@ class Vote(models.Model):
     
     def __str__(self):
         if self.voter_ip == None:
-            return f'{self.voting.voting_name} - glos na - {self.vote_on.title} - {self.vote_on.user}'
+            return f'{self.voting.name} - glos na - {self.vote_on.title} - {self.vote_on.user}'
         else:
-            return f'{self.voting.voting_name} - glos na - {self.vote_on.title} - {self.vote_on.user} - {self.voter_ip}'
+            return f'{self.voting.name} - glos na - {self.vote_on.title} - {self.vote_on.user} - {self.voter_ip}'
