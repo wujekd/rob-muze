@@ -20,6 +20,7 @@ class Collab(models.Model):
     def __str__(self):
         return f'{self.title} - {self.date.date()}'
     
+
 class CollabSub(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
@@ -33,7 +34,11 @@ class CollabSub(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.collab.title}"
     
+    def vote_count(self):
+        return Vote.objects.filter(vote_on=self).count()
+    
    
+
 
 class Voting(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
