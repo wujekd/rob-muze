@@ -11,10 +11,10 @@ Signup
         <div class="detailSmall">
             {% comment %} DISPLAY TAGS {% endcomment %}
             <div class="iconHolder">
-            {% if collab.wokal == False %}
+            {% if collab.wokal == True %}
             <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
             {% endif %}
-            {% if collab.instrument == False %}
+            {% if collab.instrument == True %}
             <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
             {% endif %}
             </div>
