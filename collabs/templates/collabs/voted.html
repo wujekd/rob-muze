@@ -1,3 +1,4 @@
+
 {% extends 'core/base.html' %}
 {% block title %}
 Kolaboracje
@@ -7,12 +8,13 @@ Kolaboracje
 {% block content %}
 
 <br><br><br>
-
+<div class="mainContainer">
 {% if vote_success %}
-Udalo sie zaglosowac
+<p>Udalo sie zaglosowac!</p>
+<p>Dziekujemy za udzial w glosowaniu.</p>
 {% else %}
-Ni ma! Zaglosowales juz wczesniej!
+<p>Zaglosowales juz wczesniej!</p>
 {% endif %}
-
+</div>
 
 {% endblock %}

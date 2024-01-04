@@ -79,7 +79,7 @@ def vote(request, pk):
         id = request.POST.get('submission_id')
         sub = CollabSub.objects.get(pk=id)
         voting = Voting.objects.get(collab=sub.collab)
-        ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
+        #ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
         ip_check = False
         if not ip_check:
             vote = Vote.objects.create(vote_on=sub, voting=voting, voter_ip=voter_ip)

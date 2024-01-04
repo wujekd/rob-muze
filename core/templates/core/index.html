@@ -6,10 +6,17 @@ Glowna
 
 {% block content %}
 
-<section class="mt-20">
+<section class="mt-20" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+{% comment %} SPLASH SCREEN  {% endcomment %}
+
+<div id="loading-screen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #515b42; z-index: 9999;">
+    <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Loading...</p>
+</div>
 
 <div class="flex flex-col justify-center items-center m-20 h-4/5 slideContainer bg-secondary p-8 rounded-lg shadow-lg" id="upperDiv">
 
+{% comment %} upper div 1 {% endcomment %}
     <div class="slides h-2/3 fade" id="slide1" 
     style="width: 92vw; max-width: 1000px; max-height: 500px;">
         <div class="mb-4">
@@ -18,31 +25,32 @@ Glowna
         <div class="pl-6" style="display:flex; flex-direction: column; align-items:center">
             <h2 class="text-3xl font-semibold mb-4">Sample</h2>
             <p class="text-white mb-4">Zbior unikatowych sampli i nagran.</br>Materialy do produkcji muzycznej.</p>
-            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Sprawdz!</button></a>
+            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Dostepne sample</button></a>
         </div>
     </div>
 
-
+{% comment %} upper div 2  {% endcomment %}
     <div class="slides h-2/3 fade" id="slide2" 
     style="width: 92vw; max-width: 1000px; max-height: 500px;">
         <div class="mb-4">
             <img src="{% static 'images/coolpics/aistudio2.jpeg' %}" alt="Image" class="w-full rounded-lg" style="width: 30vw; max-width: 270px">
         </div>
         <div class="pl-6" style="display:flex; flex-direction: column; align-items:center">
-            <h2 class="text-3xl font-semibold mb-4">Slide 2</h2>
-            <p class="text-white mb-4">Testowy slajd 2.</br>TEST test test.</p>
-            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Zobacz!</button></a>
+            <h2 class="text-3xl font-semibold mb-4">Kolaboracje</h2>
+            <p class="text-white mb-4">Dograj sie do istniejacego nagrania,</br>albo przeslij swoj autorski pomysl.</p>
+            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Aktywne kolaboracje</button></a>
         </div>
     </div>
 
+    {% comment %} upper div3  {% endcomment %}
     <div class="slides h-2/3 fade" id="slide3" 
     style="width: 92vw; max-width: 1000px; max-height: 500px;">
         <div class="mb-4">
             <img src="{% static 'images/coolpics/aistudio3.jpeg' %}" alt="Image" class="w-full rounded-lg" style="width: 30vw; max-width: 270px">
         </div>
         <div class="pl-6" style="display:flex; flex-direction: column; align-items:center">
-            <h2 class="text-3xl font-semibold mb-4">Slide 3</h2>
-            <p class="text-white mb-4">Testowy slajd 2.</br>TEST test test.</p>
+            <h2 class="text-3xl font-semibold mb-4">Glosowania</h2>
+            <p class="text-white mb-4">Pomoz zdecydowac ktore nagranie</br>zostanie uzyte na dalszym etapie produkcji</p>
             <a href="{% url 'samples:samples' %}"><button class="btn-primary">Zobacz!</button></a>
         </div>
     </div>
@@ -58,7 +66,57 @@ Glowna
 <div class="p-4 place-content-center max-w-xl mx-auto bg-secondary shadow-lg" id="lowerDiv" style="width: 80vw;">
 
 <div class="slidesLower fade">
-    <h2 class="font-heading mb-8 text-3xl font-bold">Odposdfsdf pytan aby pobrac sample!
+
+    {% comment %} LOWER DIV 1 {% endcomment %}
+
+
+    {% comment %} <h2 class="font-heading mb-8 text-3xl font-bold">Odposdfsdf pytan aby pobrac sample!  </h2> {% endcomment %}
+
+    <div class="flex">
+        <div class="mr-4 flex flex-col items-center">
+            <div>
+                <div class="flex h-10 w-12 items-center justify-center rounded-full border-2 border-primary"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="h-6 w-6 text-primary dark:text-slate-200">
+                        <path d="M12 5l0 14"></path>
+                        <path d="M18 13l-6 6"></path>
+                        <path d="M6 13l6 6"></path>
+                    </svg></div>
+            </div>
+            <div class="h-full w-px bg-gray-300 dark:bg-slate-500"></div>
+        </div>
+        <div class="pt-1 pb-8">
+            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Zdobadz punkty
+            </p>
+            <p class="text-gray-600 dark:text-slate-400">Odpowiedz na kilka prostych pytan. Podzel sie swoimi pomyslami i pomoz stworzyc polski portal dla ludzi pasjonujacych sie tworzeniem muzyki
+            </p>
+        </div>
+    </div>
+
+    <div class="flex">
+        <div class="mr-4 flex flex-col items-center">
+            <div>
+                <div
+                    class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-900 bg-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="h-6 w-6 text-white dark:text-slate-200">
+                        <path d="M5 12l5 5l10 -10"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="pt-1 ">
+            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Pobieraj sample!</p>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} LOWER DIV 2 {% endcomment %}
+<div class="slidesLower fade">
+    <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
     </h2>
 
     <div class="flex">
@@ -97,13 +155,15 @@ Glowna
             </div>
         </div>
         <div class="pt-1 ">
-            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Pobieraj sample!</p>
+            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Przeslij swoje nagranie!</p>
         </div>
     </div>
 </div>
 
 
 
+
+{% comment %} LOWER DIV3 {% endcomment %}
 <div class="slidesLower fade">
     <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
     </h2>
@@ -148,58 +208,37 @@ Glowna
         </div>
     </div>
 </div>
-
-
-<div class="slidesLower fade">
-    <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
-    </h2>
-
-    <div class="flex">
-        <div class="mr-4 flex flex-col items-center">
-            <div>
-                <div class="flex h-10 w-12 items-center justify-center rounded-full border-2 border-primary"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="h-6 w-6 text-primary dark:text-slate-200">
-                        <path d="M12 5l0 14"></path>
-                        <path d="M18 13l-6 6"></path>
-                        <path d="M6 13l6 6"></path>
-                    </svg></div>
-            </div>
-            <div class="h-full w-px bg-gray-300 dark:bg-slate-500"></div>
-        </div>
-        <div class="pt-1 pb-8">
-            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Zdobadz punkty xD
-            </p>
-            <p class="text-gray-600 dark:text-slate-400">Odpowiadajac na kilka pytan dotyczacych twoich zainteresowan, jak planujesz sie w nich rozwijac i jakie sa Twoje cele? 
-            </p>
-        </div>
-    </div>
-
-    <div class="flex">
-        <div class="mr-4 flex flex-col items-center">
-            <div>
-                <div
-                    class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-900 bg-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="h-6 w-6 text-white dark:text-slate-200">
-                        <path d="M5 12l5 5l10 -10"></path>
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <div class="pt-1 ">
-            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Pobieraj sample!</p>
-        </div>
-    </div>
-</div>
-
-
 
 
 </div>
 <script>
+{% comment %} splash load  {% endcomment %}
+
+console.log('Initial hideSplashScreen value:', localStorage.getItem('hideSplashScreen'));
+
+if (!localStorage.getItem('hideSplashScreen')) {
+    // If not, show the splash screen
+    var loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.display = 'block';
+    console.log('Splash screen is shown');
+
+    console.log('Setting hideSplashScreen flag in local storage');
+    localStorage.setItem('hideSplashScreen', 'true');
+    console.log('hideSplashScreen flag set in local storage');
+} else {
+    console.log('Splash screen is not shown because hideSplashScreen flag is set in local storage');
+}
+
+console.log('Final hideSplashScreen value:', localStorage.getItem('hideSplashScreen'));
+
+window.addEventListener('load', function() {
+    // Hide the splash screen when the page finishes loading
+    var loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.display = 'none';
+    console.log('Page finished loading, splash screen is hidden');
+});
+
+{% comment %} rest  {% endcomment %}
     window.addEventListener('load', function() {
         setTimeout(function() {
             document.body.classList.add('loaded');
@@ -235,10 +274,10 @@ Glowna
             showSlide(slideIndex);
         }
     
-        // Delay by 1 second
+        // Delay 
         setTimeout(function() {
             slideInterval = setInterval(nextSlide, 5000);
-        }, 400);
+        }, 40);
     
         // Add event listeners to dots
         for (let i = 0; i < dots.length; i++) {
@@ -307,14 +346,13 @@ Glowna
 }
 
 #upperDiv {
-    position: relative;
     z-index: 2;
     margin-left: 10px;
     margin-right: 10px;
+    max-width: 1000px
 }
 
 #lowerDiv {
-    position: relative;
     z-index: 1;
     transform: translateY(-100%);
     animation: slideDown 2s ease-in-out forwards;
