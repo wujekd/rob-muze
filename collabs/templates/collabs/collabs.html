@@ -13,7 +13,6 @@ Kolaboracje
 {% for collab in collabs %}
 
 
-<!-- </div> -->
 <a href="{% url 'collabs:collab' collab.id %}" class="">
 
     <div class="item" style="height: 30wh">
@@ -22,6 +21,17 @@ Kolaboracje
       <h2 style="white-space: nowrap">{{collab.title}}</h2>
       <p>{{collab.desc|slice:"128" }}...</p>
       </div>
+      <div class="detailSmall">
+        {% comment %} DISPLAY TAGS {% endcomment %}
+        <div class="iconHolder">
+        {% if collab.wokal == True %}
+        <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+        {% endif %}
+        {% if collab.instrument == True %}
+        <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+        {% endif %}
+        </div>
+    </div>
     </div>
 
 

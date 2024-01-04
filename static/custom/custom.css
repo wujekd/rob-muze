@@ -5,6 +5,17 @@ body{
 }
 #dynamic {
   transition: opacity 0.5s; 
+
+  h1 {
+    font-size: 2.5em; /* Make the font size larger */
+    color: #102a45; /* Change the color */
+    font-weight: bold; /* Make the text bold */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add some space below the heading */
+}
+
+
+
 }
 .test {
     font-size: 28px;
