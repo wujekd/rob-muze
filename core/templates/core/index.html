@@ -38,7 +38,7 @@ Glowna
         <div class="pl-6" style="display:flex; flex-direction: column; align-items:center">
             <h2 class="text-3xl font-semibold mb-4">Kolaboracje</h2>
             <p class="text-white mb-4">Dograj sie do istniejacego nagrania,</br>albo przeslij swoj autorski pomysl.</p>
-            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Aktywne kolaboracje</button></a>
+            <a href="{% url 'collabs:collabs' %}"><button class="btn-primary">Aktywne kolaboracje</button></a>
         </div>
     </div>
 
@@ -51,7 +51,7 @@ Glowna
         <div class="pl-6" style="display:flex; flex-direction: column; align-items:center">
             <h2 class="text-3xl font-semibold mb-4">Glosowania</h2>
             <p class="text-white mb-4">Pomoz zdecydowac ktore nagranie</br>zostanie uzyte na dalszym etapie produkcji</p>
-            <a href="{% url 'samples:samples' %}"><button class="btn-primary">Zobacz!</button></a>
+            <a href="{% url 'collabs:votings' %}"><button class="btn-primary">Otwarte glosowania</button></a>
         </div>
     </div>
 
@@ -116,8 +116,8 @@ Glowna
 
 {% comment %} LOWER DIV 2 {% endcomment %}
 <div class="slidesLower fade">
-    <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
-    </h2>
+    {% comment %} <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
+    </h2> {% endcomment %}
 
     <div class="flex">
         <div class="mr-4 flex flex-col items-center">
@@ -134,10 +134,8 @@ Glowna
             <div class="h-full w-px bg-gray-300 dark:bg-slate-500"></div>
         </div>
         <div class="pt-1 pb-8">
-            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Zdobadz punkty xD
-            </p>
-            <p class="text-gray-600 dark:text-slate-400">Odpowiadajac na kilka pytan dotyczacych twoich zainteresowan, jak planujesz sie w nich rozwijac i jakie sa Twoje cele? 
-            </p>
+            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Nagraj dealne ujecie</p>
+            <p class="text-gray-600 dark:text-slate-400">Pobierz podklad wraz ze wskazowkami. XXXXXX xXXXXxxXxxx</p>
         </div>
     </div>
 
@@ -165,8 +163,8 @@ Glowna
 
 {% comment %} LOWER DIV3 {% endcomment %}
 <div class="slidesLower fade">
-    <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
-    </h2>
+    {% comment %} <h2 class="font-heading mb-8 text-3xl font-bold">Odpowiedz na kilka pytan aby pobrac sample!
+    </h2> {% endcomment %}
 
     <div class="flex">
         <div class="mr-4 flex flex-col items-center">
@@ -183,10 +181,9 @@ Glowna
             <div class="h-full w-px bg-gray-300 dark:bg-slate-500"></div>
         </div>
         <div class="pt-1 pb-8">
-            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Zdobadz punkty xD
+            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Posluchaj przeslanych nagran.
             </p>
-            <p class="text-gray-600 dark:text-slate-400">Odpowiadajac na kilka pytan dotyczacych twoich zainteresowan, jak planujesz sie w nich rozwijac i jakie sa Twoje cele? 
-            </p>
+            <p class="text-gray-600 dark:text-slate-400">Glosujac masz wplyw na rozwoj unikatowej biblioteki nagran i materialow muzycznych z ktorych powstanie wiele utworow. Miej wplyw na jej krztaltowanie.</p>
         </div>
     </div>
 
@@ -204,7 +201,7 @@ Glowna
             </div>
         </div>
         <div class="pt-1 ">
-            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Pobieraj sample!</p>
+            <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Zaglosuj!</p>
         </div>
     </div>
 </div>
