@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Collab, CollabSub, Voting, Vote
 from .forms import CollabSubform
 from django.contrib import messages
+from django.utils import timezone
+from datetime import timedelta
 
 def collabs(request):
     collabs = Collab.objects.all()
@@ -14,12 +16,23 @@ def collabs(request):
         'votings' : active_votings,
     })
 
+
+
 def collab(request, pk):
     collab = Collab.objects.get(pk=pk)
+    submission_count = CollabSub.objects.filter(collab=pk).count()
+    print(submission_count)
+    deadline = collab.date + timedelta(weeks=4)
+    time = deadline - timezone.now()
     
     return render(request, 'collabs/collab.html', {
-        'collab' : collab
+        'collab' : collab,
+        "submission_count" : submission_count,
+        "time": time.total_seconds(),
     })
+
+
+
 
 def przeslij(request, pk):
     collab = Collab.objects.get(pk=pk)
@@ -79,7 +92,8 @@ def vote(request, pk):
         id = request.POST.get('submission_id')
         sub = CollabSub.objects.get(pk=id)
         voting = Voting.objects.get(collab=sub.collab)
-        #ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
+        #
+        # ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
         ip_check = False
         if not ip_check:
             vote = Vote.objects.create(vote_on=sub, voting=voting, voter_ip=voter_ip)
