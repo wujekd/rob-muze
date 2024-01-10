@@ -19,17 +19,25 @@ from django.contrib import admin
 from django.urls import path, include
 from core.views import *
 
+from django.conf.urls.i18n import i18n_patterns
+
 urlpatterns = [
-    
     path('admin/', admin.site.urls),
-    # path('inbox/', include('conversation.urls')),
+    path("i18n/", include("django.conf.urls.i18n")),
     path('sample/', include('samples.urls')),
     path('', include('core.urls')),
-    # path('dash/', include('userdash.urls'), name='dash')
     path('ankiety/', include('ankiety.urls')),
     path('collabs/', include('collabs.urls')),
+    
 ]
 
+# urlpatterns += i18n_patterns(
+#     path('sample/', include('samples.urls')),
+#     path('', include('core.urls')),
+#     path('ankiety/', include('ankiety.urls')),
+#     path('collabs/', include('collabs.urls')),
+#     prefix_default_language=False
+# )
 
 if settings.DEBUG:
     # dont do this in prod

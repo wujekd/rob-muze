@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.views.i18n import set_language
 
 
 from .forms import LoginForm
@@ -16,5 +17,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path('editmail/', views.editEmail, name="editMail"),
-    path('zmienhaslo', views.ChangePasswordView.as_view(), name='changePassword')
+    path('zmienhaslo', views.ChangePasswordView.as_view(), name='changePassword'),
+    path('set_language/', views.SetLang.as_view(), name='set_language'),
 ]
