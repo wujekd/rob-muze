@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tailwind',
     # 'social_django',
-    'django_recaptcha',
+    # 'django_recaptcha',
     # 'captcha',
     'core',
     'samples',
