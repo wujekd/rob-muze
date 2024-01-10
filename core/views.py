@@ -18,6 +18,16 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.core.exceptions import ValidationError
+from django.views import View
+from django.utils import translation
+
+    
+class SetLang(View):
+    def post(self, request):
+        language = request.POST.get('language')
+        translation.activate(language)
+        request.session['django_language'] = language
+        return redirect(request.POST.get('next', 'core:index'))
 
 
 # Create your views here.
@@ -29,15 +39,16 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
 
 
 def index(request):
-    # items = Item.objects.filter(is_sold=False)[0:6]
-    # categories = Category.objects.all()
+    from django.utils import translation
+    # user_language = 'en'
+    # translation.activate(user_language)
+    # request.session['django_language'] = user_language
+    
+    if 'django_language' in request.session:
+        del request.session['django_language']
+        print("deleted session key")
 
-    return render(request, 'core/index.html',
-    #               {
-    #     'categories' : categories,
-    #     'items' : items,
-    # }
-                  )
+    return render(request, 'core/index.html')
 
 def activate(request, uidb64, token):
     try:
