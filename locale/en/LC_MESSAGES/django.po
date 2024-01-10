@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-10 17:38+0000\n"
+"POT-Creation-Date: 2024-01-10 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: core/templates/core/index.html:19 core/templates/core/index.html:28
 msgid "proba tlumaczenia"
 msgstr "translation test"
+
+#: core/templates/core/signup.html:22
+msgid "Nazwa Uzytkownika"
+msgstr "Username"
+
+#: core/templates/core/signup.html:59
+msgid ""
+"Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto."
+msgstr "You must agree to terms of service to register an account"
