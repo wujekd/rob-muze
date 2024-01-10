@@ -41,7 +41,7 @@ Signup
             {% comment %} <div class="mb-3">
                 {{ form.captcha }}
             </div>  {% endcomment %}
-            <div class="mb-3 checkbox-div">
+            <div class="mb-3 checkbox-div" style="margin: 10px; padding: 10px; border-radius: 10px">
                 <input type="checkbox" id="privacyPolicyCheckbox" required>
                 <label for="privacyPolicyCheckbox">I agree to the <a href="/privacy-policy/">privacy policy</a></label>
             </div>
@@ -55,16 +55,16 @@ Signup
 
 
     <script>
-        var form = document.getElementById('registrationForm');
-    var checkbox = document.getElementById('privacyPolicyCheckbox');
-    var checkboxDiv = document.querySelector('.checkbox-div');
+        var checkboxDiv = document.querySelector('.checkbox-div');
 
         document.getElementById('privacyPolicyCheckbox').addEventListener('invalid', function() {
-            checkboxDiv.classList.add('red-background');
+            checkboxDiv.style.backgroundColor = 'red';
             this.setCustomValidity('{% trans "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto." %}');
         });
     
         document.getElementById('privacyPolicyCheckbox').addEventListener('change', function() {
+            console.log('changed');
+            checkboxDiv.style.backgroundColor = '';
             this.setCustomValidity('');
         });
         </script>
