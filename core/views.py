@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import SignupForm, SignupForm2
+from .forms import SignupForm2
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from account.models import Account
