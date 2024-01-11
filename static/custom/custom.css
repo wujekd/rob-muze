@@ -86,6 +86,12 @@ body{
   .ankiety {
     /* background-color: #3333336d; */
   }
+
+
+  .blk-txt {
+    color: #333;
+  }
+  
   .rowCont{
     display: flex;
     flex-wrap: wrap;
@@ -125,6 +131,16 @@ body{
     margin-left: auto;
     margin-left: 0px;
   }
+
+  .btn-primary-light {
+    background-color: #abb4bdbd; color: rgb(6, 5, 5);
+    padding: 10px 40px; border: none;
+    border-radius:15px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-left: 0px;
+  }
+
 .collabList{
   height: 30wh;
 }

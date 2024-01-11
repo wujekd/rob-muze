@@ -698,10 +698,6 @@ h1,h2,h3,h4,h5,h6 {
   margin: 2.5rem;
 }
 
-.m-20{
-  margin: 5rem;
-}
-
 .m-3{
   margin: 0.75rem;
 }
@@ -1143,11 +1139,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .uppercase{
   text-transform: uppercase;
-}
-
-.text-black{
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .text-gray-100{

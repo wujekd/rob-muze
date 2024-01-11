@@ -1,0 +1,37 @@
+<p>Polityka ochrony danych</p>
+  <p>Cel polityki ochrony danych</p>
+  <p>Celem polityki ochrony danych jest przedstawienie aspektów prawnych ochrony danych w jednym dokumentie podsumowującym. Może także być używany jako podstawa do przeprowadzania przeglądów ochrony danych, np. przez klienta w ramach przetwarzania zleconego. To ma na celu nie tylko zapewnienie zgodności z Ogólnym Rozporządzeniem o Ochronie Danych (GDPR) Unii Europejskiej i Ustawą o Ochronie Danych (DPA) z 2018 roku, ale także dostarczenie dowodu zgodności.</p>
+  <p>Preambuła</p>
+  <p>Krótki opis firmy i motywacja do przestrzegania ochrony danych.</p>
+  <p>Polityka bezpieczeństwa i odpowiedzialności w firmie</p>
+  <p>Dla firmy, oprócz istniejących celów korporacyjnych, najważniejsze cele ochrony danych powinny być zdefiniowane i udokumentowane. Cele ochrony danych opierają się na zasadach ochrony danych i muszą być indywidualnie dostosowane do każdej firmy.</p>
+  <p>Określenie ról i odpowiedzialności (np. przedstawicieli firmy, operacyjnych inspektorów ochrony danych, koordynatorów lub zespołów ochrony danych oraz kierowników operacyjnych)</p>
+  <p>Zobowiązanie do ciągłego doskonalenia systemu zarządzania ochroną danych</p>
+  <p>Szkolenie, uwrażliwianie i zobowiązanie pracowników</p>
+  <p>Podstawy prawne w firmie</p>
+  <p>Przepisy prawne lub regulacje branżowe dotyczące przetwarzania danych osobowych</p>
+  <p>Wymagania wewnętrznych i zewnętrznych stron</p>
+  <p>Obowiązujące ustawy, ewentualnie ze szczególnymi lokalnymi regulacjami</p>
+  <p>Dokumentacja</p>
+  <p>Przeprowadzone wewnętrzne i zewnętrzne przeglądy</p>
+  <p>Potrzeba ochrony danych: określenie potrzeb ochrony w kontekście poufności, integralności i dostępności.</p>
+  <p>Istniejące środki techniczne i organizacyjne (TOM)</p>
+  <p>Odpowiednie środki techniczne i organizacyjne, które muszą być wdrożone i uzasadnione, uwzględniając m.in. cel przetwarzania, stan technologii i koszty wdrożenia.</p>
+  <p>Opis wdrożonych TOM może być oparty na strukturze ISO/IEC 27002, uwzględniając ISO/IEC 29151 (wytyczne dotyczące ochrony danych osobowych). Odpowiednie rozdziały powinny być uzasadnione odwołaniami do istniejących wytycznych.</p>
+  <p>Przykłady takich wytycznych obejmują:</p>
+  <p>Wytyczne dotyczące praw podmiotów danych</p>
+  <p>Kontrola dostępu</p>
+  <p>Klasyfikacja informacji (i jej obsługa)</p>
+  <p>Bezpieczeństwo związane z użytkownikami końcowymi, takie jak:</p>
+  <p>Dopuszczalne użycie wartości</p>
+  <p>Wytyczne dotyczące transferu informacji w oparciu o środowisko pracy i blokady ekranu</p>
+  <p>Urządzenia mobilne i praca zdalna</p>
+  <p>Ograniczenie instalacji i używania oprogramowania</p>
+  <p>Kopia zapasowa danych</p>
+  <p>Transfer informacji</p>
+  <p>Ochrona przed złośliwym oprogramowaniem</p>
+  <p>Radzenie sobie z punktami słabymi technicznymi</p>
+  <p>Środki kryptograficzne</p>
+  <p>Bezpieczeństwo komunikacji</p>
+  <p>Prywatność i ochrona danych osobowych</p>
+  <p>Relacje z dostawcami: Stwierdzenie regularnych inspekcji i oceny przetwarzania danych, zwłaszcza skuteczności wdrożonych środków technicznych i organizacyjnych.</p>
