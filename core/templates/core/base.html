@@ -14,67 +14,66 @@
 </head>
 
 <body>
-    {% comment %} N A V - B A R {% endcomment %}
-        <nav class="nav"    style=" box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); z-index: 10000">
-            <div class="container flex items-center justify-between h-20 shadow-lg" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
-                <a href="{% url 'core:index' %}" class="nav-link ml-3"><h1 class="text-green-50 font-semibold text-2xl mr-4 hover:scale-125 transition duration-500">
-                    Rob Muze
-                </h1></a>
-                <div class="place-content-center gap=2">
-                    <div class="">
-                    {% comment %} M E N U - O P C J E {% endcomment %}
-                    <ul id="menu">
-                        
-                        <a href="{% url 'samples:samples' %}" class="nav-link ml-2">Sample</a>
-                        <a href="{% url 'collabs:collabs' %}" class="nav-link ml-2">Kolaboracje</a>
-                        <a href="{% url 'ankiety:ankiety' %}" class="nav-link ml-2"
-                        
-                        {% if request.user.is_authenticated %}
-                        {% if unanswered_polls_exist %}
-                        style="background-color: red;"
-                        {% endif %}
-                        {%endif%}
-                        >Ankiety</a>
+        {% comment %} N A V - B A R {% endcomment %}
+            <nav class="nav"    style=" box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);">
+                <div class="container flex items-center justify-between h-20 shadow-lg" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
+                    <a href="{% url 'core:index' %}" class="nav-link ml-3"><h1 class="text-green-50 font-semibold text-2xl mr-4 hover:scale-125 transition duration-500">
+                        {% trans "rób muze" %}
+                    </h1></a>
+                    <div class="place-content-center gap=2">
+                        <div class="">
+                        {% comment %} M E N U - O P C J E {% endcomment %}
+                        <ul id="menu">
+                            
+                            <a href="{% url 'samples:samples' %}" class="nav-link ml-2">Sample</a>
+                            <a href="{% url 'collabs:collabs' %}" class="nav-link ml-2">Kolaboracje</a>
+                            <a href="{% url 'ankiety:ankiety' %}" class="nav-link ml-2"
+                            
+                            {% if request.user.is_authenticated %}
+                            {% if unanswered_polls_exist %}
+                            style="background-color: red;"
+                            {% endif %}
+                            {%endif%}
+                            >Ankiety</a>
 
-                        {% if request.user.is_authenticated %}
-                        <a href="{% url 'core:profil' %}" class="nav-link ml-2">Dashboard </a>
-                        <a href="{% url 'core:logout' %}" class="nav-link ml-2">Wyloguj</a>
-                        
-                        {% else %}
-                        <a href="{% url 'core:signup' %}" class="nav-link">Rejestracja</a>
-                        <a href="{% url 'core:login' %}" class="nav-link">Logowanie</a>
-                        
-                        {% endif %}
-                        
-                      </ul> 
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'core:profil' %}" class="nav-link ml-2">Dashboard </a>
+                            <a href="{% url 'core:logout' %}" class="nav-link ml-2">Wyloguj</a>
+                            
+                            {% else %}
+                            <a href="{% url 'core:signup' %}" class="nav-link">Rejestracja</a>
+                            <a href="{% url 'core:login' %}" class="nav-link">Logowanie</a>
+                            
+                            {% endif %}
+                            
+                        </ul> 
+                        </div>
                     </div>
+
+                    <div class="shrink">
+                        {% if request.user.is_authenticated %}
+                    <div class="flex flex-col">
+                    <p>{{  user_points }} pkt.</p>
+                    <p class="nobreak">Pobrań {{ downloadCounter}} </p>
+                    </div>
+                    {% endif %}</div>
+                <div>
+            </nav>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div id="toast-default" class="fixed items-center w-full max-w-xs p-4 z-50 {% if message.tags %}{{ message.tags }}{% endif %} text-white rounded-lg shadow right-4 bg-primary mt-20" role="alert">
+                    <div class="ml-3 text-sm font-normal">{{ message }}</div>
                 </div>
-
-                <div class="shrink">
-                    {% if request.user.is_authenticated %}
-                <div class="flex flex-col">
-                <p>{{  user_points }} pkt.</p>
-                <p class="nobreak">Pobrań {{ downloadCounter}} </p>
-                </div>
-                {% endif %}</div>
-            <div>
-        </nav>
-
-{% if messages %}
-    {% for message in messages %}
-        <div id="toast-default" class="fixed items-center w-full max-w-xs p-4 z-50 {% if message.tags %}{{ message.tags }}{% endif %} text-white rounded-lg shadow right-4 bg-primary mt-20" role="alert">
-            <div class="ml-3 text-sm font-normal">{{ message }}</div>
-        </div>
-    {% endfor %}
-{% endif %}
+            {% endfor %}
+        {% endif %}
 
 
-<main>
-    <div>
-    </br>
-        {% block content %}{% endblock %}
-    </div>
-</main>
+    <main>
+
+            {% block content %}{% endblock %}
+
+    </main>
 </body>
 
 <script>

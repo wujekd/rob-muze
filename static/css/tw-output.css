@@ -595,10 +595,6 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .nav{
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 40;
   width: 100%;
   --tw-bg-opacity: 1;
   background-color: rgb(27 48 49 / var(--tw-bg-opacity));
@@ -645,6 +641,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .product-td{
+  cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgb(106 102 47 / var(--tw-bg-opacity));
 }
@@ -696,10 +693,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .m-10{
   margin: 2.5rem;
-}
-
-.m-20{
-  margin: 5rem;
 }
 
 .m-3{

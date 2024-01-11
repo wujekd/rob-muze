@@ -5,66 +5,66 @@ Kolaboracje
 {% load static %}
 {% block content %}
 
-<br><br><br><br>
-<div class="mainContainer"> 
-<h1 class="test">Aktywne Kolaboracje</h1>
+<article class="wrapper">
+  <div class="mainContainer"> 
+  <h1 class="specialHeader">Aktywne Kolaboracje</h1>
 
 
-{% for collab in collabs %}
+  {% for collab in collabs %}
 
 
-<a href="{% url 'collabs:collab' collab.id %}" class="">
+  <a href="{% url 'collabs:collab' collab.id %}" class="">
 
-    <div class="item" style="height: 30wh">
-      <div class="logo"><img src="/rob_muze_logo.PNG" alt=""/></div>
-      <div class="text">
-      <h2 style="white-space: nowrap">{{collab.title}}</h2>
-      <p>{{collab.desc|slice:"128" }}...</p>
-      </div>
-      <div class="detailSmall">
-        {% comment %} DISPLAY TAGS {% endcomment %}
-        <div class="iconHolder">
-        {% if collab.wokal == True %}
-        <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
-        {% endif %}
-        {% if collab.instrument == True %}
-        <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
-        {% endif %}
+      <div class="item" style="height: 30wh">
+        <div class="logo"><img src="/rob_muze_logo.PNG" alt=""/></div>
+        <div class="text">
+        <h2 style="white-space: nowrap">{{collab.title}}</h2>
+        <p>{{collab.desc|slice:"128" }}...</p>
         </div>
-    </div>
-    </div>
+        <div class="detailSmall">
+          {% comment %} DISPLAY TAGS {% endcomment %}
+          <div class="iconHolder">
+          {% if collab.wokal == True %}
+          <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+          {% endif %}
+          {% if collab.instrument == True %}
+          <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+          {% endif %}
+          </div>
+      </div>
+      </div>
 
 
-  </a>
-{% endfor %}
-</div>
-<div class="mainContainer">
-<div style="margin-top: 16px" class="mainContainer"> 
-
-<h1 class="test">Aktywne Glosowania</h1>
- <div class="rowCont">
-  {% for voting in votings %}
-  {% comment %} <a href="{% url 'collabs:voting' voting.id %}"> {% endcomment %}
-  <div class="smallItem">
-    <a href="{% url 'collabs:voting' voting.id %}"><h2>{{ voting.name }}</h2></a>
-    
-    {% with voting.tagList as tags_list %}
-    {% if tags_list %}
-    <div class="iconHolder">
-        {% for tag in tags_list %}
-        <img class="icon" src="{% static 'images/icons/' %}{{ tag }}.png" alt=""/>
-
-        {% endfor %}
-    </div>
-    {% endif %}
-{% endwith %}
-  </div>
-{% comment %} </a> {% endcomment %}
+    </a>
   {% endfor %}
-</div> 
-<a href="{% url 'collabs:votings' %}"><button class="tableButtons">Zobacz wszystkie glosowania</button></a>
+  </div>
+  <div class="mainContainer">
+  <div style="margin-top: 16px" class="mainContainer"> 
 
-</div>
+  <h1 class="specialHeader">Aktywne Glosowania</h1>
+  <div class="rowCont">
+    {% for voting in votings %}
+    {% comment %} <a href="{% url 'collabs:voting' voting.id %}"> {% endcomment %}
+    <div class="smallItem">
+      <a href="{% url 'collabs:voting' voting.id %}"><h2>{{ voting.name }}</h2></a>
+      
+      {% with voting.tagList as tags_list %}
+      {% if tags_list %}
+      <div class="iconHolder">
+          {% for tag in tags_list %}
+          <img class="icon" src="{% static 'images/icons/' %}{{ tag }}.png" alt=""/>
 
+          {% endfor %}
+      </div>
+      {% endif %}
+  {% endwith %}
+    </div>
+  {% comment %} </a> {% endcomment %}
+    {% endfor %}
+  </div> 
+  <a href="{% url 'collabs:votings' %}"><button class="tableButtons">Zobacz wszystkie glosowania</button></a>
+
+  </div>
+</article>
 
 {% endblock %}
