@@ -121,9 +121,6 @@ main {
   flex-direction: column;
 }
 
-.ankiety {
-}
-
 .rowCont {
   display: flex;
   flex-wrap: wrap;
