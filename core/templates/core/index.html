@@ -16,7 +16,7 @@ Glowna
 
 {% comment %} SPLASH SCREEN  {% endcomment %}
 
-<p>{% trans "proba tlumaczenia" %}</p>
+<p class="mt-6">{% trans "proba tlumaczenia" %}</p>
 <form action="{% url 'set_language' %}" method="post">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}">
