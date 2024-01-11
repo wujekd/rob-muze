@@ -81,6 +81,7 @@
 
     .product-td {
         @apply
-        bg-secondary hover:bg-primary
+        bg-secondary hover:bg-primary 
+        hover: cursor-pointer
     }
 }
