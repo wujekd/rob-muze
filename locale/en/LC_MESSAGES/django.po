@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-11 20:50+0000\n"
+"POT-Creation-Date: 2024-01-11 23:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,11 +23,11 @@ msgstr "Nazwa Twojego konta"
 
 #: core/forms.py:73
 msgid "Password"
-msgstr ""
+msgstr "testes"
 
 #: core/forms.py:75
 msgid "Confirm Password"
-msgstr ""
+msgstr "testes"
 
 #: core/forms.py:82
 msgid "Udowodnij ze nie jestes robotem, zarejestruj sie potem."
@@ -57,7 +57,7 @@ msgstr "Dashboard"
 msgid "Wyloguj"
 msgstr "Logout"
 
-#: core/templates/core/base.html:46
+#: core/templates/core/base.html:46 core/templates/core/signup.html:5
 msgid "Rejestracja"
 msgstr "Register"
 
@@ -109,11 +109,39 @@ msgstr "Open Votings"
 msgid "Przeslij swoje nagranie"
 msgstr "Send your recording"
 
-#: core/templates/core/signup.html:23
+#: core/templates/core/signup.html:11
+msgid "Zarejestruj nowe konto"
+msgstr "Register a new account"
+
+#: core/templates/core/signup.html:24
 msgid "Nazwa Uzytkownika"
 msgstr "Username"
 
-#: core/templates/core/signup.html:127
+#: core/templates/core/signup.html:28
+msgid "Adres Email"
+msgstr "E-mail address"
+
+#: core/templates/core/signup.html:32
+msgid "Czym zajmujesz sie w muzyce"
+msgstr "What do you do in music"
+
+#: core/templates/core/signup.html:36
+msgid "Haslo"
+msgstr "Password"
+
+#: core/templates/core/signup.html:40
+msgid "Powtorz Haslo"
+msgstr "Repeat password"
+
+#: core/templates/core/signup.html:49
+msgid "Polisa ochrony danych"
+msgstr "Data protection policy"
+
+#: core/templates/core/signup.html:57
+msgid "Zarejestruj się"
+msgstr "Register"
+
+#: core/templates/core/signup.html:124
 msgid ""
 "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto."
 msgstr "You must agree to terms of service to register an account"
