@@ -5,8 +5,8 @@ Signup
 {% endblock title %}
 
 {% block content %}
-    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10 text-black">
-        <h1 class="mb-6 text-3xl">Zarejestruj nowe konto</h1>
+    <div class="signupBox my-5 p-6 bg-primary rounded-xl mx-10 text-black">
+        <h1 class="mb-4 text-3xl">Zarejestruj nowe konto</h1>
         <form method="post" action=".">
             {% csrf_token %}
             {{ form.non_field_errors }}

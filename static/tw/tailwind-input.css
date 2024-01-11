@@ -24,14 +24,13 @@
 @layer components {
     .nav {
         @apply
-            fixed top-0 left-0 z-40
+            position: static
             bg-primary
             py-0
             w-full backdrop-blur
     }
     .nav-menus {
         @apply
-            fixed md:static top-0 left-0 z-20
             flex flex-row
             items-center gap-4 md:gap-12
             pt-28 pb-8 md:p-0
