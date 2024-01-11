@@ -1,7 +1,9 @@
 {% load i18n %} 
 
 {% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,10 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} - Rob Muze</title>
     {% include 'head/css.html' %}
-    
 </head>
+
 <body>
-    
     {% comment %} N A V - B A R {% endcomment %}
         <nav class="nav"    style=" box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); z-index: 10000">
             <div class="container flex items-center justify-between h-20 shadow-lg" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
@@ -89,5 +90,4 @@
         setTimeout(hideToast, 12000); // Hide the toast after 3 seconds (3000 milliseconds)
     });
 </script>
-
 </html>
