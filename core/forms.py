@@ -63,17 +63,17 @@ class SignupForm2(forms.Form):
         choices=PROFESJA_CHOICES,
         required=False,
         widget=forms.Select(attrs={
-            'class': 'w-full py-4 px-6 rounded-xl',
+            'class': 'w-full py-4 px-6 rounded-xl  blk-txt',
         })
     )
-    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Username',
-        'class': 'w-full py-4 px-6 rounded-xl' }))
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': _('Username'),
+        'class': 'w-full py-3 px-6 rounded-xl blk-txt' }))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email',
-        'class': 'w-full py-4 px-6 rounded-xl'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password',
-        'class': 'w-full py-4 px-6 rounded-xl'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password',
-        'class': 'w-full py-4 px-6 rounded-xl'}))
+        'class': 'w-full py-3 px-6 rounded-xl blk-txt'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password'),
+        'class': 'w-full py-3 px-6 rounded-xl blk-txt'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Confirm Password'),
+        'class': 'w-full py-3 px-6 the rounded-xl blk-txt'}))
     
     # captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     captcha = ReCaptchaField(

@@ -25,8 +25,8 @@
                     {% comment %} M E N U - O P C J E {% endcomment %}
                     <ul id="menu">
                         
-                        <a href="{% url 'samples:samples' %}" class="nav-link ml-2">Sample</a>
-                        <a href="{% url 'collabs:collabs' %}" class="nav-link ml-2">Kolaboracje</a>
+                        <a href="{% url 'samples:samples' %}" class="nav-link ml-2">{% trans "Sample" %}</a>
+                        <a href="{% url 'collabs:collabs' %}" class="nav-link ml-2">{% trans "Kolaboracje" %}</a>
                         <a href="{% url 'ankiety:ankiety' %}" class="nav-link ml-2"
                         
                         {% if request.user.is_authenticated %}
@@ -34,15 +34,15 @@
                         style="background-color: red;"
                         {% endif %}
                         {%endif%}
-                        >Ankiety</a>
+                        >{% trans "Ankiety" %}</a>
 
                         {% if request.user.is_authenticated %}
-                        <a href="{% url 'core:profil' %}" class="nav-link ml-2">Dashboard </a>
-                        <a href="{% url 'core:logout' %}" class="nav-link ml-2">Wyloguj</a>
+                        <a href="{% url 'core:profil' %}" class="nav-link ml-2">{% trans "Dashboard" %}</a>
+                        <a href="{% url 'core:logout' %}" class="nav-link ml-2">{% trans "Wyloguj" %}</a>
                         
                         {% else %}
-                        <a href="{% url 'core:signup' %}" class="nav-link">Rejestracja</a>
-                        <a href="{% url 'core:login' %}" class="nav-link">Logowanie</a>
+                        <a href="{% url 'core:signup' %}" class="nav-link">{% trans "Rejestracja" %}</a>
+                        <a href="{% url 'core:login' %}" class="nav-link">{% trans "Logowanie"%}</a>
                         
                         {% endif %}
                         
@@ -54,10 +54,18 @@
                     {% if request.user.is_authenticated %}
                 <div class="flex flex-col">
                 <p>{{  user_points }} pkt.</p>
-                <p class="nobreak">Pobrań {{ downloadCounter}} </p>
+                <p class="nobreak">{% trans "Pobrań" %} {{ downloadCounter}} </p>
                 </div>
                 {% endif %}</div>
             <div>
+            <div class="shrink">
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    <button name="language" type="submit" value="en"><img src="{% static 'images/icons/united-kingdom.png' %}"></button>
+                    <button name="language" type="submit" value="pl"><img src="{% static 'images/icons/poland.png' %}"></button>
+                </form>
+            </div>
         </nav>
 
 {% if messages %}

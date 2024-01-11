@@ -5,7 +5,8 @@ Signup
 {% endblock title %}
 
 {% block content %}
-    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10 text-black">
+    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10">
+        <div id="dyn">
         <h1 class="mb-6 text-3xl">Zarejestruj nowe konto</h1>
         <form method="post" action=".">
             {% csrf_token %}
@@ -43,7 +44,7 @@ Signup
             </div>  
             <div class="mb-3 checkbox-div" style="margin: 10px; padding: 10px; border-radius: 10px">
                 <input type="checkbox" id="privacyPolicyCheckbox" required>
-                <label for="privacyPolicyCheckbox">I agree to the <a href="/privacy-policy/">privacy policy</a></label>
+                <label for="privacyPolicyCheckbox">I agree to the <button class="btn-primary-light" onclick="showConfirmation()">privacy policy</buttona></label>
             </div>
             
             
@@ -52,20 +53,86 @@ Signup
             <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl">Submit</button>
         </form>
     </div>
+    </div>
 
 
     <script>
-        var checkboxDiv = document.querySelector('.checkbox-div');
 
-        document.getElementById('privacyPolicyCheckbox').addEventListener('invalid', function() {
-            checkboxDiv.style.backgroundColor = 'red';
-            this.setCustomValidity('{% trans "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto." %}');
-        });
+{% comment %} sdfgsdfg {% endcomment %}
+
+
+    var policy = "{{ policy|escapejs }}";
+    var originalContent = null;
+
+    function showConfirmation() {
+        var content = document.getElementById('dyn');
+        originalContent = content.innerHTML; 
+        var height = content.offsetHeight;  
+        content.style.opacity = '0';
+        setTimeout(function() {
+            content.style.display = 'flex'; 
+            content.style.justifyContent = 'flex-start';
+            content.style.alignItems = 'flex-start';
+            content.innerHTML = policy + '<button onclick="goBack()" class="btn-primary-light">Powrot</button>';
+            
+            content.style.flexDirection = 'column';
+            content.style.overflow = 'auto';
+            content.style.maxHeight = height + 'px';  
+            content.style.opacity = '1';
     
-        document.getElementById('privacyPolicyCheckbox').addEventListener('change', function() {
-            console.log('changed');
-            checkboxDiv.style.backgroundColor = '';
-            this.setCustomValidity('');
-        });
-        </script>
+           
+            var countdown = 5;
+            var countdownButton = document.getElementById('countdownButton');
+            var countdownInterval = setInterval(function() {
+                countdown--;
+                if (countdown >= 1) {
+                    countdownButton.style.opacity = '0.65';
+                    countdownButton.innerText = countdown;
+                } else {
+                  
+                    clearInterval(countdownInterval);
+                    countdownButton.innerText = 'Pobierz!';
+                    countdownButton.style.opacity = 1; 
+                    countdownButton.disabled = false;
+                    countdownButton.onclick = function() {
+                        window.location.href = downloadUrl;
+                    };
+                }
+            }, 1000);
+        }, 500);  
+    }
+
+    function goBack() {
+        var content = document.getElementById('dyn');
+        content.style.opacity = '0';
+        setTimeout(function() {
+            content.style.display = 'block';  // restore the original display value
+            content.innerHTML = originalContent;  // restore the original content of the div
+            content.style.opacity = '1';
+        }, 500);
+    }
+
+
+
+
+    {% comment %} sdfg
+    
+    {% endcomment %}
+
+    var checkboxDiv = document.querySelector('.checkbox-div');
+
+    document.getElementById('privacyPolicyCheckbox').addEventListener('invalid', function() {
+        checkboxDiv.style.backgroundColor = 'red';
+        this.setCustomValidity('{% trans "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto." %}');
+    });
+
+    document.getElementById('privacyPolicyCheckbox').addEventListener('change', function() {
+        console.log('changed');
+        checkboxDiv.style.backgroundColor = '';
+        this.setCustomValidity('');
+    });
+
+
+    </script>
+    
 {% endblock content %} 

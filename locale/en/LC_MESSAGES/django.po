@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-11 17:26+0000\n"
+"POT-Creation-Date: 2024-01-11 20:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: core/forms.py:69
+msgid "Username"
+msgstr "Nazwa Twojego konta"
+
+#: core/forms.py:73
+msgid "Password"
+msgstr ""
+
+#: core/forms.py:75
+msgid "Confirm Password"
+msgstr ""
+
 #: core/forms.py:82
 msgid "Udowodnij ze nie jestes robotem, zarejestruj sie potem."
 msgstr "You must prove you are not a robot."
@@ -25,19 +37,86 @@ msgstr "You must prove you are not a robot."
 msgid "Hasla do siebie nie pasuja."
 msgstr "Passwords dont match."
 
-#: core/templates/core/index.html:19 core/templates/core/index.html:28
-msgid "proba tlumaczenia"
-msgstr "translation test"
+#: core/templates/core/base.html:30 core/templates/core/index.html:34
+msgid "Sample"
+msgstr "Samples"
 
-#: core/templates/core/index.html:175
+#: core/templates/core/base.html:31 core/templates/core/index.html:48
+msgid "Kolaboracje"
+msgstr "Collaborations"
+
+#: core/templates/core/base.html:39
+msgid "Ankiety"
+msgstr "Polls"
+
+#: core/templates/core/base.html:42
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: core/templates/core/base.html:43
+msgid "Wyloguj"
+msgstr "Logout"
+
+#: core/templates/core/base.html:46
+msgid "Rejestracja"
+msgstr "Register"
+
+#: core/templates/core/base.html:47
+msgid "Logowanie"
+msgstr "Login"
+
+#: core/templates/core/base.html:59
+msgid "Pobrań"
+msgstr "Downloads"
+
+#: core/templates/core/index.html:6
+msgid "Glowna"
+msgstr "Main"
+
+#: core/templates/core/index.html:35
+msgid "Zbior unikatowych sampli i nagran"
+msgstr "A unique collection of samples and recordings"
+
+#: core/templates/core/index.html:35
+msgid "Materialy do produkcji muzycznej"
+msgstr "Music production resources"
+
+#: core/templates/core/index.html:36
+msgid "Dostepne sample"
+msgstr "Available samples"
+
+#: core/templates/core/index.html:49
+msgid "Dograj sie do istniejacego nagrania"
+msgstr "Record your take to the existing record"
+
+#: core/templates/core/index.html:49
+msgid "albo przeslij swoj autorski pomysl"
+msgstr "or send your original idea"
+
+#: core/templates/core/index.html:50
+msgid "Aktywne kolaboracje"
+msgstr "Active Collaborations"
+
+#: core/templates/core/index.html:62
+msgid "Glosowania"
+msgstr "Votings"
+
+#: core/templates/core/index.html:64
+msgid "Otwarte glosowania"
+msgstr "Open Votings"
+
+#: core/templates/core/index.html:170
 msgid "Przeslij swoje nagranie"
 msgstr "Send your recording"
 
-#: core/templates/core/signup.html:22
+#: core/templates/core/signup.html:23
 msgid "Nazwa Uzytkownika"
 msgstr "Username"
 
-#: core/templates/core/signup.html:62
+#: core/templates/core/signup.html:127
 msgid ""
 "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto."
 msgstr "You must agree to terms of service to register an account"
+
+#~ msgid "proba tlumaczenia"
+#~ msgstr "translation test"

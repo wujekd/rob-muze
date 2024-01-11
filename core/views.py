@@ -20,6 +20,8 @@ from django.urls import reverse_lazy
 from django.core.exceptions import ValidationError
 from django.views import View
 from django.utils import translation
+from django.utils.translation import gettext as _
+from django.utils.translation import get_language
 
     
 class SetLang(View):
@@ -84,6 +86,10 @@ def activateEmail(request, user, to_email):
 
 
 def signup(request):
+    lnag = get_language()
+    policy_file = 'core/policy_pl.txt' if lnag == 'pl' else 'core/policy_en.txt'
+    with open(policy_file, 'r') as file:
+        policy = file.read()
     if request.method == 'POST':
         form = SignupForm2(request.POST)
         if form.is_valid():
@@ -94,7 +100,7 @@ def signup(request):
                 return render(request, "core/signup.html", {"form" : form})
             if User.objects.filter(username=username).exists():
                 form.add_error('username', "Ta nazwa uzytkownika jest juz zajeta")
-                return render(request, "core/signup.html", {"form" : form})
+                return render(request, "core/signup.html", {"form" : form, "policy" : policy})
             
             user = get_user_model().objects.create(
                 username=form.cleaned_data['username'],
@@ -114,7 +120,7 @@ def signup(request):
         form = SignupForm2()
 
     return render(request, 'core/signup.html', {
-        'form' : form
+        'form' : form, 'policy' : policy
     })
 
     
