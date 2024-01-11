@@ -2,8 +2,8 @@
 {% block title %}Contact{% endblock title %}
 {% block content %}
 {% load static %}
-</br></br>
 
+<article class="wrapper">
 {% if unanswered %}
 <div class="flex bg-secondary bg-opacity-50 mt-10 pt-4">
     <div class="text-gray-100 m-10 pl-5">
@@ -90,7 +90,7 @@
 
 {% endif %}
 
-
+</article>
 <script type="text/javascript">
     textarea = document.getElementById('id_answer');
     textarea.addEventListener('input', autoResize, false);

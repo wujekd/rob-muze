@@ -5,22 +5,21 @@ Kolaboracje
 
 {% block content %}
    
-<br><br><br><br>
+<article class="wrapper">
+    <div class="mainContainer">
+    <h1 class="test">Otwarte Glosowania:<br>
+    </h1>
 
-<div class="mainContainer">
-<h1 class="test">Otwarte Glosowania:<br>
-</h1>
 
+    {% for voting in votings %}
 
-{% for voting in votings %}
+        <a href="{% url 'collabs:voting' voting.pk %}">
+            <div class="item" style="margin: 5px">
+            {{ voting.name }}
+        </div>
+        </a>
 
-    <a href="{% url 'collabs:voting' voting.pk %}">
-        <div class="item" style="margin: 5px">
-        {{ voting.name }}
+    {% endfor %}
     </div>
-    </a>
-
-{% endfor %}
-</div>
-
+</article>
 {% endblock content %}

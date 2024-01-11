@@ -7,14 +7,14 @@ Kolaboracje
 
 {% block content %}
 
-<br><br><br>
-<div class="mainContainer">
-{% if vote_success %}
-<p>Udalo sie zaglosowac!</p>
-<p>Dziekujemy za udzial w glosowaniu.</p>
-{% else %}
-<p>Zaglosowales juz wczesniej!</p>
-{% endif %}
-</div>
-
+<article class="wrapper">
+    <div class="mainContainer">
+    {% if vote_success %}
+    <p>Udalo sie zaglosowac!</p>
+    <p>Dziekujemy za udzial w glosowaniu.</p>
+    {% else %}
+    <p>Zaglosowales juz wczesniej!</p>
+    {% endif %}
+    </div>
+</article>
 {% endblock %}

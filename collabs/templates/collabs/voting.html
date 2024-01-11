@@ -6,47 +6,47 @@ Kolaboracje
 
 {% block content %}
 
-<br><br><br>
-<div class='mainContainer'>
-    
-    <h1>Glosowanie: {{ collab.title }}</h1>
-    <p>Opis {{ collab.desc }}</p>
-    <p>Ilosc glosow {{ vote_count }}</p>
+<article class="wrapper">
+    <div class='mainContainer'>
+        
+        <h1>Glosowanie: {{ collab.title }}</h1>
+        <p>Opis {{ collab.desc }}</p>
+        <p>Ilosc glosow {{ vote_count }}</p>
 
-    {% if collab.download_pack %}
-    <p>Oryginalny podklad</p>
-    <audio controls class="audio-player">
-        <source src="{{ collab.download_pack.url }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-{% endif %}
-</div>
-<br/>
-<div class="mainContainer">
+        {% if collab.download_pack %}
+        <p>Oryginalny podklad</p>
+        <audio controls class="audio-player">
+            <source src="{{ collab.download_pack.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% endif %}
+    </div>
+
+    <div class="mainContainer">
 
 
-    <h2>Przeslane Odpowiedzi:</h2>
-    <ul>
-        {% for sub in subs %}
-        <div class="item">
-            <li>
-                <h3>{{ sub.user.username }}</h3>
-                <p>{{ sub.title }}</p>
-                <p>{{ sub.msg }}</p>
-                <p>ilosc glosow {{ sub.vote_count }}</p>
-                
-                <audio controls class="audio-player">
-                    <source src="{{ sub.file.url }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                
-                <a href="{% url 'collabs:vote' sub.id %}">Zaglosuj</a>
-            </li>
-        </div>
-        {% endfor %}
-    </ul>
-</div>
-
+        <h2>Przeslane Odpowiedzi:</h2>
+        <ul>
+            {% for sub in subs %}
+            <div class="item">
+                <li>
+                    <h3>{{ sub.user.username }}</h3>
+                    <p>{{ sub.title }}</p>
+                    <p>{{ sub.msg }}</p>
+                    <p>ilosc glosow {{ sub.vote_count }}</p>
+                    
+                    <audio controls class="audio-player">
+                        <source src="{{ sub.file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    
+                    <a href="{% url 'collabs:vote' sub.id %}">Zaglosuj</a>
+                </li>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+</article>
 <script>
     document.addEventListener('play', function(e){
         var audios = document.getElementsByTagName('audio');
