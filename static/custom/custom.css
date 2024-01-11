@@ -91,7 +91,18 @@ body{
   .blk-txt {
     color: #333;
   }
-  
+
+.signupChecks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+}
+#privacyPolicyCheckbox {
+  transform: scale(2.4);
+  margin-right: 10px;
+}
   .rowCont{
     display: flex;
     flex-wrap: wrap;
