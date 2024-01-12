@@ -5,6 +5,7 @@ from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 from django.utils.translation import gettext as _
 
+
 from account.models import Account
 
 class LoginForm(AuthenticationForm):
@@ -52,37 +53,52 @@ class LoginForm(AuthenticationForm):
 
 
 class SignupForm2(forms.Form):
-    PROFESJA_CHOICES = [
-        ('Wybierz', 'Wybierz'),
-        ('Wokal/Inst', 'Wokal/Inst'),
-        ('Produkcja', 'Produkcja'),
-        ('Zadnej pracy sie nie boje', 'Zadnej pracy sie nie boje'),
-    ]
+#     PROFESJA_CHOICES = [
+#     ('Wybierz', _('Wybierz')),
+#     ('Wokal/Inst', _('Wokal/Inst')),
+#     ('Produkcja', _('Produkcja')),
+#     ('Zadnej pracy sie nie boje', _('Zadnej pracy sie nie boje')),
+# ]
     
     profesja = forms.ChoiceField(
-        choices=PROFESJA_CHOICES,
+        # choices=PROFESJA_CHOICES,
         required=False,
         widget=forms.Select(attrs={
             'class': 'w-full py-4 px-6 rounded-xl  blk-txt',
         })
     )
-    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': _('Username'),
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
         'class': 'w-full py-3 px-6 rounded-xl blk-txt' }))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email',
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
         'class': 'w-full py-3 px-6 rounded-xl blk-txt'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password'),
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'w-full py-3 px-6 rounded-xl blk-txt'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Confirm Password'),
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'w-full py-3 px-6 the rounded-xl blk-txt'}))
     
-    # captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    
+    
     captcha = ReCaptchaField(
     widget=ReCaptchaV2Checkbox(),
     error_messages={
         'required': _('Udowodnij ze nie jestes robotem, zarejestruj sie potem.'),
     }
 )
-
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = _('Nazwa Użytkownika')
+        self.fields['password1'].widget.attrs['placeholder'] = _('Hasło')
+        self.fields['password2'].widget.attrs['placeholder'] = _('Potwierdź hasło')
+        self.fields['email'].widget.attrs['placeholder'] = _('Adres email')
+        self.fields['profesja'].choices = [
+            ('Wybierz', _('Wybierz')),
+            ('Wokal/Inst', _('Wokal/Inst')),
+            ('Produkcja', _('Produkcja')),
+            ('Zadnej pracy sie nie boje', _('Zadnej pracy sie nie boje')),
+        ]
+        
+    
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
