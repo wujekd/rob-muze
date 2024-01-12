@@ -69,18 +69,20 @@
         rounded shadow-lg
     }
 
-    .container-hero-image {
-        @apply
-        mt-60
-        bg-blue-200
-        rounded-md md:rounded-none
-        h-60 md:h-full
-        overflow-hidden
-        order-1 md:order-2
-    }
 
     .product-td {
         @apply
         bg-secondary hover:bg-primary
+    }
+
+    .formBody {
+        @apply
+        w-1/2
+        my-5
+        p-6
+        bg-primary
+        rounded-xl
+        mt-20
+        mx-10;
     }
 }

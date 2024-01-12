@@ -4,19 +4,22 @@ from django.contrib.auth.models import User
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 from django.utils.translation import gettext as _
-
-
 from account.models import Account
+
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder ' : 'Your username',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl blk-txt'
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder ' : 'Your password',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl blk-txt'
     }))
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = _('Nazwa Użytkownika')
+        self.fields['password'].widget.attrs['placeholder'] = _('Hasło')
     
 
 
