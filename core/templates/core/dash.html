@@ -2,73 +2,45 @@
 {% load i18n %}
 {% load custom_filters %}
 
-{% block title %}{% trans "Moj Profil" %}{% endblock title %}
+{% block title %}Moj Profil{% endblock title %}
 {% block content %}
 <br><br>
-
-<div class="mt-6 px-6 py-12 bg-primary bg-opacity-50 shadow-lg rounded-lg">
-
 <div class="text-green-100 rounded-xl">
     <div class="row my-3 p-3">
-        <img class="rounded-circle account-img" src="" alt="account pic" style="width: 75px; height: 75px; background-color: red;"/>
+        <img class="rounded-circle account-img" src="" alt="sdfds" style="cursor: pointer;"/>
     </div>
     <div class="form-group">
-        <a href="{% url 'core:changePassword' %}">{% trans "Zmien Hasło" %}</a>
+        <a href="{% url 'core:changePassword' %}">Zmien Haslo</a>
+        <hr>
         {% comment %} <label class="small mb-1">Change Avatar:</label>
         {{ profile_form.avatar }} {% endcomment %}
     </div>
-    <div><a href="{% url 'core:editMail' %}"><button>{% trans "Zmien Email" %}</button></a>
-
-
+    <div><a href="{% url 'core:editMail' %}"><button>Zmien Email</button></a>
 <div class="item">
     <div class="grid grid-cols-3 gap-3 mt-20">
-        <h1>{% trans "Witaj" %}, {{ user.username }}!</h1>
+        <h1>Welcome, {{ user.username }}!</h1>
         <p>Email: {{ user.email }}</p>
-       <div> <p>{% trans "Konto stworzone" %}:</p><p>{{ user.date_joined }}</p></div>
-        <p>{% trans "Masz" %}: {{ profil.points }} {% trans "punkty" %}.</p>
+       <div> <p>Konto stworzone:</p><p>{{ user.date_joined }}</p></div>
+        <p>Masz: {{ profil.points }} punkty.</p>
         <p>{{ profil.bio }}</p>
         {% get_current_language as LANGUAGE_CODE %}
         <p>{% trans "Język" %}: {{ LANGUAGE_CODE }}</p>
     </div>
 </div>
-
-</div>
-
-
-<div class="mt-6 px-6 py-12 bg-primary bg-opacity-50 shadow-lg rounded-lg overflow-x-auto">
-
-    {% if collabs %}
-    <h2 class="mb-12 text-2xl text-center">{% trans 'Przeslane nagrania' %}</h2>
-    
-    
-    <table  style="box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); width: 90vw;" class="table-auto bg-secondary bg-opacity-50 text-sm text-left text-white shadow-lg rounded-lg">
-        <thead class="text-xs uppercase bg-primary">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    {% trans "Nazwa" %}
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    {% trans "Data Przeslania"%}
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    {% trans "Nazwa Pliku" %}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-          
-            {% for collab in collabs %}
-            <tr class="product-td py-3">
-                <td >{{ collab.title }}</td>
-                <td >{{ collab.date }}</td>
-                <td >{{ collab.file.name|basename }}</td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <h2 class="mb-12 text-2xl text-center">{% trans "Nie masz jeszcze zadnych przeslanych nagrań" %}.</h2>
-            {% endif %}
-        </tbody>
-    </table>
+<div class="mt-6 px-6 py-12 bg-primary bg-opacity-50 shadow-lg">
+{% if collabs %}
+        <h2 class="mb-12 text-2xl text-center">Przeslane nagrania</h2>
+    {% for collab in collabs %}
+        <div class="item">
+            <h1>{{ collab.title }}</h1>
+            <p>{{ collab.msg }}</p>
+            <p>{{ collab.date }}</p>
+           <div> <p>Nazwa przeslanego pliku: <br>{{ collab.file.name|basename }}</p></div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h2 class="mb-12 text-2xl text-center">Nie masz jeszcze zadnych przeslanych nagran.</h2>
+{% endif %}
     </div>
 
 </div>

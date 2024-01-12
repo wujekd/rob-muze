@@ -8,7 +8,7 @@
 {% block content %}
     <div class="formBody">
         <div id="dyn" style="transition: opacity 0.4s ease-in-out;">
-        <h1 class="mb-6 text-3xl">{% trans "Register a new account" %}</h1>
+        <h1 class="mb-6 text-3xl">{% trans "Zarejestruj nowe konto" %}</h1>
         <form method="post" action=".">
             {% csrf_token %}
             {{ form.non_field_errors }}
