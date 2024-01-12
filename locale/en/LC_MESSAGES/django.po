@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 00:17+0000\n"
+"POT-Creation-Date: 2024-01-12 00:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/forms.py:57
-msgid "Wybierz"
-msgstr "Choose"
-
-#: core/forms.py:58
-msgid "Wokal/Inst"
-msgstr "Vocals or an Instrument"
-
-#: core/forms.py:59
-msgid "Produkcja"
-msgstr "Production"
-
-#: core/forms.py:60
-msgid "Zadnej pracy sie nie boje"
-msgstr "Bit of everything"
-
-#: core/forms.py:84
-msgid "Udowodnij ze nie jestes robotem, zarejestruj sie potem."
-msgstr "You must prove you are not a robot."
-
-#: core/forms.py:90
+#: core/forms.py:23 core/forms.py:95
 msgid "Nazwa Użytkownika"
 msgstr "Username"
 
-#: core/forms.py:91
+#: core/forms.py:24 core/forms.py:96
 msgid "Hasło"
 msgstr "Password"
 
-#: core/forms.py:92
+#: core/forms.py:89
+msgid "Udowodnij ze nie jestes robotem, zarejestruj sie potem."
+msgstr "You must prove you are not a robot."
+
+#: core/forms.py:97
 msgid "Potwierdź hasło"
 msgstr "Confirm Password"
 
-#: core/forms.py:93
+#: core/forms.py:98
 msgid "Adres email"
 msgstr "E-mail address"
 
-#: core/forms.py:99
+#: core/forms.py:100
+msgid "Wybierz"
+msgstr "Choose"
+
+#: core/forms.py:101
+msgid "Wokal/Inst"
+msgstr "Vocals or an Instrument"
+
+#: core/forms.py:102
+msgid "Produkcja"
+msgstr "Production"
+
+#: core/forms.py:103
+msgid "Zadnej pracy sie nie boje"
+msgstr "Bit of everything"
+
+#: core/forms.py:111
 msgid "Hasla do siebie nie pasuja."
 msgstr "Passwords dont match."
 
