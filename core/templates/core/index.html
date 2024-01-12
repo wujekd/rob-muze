@@ -18,7 +18,6 @@
 
 
 
-<p>{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}</p>
 
 <div class="flex flex-col justify-center items-center h-4/5 slideContainer bg-secondary p-8 rounded-lg shadow-lg" id="upperDiv">
 
@@ -211,168 +210,10 @@
         </div>
     </div>
 </div>
-
-
 </div>
-<script>
-{% comment %} splash load  {% endcomment %}
 
-console.log('Initial hideSplashScreen value:', localStorage.getItem('hideSplashScreen'));
-
-if (!localStorage.getItem('hideSplashScreen')) {
-    // If not, show the splash screen
-    var loadingScreen = document.getElementById('loading-screen');
-    loadingScreen.style.display = 'block';
-    console.log('Splash screen is shown');
-
-    console.log('Setting hideSplashScreen flag in local storage');
-    localStorage.setItem('hideSplashScreen', 'true');
-    console.log('hideSplashScreen flag set in local storage');
-} else {
-    console.log('Splash screen is not shown because hideSplashScreen flag is set in local storage');
-}
-
-console.log('Final hideSplashScreen value:', localStorage.getItem('hideSplashScreen'));
-
-window.addEventListener('load', function() {
-    // Hide the splash screen when the page finishes loading
-    var loadingScreen = document.getElementById('loading-screen');
-    loadingScreen.style.display = 'none';
-    console.log('Page finished loading, splash screen is hidden');
-});
-
-{% comment %} rest  {% endcomment %}
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            document.body.classList.add('loaded');
-        }, 650);  
-    });
+<script src="{% static 'js/index.js' %}"></script>
     
-    window.onload = function() {
-        var slideIndex = 0;
-        var upperSlides = document.getElementsByClassName("slides");
-        var lowerSlides = document.getElementsByClassName("slidesLower");
-        var dots = document.getElementsByClassName('dot');
-        var slideInterval;
-    
-        function showSlide(n){
-            var i;
-            for (i = 0; i < upperSlides.length; i++) {
-                upperSlides[i].classList.remove("active-slide");
-                lowerSlides[i].classList.remove("active-slide-lower");
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active-dot", "");
-            }
-            upperSlides[n].classList.add("active-slide");
-            lowerSlides[n].classList.add("active-slide-lower");
-            dots[n].className += " active-dot";
-        }
-    
-        showSlide(slideIndex);
-    
-        function nextSlide() {
-            slideIndex++;
-            if (slideIndex >= upperSlides.length) {slideIndex = 0}
-            showSlide(slideIndex);
-        }
-    
-        // Delay 
-        setTimeout(function() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }, 40);
-    
-        // Add event listeners to dots
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].addEventListener('click', function() {
-                slideIndex = i;
-                showSlide(i);
-                clearInterval(slideInterval); // Clear the existing interval
-                slideInterval = setInterval(nextSlide, 9700); // Start a new interval
-                setTimeout(function() { // back to normal timing
-                    clearInterval(slideInterval);
-                    slideInterval = setInterval(nextSlide, 4600);
-                }, 6000);
-            });
-        }
-    }
-    
-</script>
 
-<style>
-    .fade {
-        animation-name: fade;
-        animation-duration: 0.8s;
-      }
-      
-      @keyframes fade {
-        from {opacity: 0} 
-        to {opacity: 1}
-      }
-
-
-.slides {
-    display: none;
-}
-.slidesLower {
-    display: none;
-}
-.active-slide-lower {
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-evenly;
-}
-
-.active-slide {
-    display: flex; 
-    flex-direction: row; 
-    align-items: center; 
-    justify-content: space-evenly;
-}
-
-.dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #474646;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.9s ease;
-}
-
-.active-dot {
-    background-color: #d5cccc;
-}
-
-.slideContainer {
-    position: relative;
-}
-
-#upperDiv {
-    z-index: 2;
-    margin-left: 10px;
-    margin-right: 10px;
-    max-width: 1000px
-}
-
-#lowerDiv {
-    z-index: 1;
-    transform: translateY(-100%);
-    animation: slideDown 2s ease-in-out forwards;
-}
-
-body.loaded #lowerDiv {
-    opacity: 1;
-}
-
-@keyframes slideDown {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-</style>
 
 {% endblock %}
