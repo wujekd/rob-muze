@@ -1,4 +1,6 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
 {% block title %}
 Browse
 {% endblock title %}
@@ -10,7 +12,7 @@ Browse
 <section class="mt-20">
 
 
-    <div  class="flex justify-center overflow-x-auto sm:rounded-lg">
+    <div  class="flex justify-center overflow-x-auto rounded-lg">
 
         <table  style=" box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);" class="table-auto bg-secondary bg-opacity-50 text-sm text-left text-white shadow-lg">
             <thead class="text-xs uppercase bg-primary">
@@ -19,16 +21,16 @@ Browse
                         <span class="sr-only">Image</span>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nazwa
+                        {% trans "Nazwa" %}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Opis
+                        {% trans "Opis"%}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Rodzaj
+                        {% trans "Rodzaj" %}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Cena
+                        {% trans "Cena" %}
                     </th>
                 </tr>
             </thead>
@@ -60,22 +62,9 @@ Browse
             </tbody>
         </table>
     </div>
-
-{% comment %} <a href="{% url 'samples:message' %}">MSG</a> {% endcomment %}
-
 </section>
 
-<script>
-    document.addEventListener('play', function(e) {
-        var audios = document.getElementsByTagName('audio');
-    
-        for (var i = 0, len = audios.length; i < len; i++) {
-            if (audios[i] != e.target) {
-                audios[i].pause();
-            }
-        }
-    }, true);
-</script>
+<script src="{% static "js/single_playback.js" %}"></script>
 
 
 {% endblock content %}
