@@ -213,7 +213,82 @@
 </div>
 
 <script src="{% static 'js/index.js' %}"></script>
-    
+
+<style>
+    .fade {
+        animation-name: fade;
+        animation-duration: 0.8s;
+      }
+      
+      @keyframes fade {
+        from {opacity: 0} 
+        to {opacity: 1}
+      }
+
+
+.slides {
+    display: none;
+}
+.slidesLower {
+    display: none;
+}
+.active-slide-lower {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-evenly;
+}
+
+.active-slide {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-evenly;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #474646;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.9s ease;
+}
+
+.active-dot {
+    background-color: #d5cccc;
+}
+
+.slideContainer {
+    position: relative;
+}
+
+#upperDiv {
+    z-index: 2;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 1000px
+}
+
+#lowerDiv {
+    z-index: 1;
+    transform: translateY(-100%);
+    animation: slideDown 2s ease-in-out forwards;
+}
+
+body.loaded #lowerDiv {
+    opacity: 1;
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+</style>
 
 
 {% endblock %}

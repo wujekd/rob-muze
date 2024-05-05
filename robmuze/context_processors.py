@@ -2,14 +2,18 @@ from account.models import Account
 from samples.models import Downloads
 from ankiety.models import AnkietaOtw, OdpowiedzOtw
 
+
 def user_points(request):
     if request.user.is_authenticated:
-        account = request.user.account
-        user_points = account.points
+        try:
+            account = request.user.account
+            return {'user_points': account.points}
+        except Account.DoesNotExist:
+            # If the user doesn't have an account, return 0 points
+            return {'user_points': 0}
     else:
-        user_points = None
+        return {'user_points': 0}
 
-    return {'user_points': user_points}
 
 
 def downloadCounter(request):

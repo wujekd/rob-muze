@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Sampel(models.Model):
     title = models.CharField(max_length=200)
-    demo = models.FileField(upload_to='music/')  # 'music/' is the subdirectory within 'media' to store the files
+    demo = models.FileField(upload_to='music/', null=True, blank=True) 
     file = models.FileField(upload_to='music/', null=True, blank=True)
     description = models.TextField()
     tags = models.CharField(max_length=100, blank=True, null=True)
@@ -35,8 +35,8 @@ class Downloads(models.Model):
     class Meta:
         constraints = [
             UniqueConstraint(
-                Lower('user'),
-                Lower('sample').desc(),
+                'user',
+                'sample',
                 name='download',
             ),
         ]
