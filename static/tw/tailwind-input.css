@@ -1,0 +1,88 @@
+/* Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+/* NUNITO */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        font-family: 'Nunito', sans-serif;
+        @apply bg-background
+    }
+    h1,h2,h3,h4,h5,h6 {
+        font-family: 'Open Sans', sans-serif;
+    }
+}
+
+@layer components {
+    .nav {
+        @apply
+            fixed top-0 left-0 z-40
+            bg-primary
+            py-0
+            w-full backdrop-blur
+    }
+    .nav-menus {
+        @apply
+            fixed md:static top-0 left-0 z-20
+            flex flex-row
+            items-center gap-4 md:gap-12
+            pt-28 pb-8 md:p-0
+            w-auto
+            bg-background
+            bg-transparent md:dark:bg-transparent
+            transition duration-500
+            shadow-none
+}
+
+    .nav-link {
+        @apply
+        font-semibold
+        border-b-4 border-transparent 
+        hover:scale-110
+        text-white
+}
+
+    .home-section {
+        @apply
+        grid items-center
+        grid-cols-1 md:grid-cols-2
+        pt-28 md:pt-0
+        md:h-screen
+        md:overflow-hidden
+    }
+
+    .btn-primary {
+        @apply
+        text-white
+        bg-primary
+        hover:brightness-110
+        font-bold text-white
+        px-4 py-2.5
+        rounded shadow-lg
+    }
+
+
+    .product-td {
+        @apply
+        bg-secondary hover:bg-primary
+    }
+
+    .formBody {
+        @apply
+        w-1/2
+        my-5
+        p-6
+        bg-primary
+        rounded-xl
+        mt-20
+        mx-10;
+    }
+}
