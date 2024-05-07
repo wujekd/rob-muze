@@ -7,13 +7,12 @@ body{
   transition: opacity 0.5s; 
 
   h1 {
-    font-size: 2.5em; /* Make the font size larger */
-    color: #102a45; /* Change the color */
-    font-weight: bold; /* Make the text bold */
-    text-align: center; /* Center the text */
-    margin-bottom: 20px; /* Add some space below the heading */
+    font-size: 2.5em;
+    color: #102a45;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
 }
-
 
 
 }
@@ -23,7 +22,6 @@ body{
     color: #333;
   }
   .menuGlow {
-    
       text-decoration: underline; /* Add your preferred style for emphasis */
       color: red;
   }

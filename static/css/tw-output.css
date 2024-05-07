@@ -646,7 +646,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .product-td{
   --tw-bg-opacity: 1;
-  background-color: rgb(106 102 47 / var(--tw-bg-opacity));
+  background-color: rgb(45 80 82 / var(--tw-bg-opacity));
 }
 
 .product-td:hover{
@@ -999,7 +999,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .bg-secondary{
   --tw-bg-opacity: 1;
-  background-color: rgb(106 102 47 / var(--tw-bg-opacity));
+  background-color: rgb(45 80 82 / var(--tw-bg-opacity));
 }
 
 .bg-teal-500{
