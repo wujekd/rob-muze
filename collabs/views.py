@@ -23,12 +23,12 @@ def collab(request, pk):
     submission_count = CollabSub.objects.filter(collab=pk).count()
     print(submission_count)
     deadline = collab.date + timedelta(weeks=4)
-    time = deadline - timezone.now()
+    time = int((deadline - timezone.now()).total_seconds())
     
     return render(request, 'collabs/collab.html', {
         'collab' : collab,
         "submission_count" : submission_count,
-        "time": time.total_seconds(),
+        "time": time,
     })
 
 
