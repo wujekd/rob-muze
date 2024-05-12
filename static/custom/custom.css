@@ -190,3 +190,141 @@ body{
 
 
 
+/* collab page */
+/* collab page */
+/* collab page */
+
+    
+.myContainer {
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+  padding: 0 20px;
+}
+
+
+
+/* Header */
+.header {
+  padding: 20px 0;
+}
+
+.header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.header .title span {
+  font-size: 35px;
+  font-weight: 600;
+}
+
+/* About */
+.about {
+  padding: 30px 0;
+}
+
+.about .about-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+}
+
+.about .about-container .about-item {
+  width: 50%;
+}
+
+.about .about-container .about-item .title {
+  font-size: 30px;
+  padding: 10px 0;
+  font-weight: 600;
+}
+
+.about .about-container .about-item iframe {
+  width: 100%;
+  height: 360px;
+}
+
+/* List Description */
+.list-description {
+  padding: 25px 0;
+}
+
+.list-description .description-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.description-container .description-item {
+  width: 50%;
+}
+
+
+.list-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+}
+
+.list-container .list {
+  padding-left: 20px;
+}
+
+.list-container .list li {
+  font-size: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.button-container button {
+  width: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .about .about-container {
+      flex-direction: column;
+  }
+
+  .about .about-container .about-item {
+      width: 100%;
+      text-align: center;
+  }
+
+  .list-description .description-container {
+      flex-direction: column;
+  }
+
+  .description-container .description-item {
+      width: 100%;
+  }
+
+  .description-container .description-item p {
+      text-align: center;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .button-container {
+      justify-content: center;
+  }
+
+}
+
+@media screen and (max-width: 710px) {
+  .header .header-container {
+      justify-content: center;
+  }
+
+}

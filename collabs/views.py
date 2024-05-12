@@ -32,8 +32,6 @@ def collab(request, pk):
     })
 
 
-
-
 def przeslij(request, pk):
     collab = Collab.objects.get(pk=pk)
     form = CollabSubform(request.POST, request.FILES)

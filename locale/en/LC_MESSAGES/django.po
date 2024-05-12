@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-12 08:04+0000\n"
+"POT-Creation-Date: 2024-05-12 18:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: collabs/templates/collabs/collab.html:19
+msgid "Dodano"
+msgstr "Added on"
+
+#: collabs/templates/collabs/collab.html:20
+msgid "Pozostało"
+msgstr "Left"
+
+#: collabs/templates/collabs/collab.html:65
+msgid "Ilosc przesłanych zgłoszeń"
+msgstr "Submission count"
+
+#: collabs/templates/collabs/collab.html:75
+msgid "Pobierz"
+msgstr "Download"
+
+#: collabs/templates/collabs/collab.html:94
+msgid "Zagłosuj"
+msgstr "Vote"
 
 #: collabs/templates/collabs/collabs.html:11
 msgid "Aktywne Kolaboracje"

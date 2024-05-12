@@ -2,121 +2,94 @@
 {% block title %}
 Signup
 {% endblock title %}
-{% load static %}
-
+{% load static %}{% load i18n %}
 {% block content %}
   
-<br><br><br><br>
+<br><br>
 
-
-
-
-
-
-
-<div class="mainContainer">
-
-
-
-    <div style="display: flex; flex-direction: column; height: 100vh;">
-        <div class="bg-secondary" style="display: flex; justify-content: space-between; align-items: center; flex: 1;">
-            <h1 style="flex: 3;">Title</h1>
-            <div style="flex: 1;">Timer</div>
-        </div>
-        <div style="flex: 2;">Description</div>
-        <div style="display: flex; justify-content: space-between; align-items: center; flex: 1;">
-            <button>Send</button>
-            <button>Vote</button>
-        </div>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <div class="item">
-        <div class="detailSmall">
-            {% comment %} DISPLAY TAGS {% endcomment %}
-            <div class="iconHolder">
-            {% if collab.wokal == True %}
-            <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
-            {% endif %}
-            {% if collab.instrument == True %}
-            <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
-            {% endif %}
+{% comment %} top part {% endcomment %}
+    <div class="header my-5 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+        <div class="header-container myContainer">
+            <div class="title">
+                <span>{{collab.title}}</span>
+                
+            </div>
+            <div class="date-time">
+                <div class="date"><span>{% trans "Dodano" %}: </span> <span>{{ collab.date }}</span></div>
+                <div class="time"><span>{% trans "Pozostało" %}: </span> <span id="countdown-timer"></span></div>
             </div>
         </div>
-        <div class="detailBig">
-            <div class="collabTitle">{{collab.title}}</div>
-        </div>
     </div>
-    <div class="item">
-        <div class="detailSmall">
-            <p>{{ collab.date }}</p>
-            <p>Glosowanie:
-            {% if colab.glosowanie %} V
-            {% else %}
-            X
-            {% endif %}
-            </p>
-        </div>
-        <div class="detailBig">
-            <div class="collabDesc">
-                {{collab.desc}}
+
+
+<!-- Main info -->
+    <div class="about my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+        <div class="about-container myContainer">
+            <div class="about-item">
+                <div class="title">Title Name Here</div>
+                <div class="description">
+                    <div class="iconHolder">
+                        {% if collab.wokal == True %}
+                        <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+                        {% endif %}
+                        {% if collab.instrument == True %}
+                        <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+                        {% endif %}
+                        </div>
+                    <p>{{collab.desc}}</p>
+
                 </div>
+            </div>
+            <div class="about-item">
+                <iframe src="https://www.youtube.com/embed/X9ZBb-yBQng?si=MwF7_FH_pWU4gL3s" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
-<p>Ilosc przeslanych zgloszen: {{ submission_count }}</p>
-<div id="countdown-timer"></div>
-
-    <p>co jest w paczce?</p>
-    
-    
-
-    {% if collab.download_pack %}
-    <p>Oryginalny podklad</p>
-    <audio controls class="audio-player">
-        <source src="{{ collab.download_pack.url }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-{% endif %}
-
-
-
-
-    <p>nuty .pdf</p>
-    <p>posluchaj demo</p>
-<p>pobierz pliki</p>
-
-<p>Nagranie musi miec format pliku wave '.wav' o czestotliwosci probkowania 48kHz oraz glebii bitowej 24b</p>
-<p>add the js upload warning before proceeding to upload page (cear the div with and inject the warning)</p>
-
+<!-- download section -->
+    <div class="list-description mt-5 mb-4 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+        <div class="description-container myContainer">
+            <div class="description-item">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga iusto et harum veniam corrupti quasi
+                    dolorum alias earum repudiandae, voluptates dolore. Perferendis perspiciatis aperiam aut atque nam
+                    reprehenderit quam repudiandae?</p>
+                    <p>{% trans "Ilosc przesłanych zgłoszeń" %}: {{ submission_count }}</p>
+            </div>
+            <div class="description-item">
+                <div class="list-container">
+                    <ul class="list">
+                        <li><span>List One</span></li>
+                        <li><span>List Two</span></li>
+                        <li><span>List Three</span></li>
+                    </ul>
+                    <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
+                        <button>{% trans "Pobierz" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
-{% if request.user.is_authenticated %}
+{% comment %} bottom buttons {% endcomment %}
+    <div class="button-container rounded-xl w-full">
+        {% if request.user.is_authenticated %}
 <a href="{% url 'collabs:przeslij' collab.id %}">
 <button class="tableButtons">
     Przeslij swoje nagranie/ przeslano?.</button></a>
-{% else  %}
-    <p style="background-color: red">Zaloguj sie zeby przeslac swoje nagranie</p>
  {% endif %}
 
 
- <a href="#" style="margin-top: 20px">
-    <button class="tableButtons">Przejdz do Glosowania</button></a>
+        <button class="py-4 mt-6 text-lg bg-primary hover:bg-secondary rounded-xl"
+                style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zagłosuj" %}</button>
+    </div>
 
 
-
-
-</div>
-
+     
 <script>
 var timeRemaining = {{ time }};
 
@@ -133,7 +106,7 @@ function updateCountdownTimer() {
         document.getElementById('countdown-timer').textContent = "Submission closed";
     }
 }
-
+console.log("elo")
 updateCountdownTimer();
 
 var countdownTimer = setInterval(function() {
@@ -143,4 +116,4 @@ var countdownTimer = setInterval(function() {
     </script>
 
 
-{% endblock content %} 
+{% endblock content %}
