@@ -221,16 +221,16 @@ msgstr "You must agree to terms of service to register an account"
 
 #: samples/templates/samples/samples.html:22
 msgid "Nazwa"
-msgstr ""
+msgstr "Name"
 
 #: samples/templates/samples/samples.html:25
 msgid "Opis"
-msgstr ""
+msgstr "Description"
 
 #: samples/templates/samples/samples.html:28
 msgid "Rodzaj"
-msgstr ""
+msgstr "Type"
 
 #: samples/templates/samples/samples.html:31
 msgid "Cena"
-msgstr ""
+msgstr "Price"
