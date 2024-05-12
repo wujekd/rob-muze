@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-12 18:20+0000\n"
+"POT-Creation-Date: 2024-05-12 19:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,15 +25,15 @@ msgstr "Added on"
 msgid "Pozostało"
 msgstr "Left"
 
-#: collabs/templates/collabs/collab.html:65
+#: collabs/templates/collabs/collab.html:60
 msgid "Ilosc przesłanych zgłoszeń"
 msgstr "Submission count"
 
-#: collabs/templates/collabs/collab.html:75
+#: collabs/templates/collabs/collab.html:70
 msgid "Pobierz"
 msgstr "Download"
 
-#: collabs/templates/collabs/collab.html:94
+#: collabs/templates/collabs/collab.html:90
 msgid "Zagłosuj"
 msgstr "Vote"
 
@@ -53,7 +53,7 @@ msgstr "Check All Votings"
 msgid "Nazwa Użytkownika"
 msgstr "Username"
 
-#: core/forms.py:22 core/forms.py:94
+#: core/forms.py:22 core/forms.py:94 core/templates/core/login.html:15
 msgid "Hasło"
 msgstr "Password"
 
@@ -114,9 +114,9 @@ msgstr "Logout"
 msgid "Rejestracja"
 msgstr "Register"
 
-#: core/templates/core/base.html:46
+#: core/templates/core/base.html:46 core/templates/core/login.html:6
 msgid "Logowanie"
-msgstr "Login"
+msgstr "Logging in"
 
 #: core/templates/core/base.html:58
 msgid "Pobrań"
@@ -201,6 +201,18 @@ msgstr "Open Votings"
 #: core/templates/core/index.html:169
 msgid "Przeslij swoje nagranie"
 msgstr "Send your recording"
+
+#: core/templates/core/login.html:2
+msgid "Login"
+msgstr "Login"
+
+#: core/templates/core/login.html:11
+msgid "Nazwa Konta"
+msgstr "Username"
+
+#: core/templates/core/login.html:18
+msgid "Zaloguj się"
+msgstr "Login"
 
 #: core/templates/core/signup.html:11
 msgid "Zarejestruj nowe konto"

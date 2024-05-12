@@ -1,21 +1,21 @@
-{% extends 'core/base.html' %}
-{% block title %}Login{% endblock title %}
+{% extends 'core/base.html' %} {% load i18n %}
+{% block title %}{% trans "Login" %}{% endblock title %}
 
 {% block content %}
     <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10">
-        <h1 class="mb-6 text-3xl">Sign up</h1>
+        <h1 class="mb-6 text-3xl">{% trans "Logowanie" %}</h1>
         <form method="post" action=".">
             {% csrf_token %}
             {{ form.non_field_errors }}
             <div class="mb-3">
-                <label class="inline-block mb-2">Username:</label><br>
+                <label class="inline-block mb-2">{% trans "Nazwa Konta" %}:</label><br>
                 {{ form.username }}
             </div>
             <div class="mb-3">
-                <label class="inline-block mb-2">Password:</label><br>
+                <label class="inline-block mb-2">{% trans "Hasło" %}:</label><br>
                 {{ form.password }}
             </div>
-            <button class="py-4 mt-6 w-full text-lg bg-teal-500 hover:bg-teal-700 rounded-xl">Login</button>
+            <button class="py-4 mt-6 w-full text-lg bg-secondary hover:bg-teal-700 rounded-xl">{% trans "Zaloguj się" %}</button>
         </form>
     </div>
 {% endblock content %} 
