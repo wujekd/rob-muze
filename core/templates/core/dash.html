@@ -10,18 +10,18 @@
         <img class="rounded-circle account-img" src="" alt="sdfds" style="cursor: pointer;"/>
     </div>
     <div class="form-group">
-        <a href="{% url 'core:changePassword' %}">Zmien Haslo</a>
+        <a href="{% url 'core:changePassword' %}">{% trans "Zmień Hasło" %}</a>
         <hr>
         {% comment %} <label class="small mb-1">Change Avatar:</label>
         {{ profile_form.avatar }} {% endcomment %}
     </div>
-    <div><a href="{% url 'core:editMail' %}"><button>Zmien Email</button></a>
+    <div><a href="{% url 'core:editMail' %}"><button>{% trans "Zmień Email" %}</button></a>
 <div class="item">
     <div class="grid grid-cols-3 gap-3 mt-20">
-        <h1>Welcome, {{ user.username }}!</h1>
+        <h1>{% trans "Witaj" %}, {{ user.username }}!</h1>
         <p>Email: {{ user.email }}</p>
-       <div> <p>Konto stworzone:</p><p>{{ user.date_joined }}</p></div>
-        <p>Masz: {{ profil.points }} punkty.</p>
+       <div> <p>{% trans "Konto stworzone" %}:</p><p>{{ user.date_joined }}</p></div>
+        <p>{% trans "Masz" %}: {{ profil.points }} {% trans "punkty" %}.</p>
         <p>{{ profil.bio }}</p>
         {% get_current_language as LANGUAGE_CODE %}
         <p>{% trans "Język" %}: {{ LANGUAGE_CODE }}</p>
@@ -29,17 +29,17 @@
 </div>
 <div class="mt-6 px-6 py-12 bg-primary bg-opacity-50 shadow-lg">
 {% if collabs %}
-        <h2 class="mb-12 text-2xl text-center">Przeslane nagrania</h2>
+        <h2 class="mb-12 text-2xl text-center">{% trans "Przeslane nagrania" %}</h2>
     {% for collab in collabs %}
         <div class="item">
             <h1>{{ collab.title }}</h1>
             <p>{{ collab.msg }}</p>
             <p>{{ collab.date }}</p>
-           <div> <p>Nazwa przeslanego pliku: <br>{{ collab.file.name|basename }}</p></div>
+           <div> <p>{% trans "Nazwa pliku" %}: <br>{{ collab.file.name|basename }}</p></div>
         </div>
     {% endfor %}
 {% else %}
-    <h2 class="mb-12 text-2xl text-center">Nie masz jeszcze zadnych przeslanych nagran.</h2>
+    <h2 class="mb-12 text-2xl text-center">{% trans "Nie masz jeszcze przesłanych nagrań" %}.</h2>
 {% endif %}
     </div>
 

@@ -3,11 +3,12 @@
 Kolaboracje
 {% endblock title %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 <br><br><br><br>
 <div class="mainContainer"> 
-<h1 class="test">Aktywne Kolaboracje</h1>
+<h1 class="test">{% trans "Aktywne Kolaboracje" %}</h1>
 
 
 {% for collab in collabs %}
@@ -41,7 +42,7 @@ Kolaboracje
 <div class="mainContainer">
 <div style="margin-top: 16px" class="mainContainer rounded-sm"> 
 
-<h1 class="test">Aktywne Glosowania</h1>
+<h1 class="test">{% trans "Aktywne Glosowania"%}</h1>
  <div class="rowCont">
   {% for voting in votings %}
   {% comment %} <a href="{% url 'collabs:voting' voting.id %}"> {% endcomment %}
@@ -62,7 +63,7 @@ Kolaboracje
 {% comment %} </a> {% endcomment %}
   {% endfor %}
 </div> 
-<a href="{% url 'collabs:votings' %}"><button class="tableButtons">Zobacz wszystkie glosowania</button></a>
+<a href="{% url 'collabs:votings' %}"><button class="tableButtons">{% trans "Zobacz wszystkie glosowania"%}</button></a>
 
 </div>
 

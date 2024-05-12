@@ -19,16 +19,16 @@ Browse
                         <span class="sr-only">Image</span>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nazwa
+                        {% trans "Nazwa" %}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Opis
+                        {% trans "Opis" %}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Rodzaj
+                        {% trans "Rodzaj" %}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Cena
+                        {% trans "Cena" %}
                     </th>
                 </tr>
             </thead>
@@ -53,7 +53,7 @@ Browse
                           </audio>
                     </td>
                     <td class="px-6 py-4">
-                        <p>{{ sampel.cena }}pkt.</p>
+                        <p>{{ sampel.cena }}</p>
                     </td>
                 </tr>
                 {% endfor %}

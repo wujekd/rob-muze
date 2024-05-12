@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 00:48+0000\n"
+"POT-Creation-Date: 2024-05-12 08:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,115 +17,168 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/forms.py:23 core/forms.py:95
+#: collabs/templates/collabs/collabs.html:11
+msgid "Aktywne Kolaboracje"
+msgstr "Active Collaborations"
+
+#: collabs/templates/collabs/collabs.html:46
+msgid "Aktywne Glosowania"
+msgstr "Open Votings"
+
+#: collabs/templates/collabs/collabs.html:69
+msgid "Zobacz wszystkie glosowania"
+msgstr "Check All Votings"
+
+#: core/forms.py:21 core/forms.py:93
 msgid "Nazwa Użytkownika"
 msgstr "Username"
 
-#: core/forms.py:24 core/forms.py:96
+#: core/forms.py:22 core/forms.py:94
 msgid "Hasło"
 msgstr "Password"
 
-#: core/forms.py:89
+#: core/forms.py:87
 msgid "Udowodnij ze nie jestes robotem, zarejestruj sie potem."
 msgstr "You must prove you are not a robot."
 
-#: core/forms.py:97
+#: core/forms.py:95
 msgid "Potwierdź hasło"
 msgstr "Confirm Password"
 
-#: core/forms.py:98
+#: core/forms.py:96
 msgid "Adres email"
 msgstr "E-mail address"
 
-#: core/forms.py:100
+#: core/forms.py:98
 msgid "Wybierz"
 msgstr "Choose"
 
-#: core/forms.py:101
+#: core/forms.py:99
 msgid "Wokal/Inst"
 msgstr "Vocals or an Instrument"
 
-#: core/forms.py:102
+#: core/forms.py:100
 msgid "Produkcja"
 msgstr "Production"
 
-#: core/forms.py:103
+#: core/forms.py:101
 msgid "Zadnej pracy sie nie boje"
 msgstr "Bit of everything"
 
-#: core/forms.py:111
+#: core/forms.py:109
 msgid "Hasla do siebie nie pasuja."
 msgstr "Passwords dont match."
 
-#: core/templates/core/base.html:30 core/templates/core/index.html:34
+#: core/templates/core/base.html:29 core/templates/core/index.html:33
 msgid "Sample"
 msgstr "Samples"
 
-#: core/templates/core/base.html:31 core/templates/core/index.html:48
+#: core/templates/core/base.html:30 core/templates/core/index.html:47
 msgid "Kolaboracje"
 msgstr "Collaborations"
 
-#: core/templates/core/base.html:39
+#: core/templates/core/base.html:38
 msgid "Ankiety"
 msgstr "Polls"
 
-#: core/templates/core/base.html:42
+#: core/templates/core/base.html:41
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: core/templates/core/base.html:43
+#: core/templates/core/base.html:42
 msgid "Wyloguj"
 msgstr "Logout"
 
-#: core/templates/core/base.html:46 core/templates/core/signup.html:5
+#: core/templates/core/base.html:45 core/templates/core/signup.html:5
+#: robmuze/templates/404.html:5
 msgid "Rejestracja"
 msgstr "Register"
 
-#: core/templates/core/base.html:47
+#: core/templates/core/base.html:46
 msgid "Logowanie"
 msgstr "Login"
 
-#: core/templates/core/base.html:59
+#: core/templates/core/base.html:58
 msgid "Pobrań"
 msgstr "Downloads"
+
+#: core/templates/core/dash.html:13
+msgid "Zmień Hasło"
+msgstr "Change Password"
+
+#: core/templates/core/dash.html:19
+msgid "Zmień Email"
+msgstr "Change E-mail"
+
+#: core/templates/core/dash.html:22
+msgid "Witaj"
+msgstr "Welcome"
+
+#: core/templates/core/dash.html:24
+msgid "Konto stworzone"
+msgstr "Accound Created"
+
+#: core/templates/core/dash.html:25
+msgid "Masz"
+msgstr "Have"
+
+#: core/templates/core/dash.html:25
+msgid "punkty"
+msgstr "points"
+
+#: core/templates/core/dash.html:28
+msgid "Język"
+msgstr "Language"
+
+#: core/templates/core/dash.html:33
+msgid "Przeslane nagrania"
+msgstr "Sent recordings"
+
+#: core/templates/core/dash.html:39
+msgid "Nazwa pliku"
+msgstr "File Name"
+
+#: core/templates/core/dash.html:43
+msgid "Nie masz jeszcze przesłanych nagrań"
+msgstr "You haven't send anything yet"
 
 #: core/templates/core/index.html:6
 msgid "Glowna"
 msgstr "Main"
 
-#: core/templates/core/index.html:35
+#: core/templates/core/index.html:34
 msgid "Zbior unikatowych sampli i nagran"
 msgstr "A unique collection of samples and recordings"
 
-#: core/templates/core/index.html:35
+#: core/templates/core/index.html:34
 msgid "Materialy do produkcji muzycznej"
 msgstr "Music production resources"
 
-#: core/templates/core/index.html:36
+#: core/templates/core/index.html:35
 msgid "Dostepne sample"
 msgstr "Available samples"
 
-#: core/templates/core/index.html:49
+#: core/templates/core/index.html:48
 msgid "Dograj sie do istniejacego nagrania"
 msgstr "Record your take to the existing record"
 
-#: core/templates/core/index.html:49
+#: core/templates/core/index.html:48
 msgid "albo przeslij swoj autorski pomysl"
 msgstr "or send your original idea"
 
-#: core/templates/core/index.html:50
+#: core/templates/core/index.html:49
 msgid "Aktywne kolaboracje"
 msgstr "Active Collaborations"
 
-#: core/templates/core/index.html:62
+#: core/templates/core/index.html:61
 msgid "Glosowania"
 msgstr "Votings"
 
-#: core/templates/core/index.html:64
+#: core/templates/core/index.html:63
 msgid "Otwarte glosowania"
 msgstr "Open Votings"
 
-#: core/templates/core/index.html:170
+#: core/templates/core/index.html:169
 msgid "Przeslij swoje nagranie"
 msgstr "Send your recording"
 
@@ -165,3 +218,19 @@ msgstr "Register"
 msgid ""
 "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto."
 msgstr "You must agree to terms of service to register an account"
+
+#: samples/templates/samples/samples.html:22
+msgid "Nazwa"
+msgstr ""
+
+#: samples/templates/samples/samples.html:25
+msgid "Opis"
+msgstr ""
+
+#: samples/templates/samples/samples.html:28
+msgid "Rodzaj"
+msgstr ""
+
+#: samples/templates/samples/samples.html:31
+msgid "Cena"
+msgstr ""
