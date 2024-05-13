@@ -264,16 +264,16 @@ body{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 25px;
+  /* gap: 25px; */
 }
 
 .list-container .list {
-  padding-left: 20px;
+  padding-left: 2px;
 }
 
-.list-container .list li {
+/* .list-container .list li {
   font-size: 20px;
-}
+} */
 
 .button-container {
   display: flex;

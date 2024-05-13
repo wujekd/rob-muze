@@ -1,17 +1,23 @@
 {% extends 'core/base.html' %}
 {% block title %}
-Signup
+Collab
 {% endblock title %}
 {% load static %}{% load i18n %}
 {% block content %}
-  
-<br><br>
+
+{% get_current_language as LANG %}<br><br>
+
 
 {% comment %} top part {% endcomment %}
     <div class="header my-5 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
         <div class="header-container myContainer">
             <div class="title">
-                <span>{{collab.title}}</span>
+                <span>{% if LANG == 'pl' %}
+                    {{collab.title}}
+                    {% elif LANG == 'en'%}
+                    {{collab.title_en}}
+                    {% endif %}
+                </span>
                 
             </div>
             <div class="date-time">
@@ -26,8 +32,9 @@ Signup
     <div class="about my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
         <div class="about-container myContainer">
             <div class="about-item">
-                <div class="title">Title Name Here</div>
+                <div class="title">co tutaj?</div>
                 <div class="description">
+
                     <div class="iconHolder">
                         {% if collab.wokal == True %}
                         <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
@@ -36,7 +43,12 @@ Signup
                         <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
                         {% endif %}
                         </div>
-                    <p>{{collab.desc}}</p>
+
+                    <p>{% if LANG == 'pl' %}
+                        {{collab.desc}}
+                        {% elif LANG == 'en'%}
+                        {{collab.desc_en}}
+                        {% endif %}</p>
 
                 </div>
             </div>
@@ -53,18 +65,26 @@ Signup
     <div id="dynamic" class="list-description mt-5 mb-4 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
         <div class="description-container myContainer">
             <div class="description-item">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga iusto et harum veniam corrupti quasi
-                    dolorum alias earum repudiandae, voluptates dolore. Perferendis perspiciatis aperiam aut atque nam
-                    reprehenderit quam repudiandae?</p>
+                <p>{% if LANG == 'pl' %}
+                    {{collab.desc2}}
+                    {% elif LANG == 'en'%}
+                    {{collab.desc2_en}}
+                    {% endif %}</p>
                     <p>{% trans "Ilosc przesłanych zgłoszeń" %}: {{ submission_count }}</p>
             </div>
             <div class="description-item">
                 <div class="list-container">
-                    <ul class="list">
-                        <li><span>List One</span></li>
-                        <li><span>List Two</span></li>
-                        <li><span>List Three</span></li>
-                    </ul>
+                    <div class="flex flex-col">
+                    <p>In the pack:</p>
+                    <ul style="list-style-type: disc">
+                        {% if collab.backing_track %}<li><span>Podkład audio</span></li>{% endif %}
+                        {% if collab.demo %}<li><span>Przykładowe wykonanie</span></li>{% endif %}
+                        {% if collab.score %}<li><span>Zapis w nutach</span></li>{% endif %}
+                        {% if collab.midi %}<li><span>MIDI</span></li>{% endif %}
+                        {% if collab.ableton %}<li><span>Projekt ableton</span></li>{% endif %}
+                        {% if collab.reaper %}<li><span>Projekt reaper</span></li>{% endif %}
+                        {% if collab.logic %}<li><span>Projekt Logic</span></li>{% endif %}
+                    </ul></div>
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
                         <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
                     </div>
