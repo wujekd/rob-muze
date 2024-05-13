@@ -1048,6 +1048,10 @@ h1,h2,h3,h4,h5,h6 {
   padding: 2rem;
 }
 
+.p-5{
+  padding: 1.25rem;
+}
+
 .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
