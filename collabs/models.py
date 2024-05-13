@@ -5,16 +5,33 @@ from django.contrib.auth.models import User
 
 class Collab(models.Model):
     title = models.TextField(max_length=30)
-    desc = models.TextField(max_length=300)
+    title_en = models.TextField(max_length=30, null=True, blank=True)
+    desc = models.TextField(max_length=300, null=True, blank=True)
+    desc_en = models.TextField(max_length=300, null=True, blank=True)
+    desc2 = models.TextField(max_length=300, null=True, blank=True)
+    desc2_en = models.TextField(max_length=300, null=True, blank=True)
+
     date = models.DateTimeField(auto_now_add=True)
+    duration = models.IntegerField(null= True, blank= True)
+
+    # the pack
     download_pack = models.FileField(upload_to='collabs/downloads', null=True, blank=True)
-    glosowanie = models.BooleanField(default=False)
+    backing_track = models.BooleanField(default=False)
+    demo = models.BooleanField(default=False)
+    score = models.BooleanField(default=False)
+    midi = models.BooleanField(default=False)
+    ableton = models.BooleanField(default=False)
+    reaper = models.BooleanField(default=False)
+    logic = models.BooleanField(default=False)
+
+    
     
     # tag fields
     wokal = models.BooleanField(default=False)
     instrument = models.BooleanField(default=False)
     rap = models.BooleanField(default=False)
     # use for tagname in tags --> <a href media/tags/tagname
+    glosowanie = models.BooleanField(default=False)
     
     
     def __str__(self):
