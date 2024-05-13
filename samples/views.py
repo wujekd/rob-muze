@@ -65,7 +65,6 @@ def download_file(request, pk):
         download_record.save()
         
         messages.add_message(request, messages.SUCCESS, 'Pobrano ' + sampel.title + '!', extra_tags='bg-green-800')
-        # Downloads.objects.create(user=user, sample=sampel)
         
         return response
     

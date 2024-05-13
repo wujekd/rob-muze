@@ -50,7 +50,7 @@ Signup
     </div>
 
 <!-- download section -->
-    <div class="list-description mt-5 mb-4 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <div id="dynamic" class="list-description mt-5 mb-4 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
         <div class="description-container myContainer">
             <div class="description-item">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga iusto et harum veniam corrupti quasi
@@ -66,7 +66,7 @@ Signup
                         <li><span>List Three</span></li>
                     </ul>
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
-                        <button>{% trans "Pobierz" %}</button>
+                        <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@ Signup
     </div>
 
 
-     
+     {% comment %} timer {% endcomment %}
 <script>
 var timeRemaining = {{ time }};
 
@@ -110,10 +110,70 @@ console.log("elo")
 updateCountdownTimer();
 
 var countdownTimer = setInterval(function() {
-    timeRemaining--;
+timeRemaining--;
     updateCountdownTimer();
 }, 1000);
     </script>
+
+
+
+    {% comment %} download warning {% endcomment %}
+<script>
+    var downloadUrl = "";
+</script>
+<script>
+
+    var originalContent = null;
+
+    function showConfirmation() {
+        var content = document.getElementById('dynamic');
+        originalContent = content.innerHTML; 
+        var height = content.offsetHeight;  
+        content.style.opacity = '0';
+        setTimeout(function() {
+            content.style.display = 'flex'; 
+            content.style.justifyContent = 'center';  
+            content.style.alignItems = 'center';  
+            content.innerHTML = '<p>Upewnij sie, ze masz stabilne polaczenie poniewaz domyslnie mozesz pobrac kazdy sampel tylko raz!</p>' +
+            '<button id="countdownButton" style="width: 168px; opacity: 0.65; transition: opacity 0.45s ease-in-out" disabled class="btn-primary">5</button>' +
+            '<button onclick="goBack()" style="margin: 0px 5px 0px 5px" class="btn-primary">Powrot</button>';
+            content.style.minHeight = height + 'px';  
+            content.style.opacity = '1';
+            content.classList.add('bg-secondary');
+
+    
+            var countdown = 5;
+            var countdownButton = document.getElementById('countdownButton');
+            var countdownInterval = setInterval(function() {
+                countdown--;
+                if (countdown >= 1) {
+                    countdownButton.style.opacity = '0.65';
+                    countdownButton.innerText = countdown;
+                } else {
+                  
+                    clearInterval(countdownInterval);
+                    countdownButton.innerText = 'Pobierz!';
+                    countdownButton.style.opacity = 1; 
+                    countdownButton.disabled = false;
+                    countdownButton.onclick = function() {
+                        window.location.href = downloadUrl;
+                    };
+                }
+            }, 1000);
+        }, 500);  
+    }
+
+    function goBack() {
+        var content = document.getElementById('dynamic');
+        content.style.opacity = '0';
+        setTimeout(function() {
+            content.style.display = 'block';  // restore the original display value
+            content.innerHTML = originalContent;  // restore the original content of the div
+            content.style.opacity = '1';
+        }, 500);
+    }
+
+</script>
 
 
 {% endblock content %}
