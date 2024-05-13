@@ -14,7 +14,7 @@ class CollabSubform(forms.ModelForm):
         file = self.cleaned_data.get('file')
 
         if file:
-            if file.size > 70*1024*1024:  # limit is set to 70 MB
+            if file.size > 100*1024*1024:  # limit is set to 70 MB
                 raise forms.ValidationError('Maksymalny rozmiar pliku to 70MB')
 
             if not file.name.endswith('.wav'):
