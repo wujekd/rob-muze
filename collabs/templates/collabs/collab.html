@@ -119,7 +119,7 @@ timeRemaining--;
 
     {% comment %} download warning {% endcomment %}
 <script>
-    var downloadUrl = "";
+    var downloadUrl = "{% url 'collabs:download_pack' collab.id %}";
 </script>
 <script>
 
