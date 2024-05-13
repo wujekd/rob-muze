@@ -4,13 +4,16 @@ Signup
 {% endblock title %}
 
 {% block content %}
-    <div class="w=1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl mt-40 text-gray-800">
+
+
+
+    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10">
         <h1 class="mb-6 text-3xl">Przeslij Swoje nagranie!</h1>
         <form method='post' enctype='multipart/form-data'>
             {% csrf_token %}
             {{ form.as_p }}
             {% comment %} <input type="hidden" name="collab_id" value="{{ collab.id }}"> {% endcomment %}
-            <button type='submit'>Przeslij</button>
+            <button class="py-4 mt-6 w-full text-lg bg-secondary hover:bg-teal-700 rounded-xl" type='submit'>Przeslij</button>
         </form>
     </div>
 {% endblock content %} 

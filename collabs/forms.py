@@ -2,9 +2,12 @@ from django import forms
 from .models import Collab, CollabSub
 
 class CollabSubform(forms.ModelForm):
-    title = forms.CharField(label='Tytol Utworu')
-    msg = forms.CharField(widget=forms.Textarea(attrs={'rows':4}), label='Description')
-    file = forms.FileField(label='Plik audio')
+    title = forms.CharField(label='Tytół Utworu', widget=forms.TextInput(attrs={
+        'class': 'w-full py-4 px-6 rounded-xl white-txt',}))
+    msg = forms.CharField(widget=forms.Textarea(attrs={'rows':4, 'class': 'w-full py-4 px-6 rounded-xl white-txt',}), label='Description',)
+    
+    file = forms.FileField(label='Plik audio', widget=forms.ClearableFileInput(attrs={
+        'class': 'downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl white-txt',}))
 
     class Meta:
         model = CollabSub
@@ -14,8 +17,8 @@ class CollabSubform(forms.ModelForm):
         file = self.cleaned_data.get('file')
 
         if file:
-            if file.size > 100*1024*1024:  # limit is set to 70 MB
-                raise forms.ValidationError('Maksymalny rozmiar pliku to 70MB')
+            if file.size > 100*1024*1024:
+                raise forms.ValidationError('Maksymalny rozmiar pliku to 100MB')
 
             if not file.name.endswith('.wav'):
                 raise forms.ValidationError('Tylko pliki .wav!')
