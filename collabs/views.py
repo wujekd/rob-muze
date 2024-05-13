@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.utils import timezone
 from datetime import timedelta
 from django.http import FileResponse
+import mimetypes
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
@@ -90,9 +91,16 @@ def collab_pack_download(request, pk):
     if True:
         file_path = Collab.objects.get(pk=pk).download_pack.url
         file_path = file_path[1:]
-
+        
+        content_type, _ = mimetypes.guess_type(file_path)
+        if not content_type:  # If mimetypes fails to guess, go back to octet-stream
+            content_type = 'application/octet-stream'
+            
         file = open(file_path, 'rb')
-        response = FileResponse(file, content_type='application/pdf')
+
+        response = FileResponse(file, content_type=content_type)
+
+        print(content_type)
         response['Content-Disposition'] = f'attachment; filename="{file_path.split("/")[-1]}"'
         
         # download_record = Downloads.objects.create(sample=sampel, user=user)
