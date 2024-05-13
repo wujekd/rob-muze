@@ -1,21 +1,33 @@
 {% extends 'core/base.html' %}
-{% load i18n %}
+{% load i18n %}{% load static %}
 {% load custom_filters %}
 
 {% block title %}Moj Profil{% endblock title %}
 {% block content %}
 <br><br>
 <div class="text-green-100 rounded-xl">
+
     <div class="row my-3 p-3">
-        <img class="rounded-circle account-img" src="" alt="sdfds" style="cursor: pointer;"/>
+        {% if profil.pic %}
+        <img class="rounded-circle account-img" src="{{ profil.pic.url }}"/>
+        {% else %}
+        <img class="rounded-circle account-img" src="{% static 'images/utility/no_pic.jpg' %}"/>
+        {% endif %}
     </div>
-    <div class="form-group">
+
+
+
+<div class="form-group">
         <a href="{% url 'core:changePassword' %}">{% trans "Zmień Hasło" %}</a>
         <hr>
-        {% comment %} <label class="small mb-1">Change Avatar:</label>
-        {{ profile_form.avatar }} {% endcomment %}
-    </div>
-    <div><a href="{% url 'core:editMail' %}"><button>{% trans "Zmień Email" %}</button></a>
+        <a href="{% url 'core:editMail' %}"><button>{% trans "Zmień Email" %}</button></a>
+        <hr>
+        <a href="{% url 'core:profilePic' %}"><button>Dodaj zdjecie profilowe</button></a>
+</div>
+
+
+
+
 <div class="item">
     <div class="grid grid-cols-3 gap-3 mt-20">
         <h1>{% trans "Witaj" %}, {{ user.username }}!</h1>

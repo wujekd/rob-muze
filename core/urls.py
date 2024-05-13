@@ -18,5 +18,6 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path('editmail/', views.editEmail, name="editMail"),
     path('zmienhaslo', views.ChangePasswordView.as_view(), name='changePassword'),
+    path('avatar/', views.profilePic, name="profilePic"),
     path('set_language/', views.SetLang.as_view(), name='set_language'),
 ]

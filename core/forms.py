@@ -5,6 +5,7 @@ from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 from django.utils.translation import gettext as _
 from account.models import Account
+from django.core.exceptions import ValidationError
 
 
 
@@ -131,5 +132,22 @@ class emailUpdate(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email']
+
+
+
+
+class profilePicForm(forms.ModelForm):
+    pic = forms.FileField(label='Plik audio', widget=forms.ClearableFileInput(attrs={
+        'class': 'downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl white-txt',}))
+
+    class Meta:
+        model = Account
+        fields = ['pic']
         
-        
+    def clean_pic(self):
+        pic = self.cleaned_data.get('pic')
+        if pic:
+            # Check if the picture size is greater than 5MB (5242880 bytes)
+            if pic.size > 5242880:  # 5MB in bytes
+                raise ValidationError("The maximum file size is 5MB.")
+        return pic

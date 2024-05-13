@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% block title %}Zmień Avatar{% endblock title %}
+{% block content %}
+</br></br></br></br></br>
+<h1>Zmień Avatar</h1>
+
+
+{% comment %} {% if form.errors %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <div id="form_errors">
+            {% for key, value in user_form.errors.items %}
+                <strong>{{ value }}</strong>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %} {% endcomment %}
+<div class="">
+    <form method='post' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %} <input type="hidden" name="collab_id" value="{{ collab.id }}"> {% endcomment %}
+        <button class="py-4 mt-6 w-full text-lg bg-secondary hover:bg-teal-700 rounded-xl" type='submit'>Przeslij</button>
+    </form>
+</div>
+
+
+{% endblock %}

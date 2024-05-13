@@ -13,7 +13,7 @@ from django.utils.encoding import force_bytes, force_str
 from.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from core.forms import emailUpdate
+from core.forms import emailUpdate, profilePicForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -157,3 +157,20 @@ def editEmail(request):
         emailForm = emailUpdate(instance=request.user)
         
     return render(request, 'core/editmail.html', {"emailForm" : emailForm})
+
+
+def profilePic(request):
+    account = request.user.account
+    if request.method == 'POST':
+        form = profilePicForm(request.POST, 
+                                request.FILES,
+                                instance=account)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Obrazek Profilowy Zaaktualizowany!")
+            return redirect(to='core:profil')
+    else:
+        form = profilePicForm(instance=account)
+        
+    return render(request, 'core/profilePic.html', {"form" : form})
