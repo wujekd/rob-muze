@@ -19,7 +19,6 @@ body{
 .test {
     font-size: 28px;
     font-weight: bold;
-    color: #333;
   }
   .menuGlow {
       text-decoration: underline; /* Add your preferred style for emphasis */
@@ -30,7 +29,6 @@ body{
 
 }
   .mainContainer {
-    background-color: rgba(72, 69, 69, 0.36); padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,11 +48,11 @@ body{
     
     font-size: 15px;
 
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 5px rgba(27, 48, 49, 0,5);
   transition: background-color 0.3s;
   }
   .item:hover{
-    background-color: rgba(15, 20, 15, 0.547);
+    background-color: rgba(27, 48, 49, 1);
   }
   .item p{
     flex-shrink: 3;
@@ -81,14 +79,10 @@ body{
   display: flex;
   flex-direction: column;
 }
-  .ankiety {
-    /* background-color: #3333336d; */
-  }
 
-
-  .blk-txt {
-    color: #333;
-  }
+.blk-txt {
+  color: #333;
+}
 
 .signupChecks {
   display: flex;
@@ -109,14 +103,13 @@ body{
 
   }
   .smallItem{
-    width: 33%;
-    /* margin: 10px; */
-    margin-top:  17px;
-    padding: 10px;
+    margin:  10px;
+    padding: 15px;
+    background-color: rgba(27, 48, 49, 0.5);
     transition: background-color 0.3s;
   }
   .smallItem:hover {
-    background-color: rgba(15, 20, 15, 0.344);
+    background-color: rgba(27, 48, 49, 1);
   }
 .detailBig{
   flex-grow: 3;
