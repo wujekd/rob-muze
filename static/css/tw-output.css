@@ -702,6 +702,10 @@ h1,h2,h3,h4,h5,h6 {
   margin: 0.75rem;
 }
 
+.m-5{
+  margin: 1.25rem;
+}
+
 .-mx-2{
   margin-left: -0.5rem;
   margin-right: -0.5rem;
@@ -801,6 +805,18 @@ h1,h2,h3,h4,h5,h6 {
   margin-top: 1.5rem;
 }
 
+.mb-5{
+  margin-bottom: 1.25rem;
+}
+
+.mt-3{
+  margin-top: 0.75rem;
+}
+
+.mt-2{
+  margin-top: 0.5rem;
+}
+
 .block{
   display: block;
 }
@@ -819,10 +835,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .table{
   display: table;
-}
-
-.grid{
-  display: grid;
 }
 
 .hidden{
@@ -913,16 +925,24 @@ h1,h2,h3,h4,h5,h6 {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.flex-row{
+  flex-direction: row;
 }
 
 .flex-col{
   flex-direction: column;
 }
 
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
 .place-content-center{
   place-content: center;
+}
+
+.content-center{
+  align-content: center;
 }
 
 .items-center{
@@ -937,12 +957,8 @@ h1,h2,h3,h4,h5,h6 {
   justify-content: space-between;
 }
 
-.justify-items-center{
-  justify-items: center;
-}
-
-.gap-3{
-  gap: 0.75rem;
+.justify-evenly{
+  justify-content: space-evenly;
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]){
@@ -965,10 +981,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .rounded-lg{
   border-radius: 0.5rem;
-}
-
-.rounded-sm{
-  border-radius: 0.125rem;
 }
 
 .rounded-xl{
@@ -1040,6 +1052,10 @@ h1,h2,h3,h4,h5,h6 {
   padding: 1rem;
 }
 
+.p-5{
+  padding: 1.25rem;
+}
+
 .p-6{
   padding: 1.5rem;
 }
@@ -1048,8 +1064,8 @@ h1,h2,h3,h4,h5,h6 {
   padding: 2rem;
 }
 
-.p-5{
-  padding: 1.25rem;
+.p-2{
+  padding: 0.5rem;
 }
 
 .px-2{
@@ -1087,6 +1103,16 @@ h1,h2,h3,h4,h5,h6 {
   padding-bottom: 1rem;
 }
 
+.py-5{
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .pb-8{
   padding-bottom: 2rem;
 }
@@ -1105,6 +1131,10 @@ h1,h2,h3,h4,h5,h6 {
 
 .pt-4{
   padding-top: 1rem;
+}
+
+.pb-5{
+  padding-bottom: 1.25rem;
 }
 
 .text-left{
