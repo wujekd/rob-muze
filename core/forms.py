@@ -127,7 +127,7 @@ class SignupForm2(forms.Form):
     
 class emailUpdate(forms.ModelForm):
     email = forms.EmailField(required=True,
-                                widget=forms.TextInput(attrs={'class' : 'accForm'}))
+                                widget=forms.TextInput())
     
     class Meta:
         model = User
@@ -136,8 +136,9 @@ class emailUpdate(forms.ModelForm):
 
 
 
+
 class profilePicForm(forms.ModelForm):
-    pic = forms.FileField(label='Plik audio', widget=forms.ClearableFileInput(attrs={
+    pic = forms.FileField(label='', widget=forms.ClearableFileInput(attrs={
         'class': 'downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl white-txt',}))
 
     class Meta:

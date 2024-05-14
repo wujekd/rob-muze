@@ -2,40 +2,27 @@
 {% block title %}Zmien Email{% endblock title %}
 {% block content %}
 </br></br></br></br></br>
-<h1>edit email</h1>
 
 
-{% if emailForm.errors %}
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <div id="form_errors">
-            {% for key, value in user_form.errors.items %}
-                <strong>{{ value }}</strong>
-            {% endfor %}
+<div class="flex flex-col items-center px-4 py-5 bg-secondary bg-opacity-50 shadow-lg">
+    {% if errors %}
+        <div id="form_errors" class="self-start bg-accent p-3 ml-8 mb-4 bg-opacity-90 shadow-lg rounded-md">
+                    <strong>Please enter a valid email address!</strong>
         </div>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-{% endif %}
-<div class="item">
-    <form method="post" enctype="multipart/form-data">
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="w-full">
+        <div class="flex flex-wrap items-center justify-around grow">
         {% csrf_token %}
-        <div class="form-row">
-            <div class="mainContainer">
-                <div class="item">
-                    <label class="small mb-1">Email:</label>
+                <div class="flex flex-wrap">
+                    <label class="small mx-2">Email:</label>
                     <div  style="color: black">
                         {{ emailForm.email }}</div>
-                </div>
-{% comment %}           
-                <label class="small mb-1">Bio:</label> {{ profile_form.bio }} {% endcomment %}
-            </div>
         </div>
-        <br><br>
-        <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
-        <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+        <button type="submit" class="secondary-button w-1/6">Save Changes</button>
+        <button type="reset" class="secondary-button w-1/6">Reset</button>
+    </div>
     </form>
 </div>
-
 
 {% endblock %}

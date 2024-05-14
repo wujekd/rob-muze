@@ -129,7 +129,8 @@ def signup(request):
 def profil(request):
 
     user = request.user
-    profil = Account.objects.filter(user=user).first()
+    # profil = Account.objects.filter(user=user).first() -needs .first cos a query set
+    profil = user.account
     collabs = CollabSub.objects.filter(user=user)
     context = {
         'user': user,
@@ -145,19 +146,18 @@ def profil(request):
 
 def editEmail(request):
     if request.method == 'POST':
-        emailForm = emailUpdate(request.POST, 
-                                # request.FILES,
-                                instance=request.user)
-        
+        emailForm = emailUpdate(request.POST, instance=request.user)
         if emailForm.is_valid():
             emailForm.save()
             messages.success(request, "Email Zaaktualizowany!")
-            return redirect(to='core:profil')
+            return redirect('core:profil')
     else:
         emailForm = emailUpdate(instance=request.user)
-        
-    return render(request, 'core/editmail.html', {"emailForm" : emailForm})
 
+    # Add this line to display form errors in the template
+    errors = emailForm.errors.as_data() if emailForm.errors else None
+    
+    return render(request, 'core/editmail.html', {"emailForm" : emailForm, "errors": errors})
 
 def profilePic(request):
     account = request.user.account
@@ -173,4 +173,6 @@ def profilePic(request):
     else:
         form = profilePicForm(instance=account)
         
-    return render(request, 'core/profilePic.html', {"form" : form})
+    return render(request, 'core/profilePic.html', 
+                  {"form" : form,
+                   "profil" : account})
