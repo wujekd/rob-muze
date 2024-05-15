@@ -174,11 +174,13 @@ STATIC_URL = 'static/'
 # STATICFILES_DIRS = [ BASE_DIR / 'static']
 import os
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [ BASE_DIR / 'static']
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -191,7 +193,7 @@ EMAIL_USE_SSL = False
 
 PASSWORD_RESET_TIMEOUT = 14400
 
-STATIC_ROOT = BASE_DIR.parent / 'local-cdn' / 'static'
+# STATIC_ROOT = BASE_DIR.parent / 'local-cdn' / 'static'
 # MEDIA_URL = 'media/'
 # MEDIA_ROOT = BASE_DIR / 'media'
 # import os

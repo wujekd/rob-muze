@@ -194,7 +194,9 @@ transition: background-color 0.3s;
 
 
 
-
+.not-visible {
+  display: none;
+}
 
 /* collab page */
 /* collab page */

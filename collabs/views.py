@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Collab, CollabSub, Voting, Vote
+from .models import Collab, CollabSub, Voting, Vote, PackDownloads
 from account.models import Account
 from .forms import CollabSubform
 from django.contrib import messages
@@ -27,23 +27,84 @@ def collabs(request):
 
 
 def collab(request, pk):
+    user = request.user
     collab = Collab.objects.get(pk=pk)
     submission_count = CollabSub.objects.filter(collab=pk).count()
-    print(submission_count)
+    download_count = PackDownloads.objects.filter(collab=pk).count()
+    
+    
+    submitted = False
+    if PackDownloads.objects.filter(collab=pk, user=user):
+        downloaded = True
+        if CollabSub.objects.filter(collab=pk, user=user):
+            submitted = True
+    else:
+        downloaded = False
+    
     deadline = collab.date + timedelta(weeks=4)
     time = int((deadline - timezone.now()).total_seconds())
     
     return render(request, 'collabs/collab.html', {
         'collab' : collab,
         "submission_count" : submission_count,
+        "download_coult" : download_count,
         "time": time,
+        'downloaded' : downloaded,
+        'submitted' : submitted,
     })
+    
+    
+def collab_pack_download(request, pk):
+    
+    collab = Collab.objects.get(pk=pk)
+    
+    user = request.user
+    # user_acc = Account.objects.get(user=user)
+    account = request.user.account
+    
+    if PackDownloads.objects.filter(user=user, collab=collab):
+        return redirect('core:profil')
+        
+    # check if enough points
+    if account.points >= 30:
+        account.points - 30
+        account.save()
+    
+        file_path = Collab.objects.get(pk=pk).download_pack.url
+        file_path = file_path[1:]
+        
+        content_type, _ = mimetypes.guess_type(file_path)
+        if not content_type:  # If mimetypes fails to guess, go back to octet-stream
+            content_type = 'application/octet-stream'
+            
+        file = open(file_path, 'rb')
+
+        response = FileResponse(file, content_type=content_type)
+
+        response['Content-Disposition'] = f'attachment; filename="{file_path.split("/")[-1]}"'
+        
+        download_record = PackDownloads.objects.create(collab=collab, user=user)
+        download_record.save()
+        
+        messages.add_message(request, messages.SUCCESS, 'Pobrano ' + collab.title + '!', extra_tags='bg-secondary')
+        
+        return response
+    
+    else:
+        return render(request, 'samples/no_points.html', {
+            'points' : account.points,
+            'sample' : collab
+        })
 
 
 def przeslij(request, pk):
+    user = request.user
     collab = Collab.objects.get(pk=pk)
+    if CollabSub.objects.filter(user=user, collab=collab):
+        return redirect('core:profil') 
+        # !!!^
     form = CollabSubform(request.POST, request.FILES)
-    
+    # ??? can i just put pk instead of collab.id if collab pk=pk
     if request.method == 'POST':
         collab_id = collab.id
         title = request.POST.get('title')
@@ -52,7 +113,7 @@ def przeslij(request, pk):
         
         if form.is_valid():
             collab_sub = CollabSub.objects.create(
-                user=request.user,
+                user=user,
                 collab_id=collab_id,
                 title=title,
                 msg=description,
@@ -67,55 +128,6 @@ def przeslij(request, pk):
         'collab' : collab,
         'form' : form,
 })
-    
-    
-def collab_pack_download(request, pk):
-    
-    collab = Collab.objects.get(pk=pk)
-    
-    # user = request.user
-    # user_acc = Account.objects.get(user=user)
-    
-    # check if downloaded
-    # if Downloads.objects.filter(user=user, sample=sampel).exists():
-    #     download = Downloads.objects.get(user=user, sample=sampel)
-    #     return render(request, 'samples/already_downloaded.html', {
-    #         'download' : download
-    #     })
-    
-    # check if enough points
-    # if user_acc.points >= sampel.cena:
-    #     user_acc.points -= sampel.cena
-    #     user_acc.save()
-    
-    if True:
-        file_path = Collab.objects.get(pk=pk).download_pack.url
-        file_path = file_path[1:]
-        
-        content_type, _ = mimetypes.guess_type(file_path)
-        if not content_type:  # If mimetypes fails to guess, go back to octet-stream
-            content_type = 'application/octet-stream'
-            
-        file = open(file_path, 'rb')
-
-        response = FileResponse(file, content_type=content_type)
-
-        print(content_type)
-        response['Content-Disposition'] = f'attachment; filename="{file_path.split("/")[-1]}"'
-        
-        # download_record = Downloads.objects.create(sample=sampel, user=user)
-        # download_record.save()
-        
-        messages.add_message(request, messages.SUCCESS, 'Pobrano ' + collab.title + '!', extra_tags='bg-secondary')
-        
-        return response
-    
-    # else:
-    #     return render(request, 'samples/no_points.html', {
-    #         'points' : user_acc.points,
-    #         'sampel' : sampel
-    #     })
-
 
 
 

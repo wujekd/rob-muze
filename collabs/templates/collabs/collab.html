@@ -43,7 +43,8 @@ Collab
                         <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
                         {% endif %}
                         </div>
-
+                        <p>downloaded: {{ downloaded }}</p>
+                        <p> submittedL: {{ submitted }}</p>
                     <p>{% if LANG == 'pl' %}
                         {{collab.desc}}
                         {% elif LANG == 'en'%}
@@ -188,7 +189,9 @@ timeRemaining--;
         content.style.opacity = '0';
         setTimeout(function() {
             content.style.display = 'block';  // restore the original display value
-            content.innerHTML = originalContent;  // restore the original content of the div
+            content.innerHTML = originalContent;  // restore the original content of the divisibleb
+            content.classList.remove('bg-secondary')
+            content.classList.add('bg-primary')
             content.style.opacity = '1';
         }, 500);
     }
