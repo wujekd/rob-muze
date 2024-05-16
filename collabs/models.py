@@ -36,7 +36,7 @@ class Collab(models.Model):
     
     
     def __str__(self):
-        return f'{self.title} - {self.date.date()}'
+        return f'{self.title} - {self.date.date()} - id: {self.id}'
     
     
 class PackDownloads(models.Model):

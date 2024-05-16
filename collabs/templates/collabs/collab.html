@@ -87,7 +87,22 @@ Collab
                         {% if collab.logic %}<li><span>Projekt Logic</span></li>{% endif %}
                     </ul></div>
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
-                        <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
+                        {% if downloaded %}
+
+{% comment %} 
+                        <button class="tableButtons">
+                            Przeslij swoje nagranie/ przeslano?.</button> {% endcomment %}
+
+
+
+                            <a href="{% url 'collabs:przeslij' collab.id %}"><button class="tableButtons">
+                                Przeslij swoje nagranie/ przeslano?.</button></a>
+                        {% else %}
+                            <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
+                        {% endif %}
+                        {% if submitted %}
+                                <div class =""><p>You already answered this collab</p></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -99,9 +114,7 @@ Collab
 {% comment %} bottom buttons {% endcomment %}
     <div class="button-container rounded-xl w-full">
         {% if request.user.is_authenticated %}
-<a href="{% url 'collabs:przeslij' collab.id %}">
-<button class="tableButtons">
-    Przeslij swoje nagranie/ przeslano?.</button></a>
+
  {% endif %}
 
 
