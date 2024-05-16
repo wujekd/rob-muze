@@ -32,26 +32,33 @@ def collab(request, pk):
     submission_count = CollabSub.objects.filter(collab=pk).count()
     download_count = PackDownloads.objects.filter(collab=pk).count()
     
-    
-    submitted = False
-    if PackDownloads.objects.filter(collab=pk, user=user):
-        downloaded = True
-        if CollabSub.objects.filter(collab=pk, user=user):
-            submitted = True
-    else:
-        downloaded = False
-    
     deadline = collab.date + timedelta(weeks=4)
     time = int((deadline - timezone.now()).total_seconds())
     
-    return render(request, 'collabs/collab.html', {
+    context = {
         'collab' : collab,
         "submission_count" : submission_count,
         "download_coult" : download_count,
         "time": time,
-        'downloaded' : downloaded,
-        'submitted' : submitted,
-    })
+    }
+    
+    
+    if request.user.is_authenticated:
+        submitted = False
+        if PackDownloads.objects.filter(collab=pk, user=user):
+            downloaded = True
+            if CollabSub.objects.filter(collab=pk, user=user):
+                submitted = True
+        else:
+            downloaded = False
+        
+        context.update({
+            'downloaded' : downloaded,
+            'submitted' : submitted,
+        })
+
+    return render(request, 'collabs/collab.html', context)
+    
     
     
 def collab_pack_download(request, pk):

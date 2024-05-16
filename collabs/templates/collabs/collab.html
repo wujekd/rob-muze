@@ -87,13 +87,9 @@ Collab
                         {% if collab.logic %}<li><span>Projekt Logic</span></li>{% endif %}
                     </ul></div>
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
+
+                    {% if request.user.is_authenticated %}
                         {% if downloaded %}
-
-{% comment %} 
-                        <button class="tableButtons">
-                            Przeslij swoje nagranie/ przeslano?.</button> {% endcomment %}
-
-
 
                             <a href="{% url 'collabs:przeslij' collab.id %}"><button class="tableButtons">
                                 Przeslij swoje nagranie/ przeslano?.</button></a>
@@ -103,24 +99,25 @@ Collab
                         {% if submitted %}
                                 <div class =""><p>You already answered this collab</p></div>
                         {% endif %}
+                    {% else %}
+                        <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">Musisz najpierw sie zalogowac</button>
+                    {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    {% if request.user.is_authenticated %}
 
+    {% endif %}
 
 {% comment %} bottom buttons {% endcomment %}
-    <div class="button-container rounded-xl w-full">
-        {% if request.user.is_authenticated %}
 
- {% endif %}
-
-
+    {% comment %} <div class="button-container rounded-xl w-full">
         <button class="py-4 mt-6 text-lg bg-primary hover:bg-secondary rounded-xl"
                 style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zagłosuj" %}</button>
-    </div>
+    </div> {% endcomment %}
 
 
      {% comment %} timer {% endcomment %}
