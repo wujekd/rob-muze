@@ -89,7 +89,6 @@ def collab_pack_download(request, pk):
         response = FileResponse(file, content_type=content_type)
 
         response['Content-Disposition'] = f'attachment; filename="{file_path.split("/")[-1]}"'
-        
         download_record = PackDownloads.objects.create(collab=collab, user=user)
         download_record.save()
         
@@ -146,6 +145,9 @@ def votings(request):
         'votings' : votings
     })
     
+    
+    
+    
 def voting(request, pk):
     voting = Voting.objects.get(pk=pk)
     collab = Collab.objects.get(pk=voting.collab.id)
@@ -158,6 +160,7 @@ def voting(request, pk):
         'subs' : subs,
         'vote_count' : vote_count
     })
+
 
 
 def vote(request, pk):

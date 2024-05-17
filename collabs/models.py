@@ -77,8 +77,10 @@ class Voting(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=30, blank=True)
+    name_en = models.CharField(max_length=30, blank=True,)
     active = models.BooleanField(default= True)
     description = models.TextField(max_length=150, blank=True)
+    description_en = models.TextField(max_length=150, blank=True)
     tags = models.CharField(max_length=50, blank=True)
     
     def tagList(self):
@@ -88,7 +90,7 @@ class Voting(models.Model):
         return f'Glosowanie - {self.collab.title}'
     
     def save(self, *args, **kwargs):
-        self.name = self.collab.title  # Set collab name when saving
+        self.name = self.name + '-' + self.collab.title  # Set collab name when saving
         super(Voting, self).save(*args, **kwargs)
 
 class Vote(models.Model):
