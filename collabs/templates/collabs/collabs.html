@@ -12,9 +12,8 @@ Kolaboracje
 
 
 {% for collab in collabs %}
-<a href="{% url 'collabs:collab' collab.id %}" class="">
-{{ collab.id }}
-    <div class="item" style="height: 30wh">
+<a href="{% url 'collabs:collab' collab.id %}" class="w-3/4">
+    <div class="item" style="height: 30wh w-3/4">
       <div class="logo"><img src="/rob_muze_logo.PNG" alt=""/></div>
       <div class="text">
       <h2 style="white-space: nowrap">{{collab.title}}</h2>

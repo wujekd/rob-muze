@@ -2,34 +2,86 @@
 {% block title %}
 Kolaboracje
 {% endblock title %}
-
+{% load i18n %}{% load static %}
 
 {% block content %}
 
-<br><br><br>
-<div class='mainContainer'>
-    
-    <h1>Glosowanie: {{ collab.title }}</h1>
-    <p>Opis {{ collab.desc }}</p>
-    <p>Ilosc glosow {{ vote_count }}</p>
+<br>
 
-    {% if collab.download_pack %}
-    <p>Oryginalny podklad</p>
-    <audio controls class="audio-player">
-        <source src="{{ collab.download_pack.url }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-{% endif %}
+
+
+
+{% get_current_language as LANG %}<br><br>
+
+
+{% comment %} top part {% endcomment %}
+<div class="header my-5 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <div class="header-container myContainer">
+        <div class="title">
+            <span>{% if LANG == 'pl' %}
+                {{ voting.name }}
+                {% elif LANG == 'en'%}
+                {{voting.name_en}}
+                {% endif %}
+            </span>
+            
+        </div>
+        <div class="date-time">
+            <div class="date"><span>{% trans "Dodano" %}: </span> <span>{{ voting.date }}</span></div>
+            <div class="time"><span>{% trans "Pozostało" %}: </span> <span id="countdown-timer"></span></div>
+        </div>
+    </div>
 </div>
-<br/>
-<div class="mainContainer">
 
 
-    <h2>Przeslane Odpowiedzi:</h2>
-    <ul>
-        {% for sub in subs %}
-        <div class="item">
-            <li>
+<!-- Main info -->
+<div class="about my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <div class="about-container myContainer">
+        <div class="about-item">
+            <div class="title">votig info</div>
+            <div class="description">
+
+                <div class="iconHolder">
+                    {% if voting.collab.wokal == True %}
+                    <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+                    {% endif %}
+                    {% if voting.collab.instrument == True %}
+                    <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+                    {% endif %}
+                    </div>
+                    <p>downloaded: {{ voted }}</p>
+                <p>{% if LANG == 'pl' %}
+                    {{voting.description}}
+                    {% elif LANG == 'en'%}
+                    {{voting.description_en}}
+                    {% endif %}</p>
+
+                    <div class='mainContainer'>
+    
+                        <h1>Glosowanie: {{ collab.title }}</h1>
+                        <p>Opis {{ collab.desc }}</p>
+                        <p>Ilosc glosow {{ vote_count }}</p>
+                    </div>
+
+            </div>
+        </div>
+        <div class="about-item">
+            <strong>Original collab</strong>
+            <iframe src="https://www.youtube.com/embed/X9ZBb-yBQng?si=MwF7_FH_pWU4gL3s" title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+
+<div class="flex flex-col items-center">
+    <div class="w-3/4 bg-secondary header p-6 rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
+        <h2>Przeslane Odpowiedzi:</h2>
+        <div class="w-full flex flex-col items-center">
+            {% for sub in subs %}
+            <div class="item w-2/3 bg-gray-100 p-10 m-5 rounded-lg my-2 flex justify-center items-center">
                 <h3>{{ sub.user.username }}</h3>
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
@@ -40,14 +92,15 @@ Kolaboracje
                     Your browser does not support the audio element.
                 </audio>
                 
-                <a href="{% url 'collabs:vote' sub.id %}">Zaglosuj</a>
-            </li>
+                <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Zaglosuj</a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </ul>
+    </div>
 </div>
 
-<script>
+
+{% comment %} <script>
     document.addEventListener('play', function(e){
         var audios = document.getElementsByTagName('audio');
         for(var i = 0, len = audios.length; i < len;i++){
@@ -56,5 +109,5 @@ Kolaboracje
             }
         }
     }, true);
-</script>
+</script> {% endcomment %}
 {% endblock %}
