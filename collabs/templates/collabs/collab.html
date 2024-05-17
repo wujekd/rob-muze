@@ -89,19 +89,23 @@ Collab
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
 
                     {% if request.user.is_authenticated %}
-                        {% if downloaded %}
 
-                            <a href="{% url 'collabs:przeslij' collab.id %}"><button class="tableButtons">
-                                Przeslij swoje nagranie/ przeslano?.</button></a>
+                        {% if downloaded %}
+                            {% if submitted %}
+                                <div class =""><p>You already answered this collab</p></div>
+                            {% else %}
+                             <a href="{% url 'collabs:sub_collab' collab.id %}"><button class="tableButtons">Przeslij odpowiedz</button></a>
+                            {% endif %}
                         {% else %}
                             <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
-                        {% endif %}
-                        {% if submitted %}
-                                <div class =""><p>You already answered this collab</p></div>
                         {% endif %}
                     {% else %}
                         <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">Musisz najpierw sie zalogowac</button>
                     {% endif %}
+
+                            
+                        
+                        
                     </div>
                 </div>
             </div>
