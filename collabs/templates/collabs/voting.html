@@ -100,14 +100,14 @@ Kolaboracje
 </div>
 
 
-{% comment %} <script>
-    document.addEventListener('play', function(e){
-        var audios = document.getElementsByTagName('audio');
-        for(var i = 0, len = audios.length; i < len;i++){
-            if(audios[i] != e.target){
-                audios[i].pause();
-            }
-        }
-    }, true);
-</script> {% endcomment %}
+
+
+     {% comment %} timer {% endcomment %}
+     <script>
+        var timeRemaining = {{ time }};
+    </script>
+    <script src="{% static "time-left.js" %}"></script>
+        
+        
+
 {% endblock %}

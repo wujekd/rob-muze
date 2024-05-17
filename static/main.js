@@ -12,3 +12,8 @@ toggleTheme.addEventListener('click', () => {
     const themeIcon = isDark ? 'light' : 'dark'
     toggleThemeIcon.src = 'images/icons/icon-${themeIcon}.svg';
 })
+
+
+
+
+

@@ -89,7 +89,6 @@ Collab
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
 
                     {% if request.user.is_authenticated %}
-
                         {% if downloaded %}
                             {% if submitted %}
                                 <div class =""><p>You already answered this collab</p></div>
@@ -102,53 +101,24 @@ Collab
                     {% else %}
                         <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">Musisz najpierw sie zalogowac</button>
                     {% endif %}
-
-                            
-                        
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {% if request.user.is_authenticated %}
 
-    {% endif %}
 
-{% comment %} bottom buttons {% endcomment %}
-
-    {% comment %} <div class="button-container rounded-xl w-full">
+{% comment %} <div class="button-container rounded-xl w-full">
         <button class="py-4 mt-6 text-lg bg-primary hover:bg-secondary rounded-xl"
                 style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zagłosuj" %}</button>
-    </div> {% endcomment %}
+    </div>  {% endcomment %}
 
 
-     {% comment %} timer {% endcomment %}
-<script>
-var timeRemaining = {{ time }};
-
-function updateCountdownTimer() {
-    var days = Math.floor(timeRemaining / (3600 * 24));
-    var hours = Math.floor((timeRemaining % (3600 * 24)) / 3600);
-    var minutes = Math.floor((timeRemaining % 3600) / 60);
-    var seconds = Math.floor(timeRemaining % 60);
-
-    document.getElementById('countdown-timer').textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-    if (timeRemaining <= 0) {
-        clearInterval(countdownTimer);
-        document.getElementById('countdown-timer').textContent = "Submission closed";
-    }
-}
-console.log("elo")
-updateCountdownTimer();
-
-var countdownTimer = setInterval(function() {
-timeRemaining--;
-    updateCountdownTimer();
-}, 1000);
+    <script>
+        var timeRemaining = {{ time }};
     </script>
+    <script src="{% static "time-left.js" %}"></script>
 
 
 

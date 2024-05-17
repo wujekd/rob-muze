@@ -154,10 +154,15 @@ def voting(request, pk):
     subs = CollabSub.objects.filter(collab=collab)
     vote_count = Vote.objects.filter(voting=voting).count()
     
+    deadline = voting.date + timedelta(weeks=1)
+    time = int((deadline - timezone.now()).total_seconds())
+    
+        
     return render(request, 'collabs/voting.html', {
         'voting' : voting,
         'collab' : collab,
         'subs' : subs,
+        "time" : time,
         'vote_count' : vote_count
     })
 
