@@ -136,7 +136,6 @@ def przeslij(request, pk):
 })
 
 
-
 # VOTINGS
 def votings(request):
     votings = Voting.objects.all()
@@ -145,8 +144,7 @@ def votings(request):
         'votings' : votings
     })
     
-    
-    
+
     
 def voting(request, pk):
     voting = Voting.objects.get(pk=pk)
@@ -176,8 +174,8 @@ def vote(request, pk):
         sub = CollabSub.objects.get(pk=id)
         voting = Voting.objects.get(collab=sub.collab)
         #
-        # ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
-        ip_check = False
+        ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
+        # ip_check = False
         if not ip_check:
             vote = Vote.objects.create(vote_on=sub, voting=voting, voter_ip=voter_ip)
             vote.save()
@@ -185,12 +183,13 @@ def vote(request, pk):
             print('IP CHECK PASSED - VOTE SAVED')
 
             return render(request, 'collabs/voted.html', {
-                'vote_success' : True
-                #pass what voted on
+                'vote_success' : True,
+                'voted_on' : sub
             })
         
         else:
             print('IP CHECK ERROR')
+            
             return render(request, 'collabs/voted.html', {
                 'vote_success' : False
             })
@@ -198,7 +197,6 @@ def vote(request, pk):
     
     else:
         sub = CollabSub.objects.get(pk=pk)
-        
         return render(request, 'collabs/vote.html', {
             'sub' : sub
         })

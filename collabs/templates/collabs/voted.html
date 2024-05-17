@@ -1,20 +1,20 @@
-
 {% extends 'core/base.html' %}
 {% block title %}
-Kolaboracje
+{% if vote_success %}ERROR{% else %}Success!{% endif %}
 {% endblock title %}
-
 
 {% block content %}
 
 <br><br><br>
-<div class="mainContainer">
-{% if vote_success %}
-<p>Udalo sie zaglosowac!</p>
-<p>Dziekujemy za udzial w glosowaniu.</p>
-{% else %}
-<p>Zaglosowales juz wczesniej!</p>
-{% endif %}
+<div class="about flex flex-col items-center my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+<div class="mainContainer bg-accent shadow-accent py-6 rounded w-3/4">
+    {% if vote_success %}
+    <p></p>
+    <p>oddano glos na {{ sub.title }}</p>
+    {% else %}
+    <p>Wzięto juz udzial w tym głosowaniu!</p>
+    {% endif %}
+</div>
 </div>
 
 {% endblock %}

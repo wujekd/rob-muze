@@ -7,6 +7,8 @@ Kolaboracje
 {% block content %}
 
 <br><br><br>
+
+<div class="about my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
 <div class="mainContainer">
 <p>zaglosuj na {{ sub.title }}</p>
             <form method="POST">
@@ -15,5 +17,6 @@ Kolaboracje
                 <button type="submit" class="tableButtons">Vote</button>
             </form>
         </div>
+</div>
         
 {% endblock %}

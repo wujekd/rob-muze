@@ -81,18 +81,16 @@ Kolaboracje
         <h2>Przeslane Odpowiedzi:</h2>
         <div class="w-full flex flex-col items-center">
             {% for sub in subs %}
-            <div class="item w-2/3 bg-gray-100 p-10 m-5 rounded-lg my-2 flex justify-center items-center">
+            <div class="item flex flex-wrap w-2/3 bg-gray-100 p-10 m-5 rounded-lg my-2 flex justify-center items-center">
                 <h3>{{ sub.user.username }}</h3>
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
                 <p>ilosc glosow {{ sub.vote_count }}</p>
-                
                 <audio controls class="audio-player">
                     <source src="{{ sub.file.url }}" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
-                
-                <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Zaglosuj</a>
+                <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Sprawdź</a>
             </div>
             {% endfor %}
         </div>
@@ -100,14 +98,9 @@ Kolaboracje
 </div>
 
 
-
-
-     {% comment %} timer {% endcomment %}
-     <script>
-        var timeRemaining = {{ time }};
-    </script>
-    <script src="{% static "time-left.js" %}"></script>
-        
-        
+<script>
+    var timeRemaining = {{ time }};
+</script>
+<script src="{% static "time-left.js" %}"></script>
 
 {% endblock %}
