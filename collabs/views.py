@@ -106,8 +106,8 @@ def collab_pack_download(request, pk):
 def przeslij(request, pk):
     user = request.user
     collab = Collab.objects.get(pk=pk)
-    if CollabSub.objects.filter(user=user, collab=collab):
-        return redirect('core:profil') 
+    # if CollabSub.objects.filter(user=user, collab=collab):
+    #     return redirect('core:profil') 
         # !!!^
     form = CollabSubform(request.POST, request.FILES)
     # ??? can i just put pk instead of collab.id if collab pk=pk
@@ -136,7 +136,7 @@ def przeslij(request, pk):
 })
 
 
-# VOTINGS
+                                # VOTINGS
 def votings(request):
     votings = Voting.objects.all()
     
@@ -145,12 +145,17 @@ def votings(request):
     })
     
 
-    
+                                 # VOTING
 def voting(request, pk):
     voting = Voting.objects.get(pk=pk)
     collab = Collab.objects.get(pk=voting.collab.id)
     subs = CollabSub.objects.filter(collab=collab)
     vote_count = Vote.objects.filter(voting=voting).count()
+    
+    
+    
+    if request.user.is_authenticated:
+        downloaded = ()
     
     deadline = voting.date + timedelta(weeks=1)
     time = int((deadline - timezone.now()).total_seconds())
@@ -161,7 +166,8 @@ def voting(request, pk):
         'collab' : collab,
         'subs' : subs,
         "time" : time,
-        'vote_count' : vote_count
+        'vote_count' : vote_count,
+        "downloaded" : downloaded,
     })
 
 

@@ -8,9 +8,6 @@ Kolaboracje
 
 <br>
 
-
-
-
 {% get_current_language as LANG %}<br><br>
 
 
@@ -85,7 +82,6 @@ Kolaboracje
                 <h3>{{ sub.user.username }}</h3>
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
-                <p>ilosc glosow {{ sub.vote_count }}</p>
                 <audio controls class="audio-player">
                     <source src="{{ sub.file.url }}" type="audio/mpeg">
                     Your browser does not support the audio element.

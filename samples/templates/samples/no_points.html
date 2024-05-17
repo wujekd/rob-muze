@@ -2,15 +2,16 @@
 {% block title %}No points{% endblock %}
 {% block content %}
 
-<div class="col-span-2 p-6 rounded-xl mt-40">
-    <div class="mt=20">
-
-        <h1>UR TOO POOR</h1>
-        <h2>To download {{ sampel.title }} you need {{ sampel.cena }}. 
-            Unfortunately, you only have {{ points }} points.</h2>
-        <a href="{% url 'ankiety:ankiety' %}">Go answer some polls to get your points!</a>
-
+<div class="p-6 bg-primary rounded-xl mx-5 flex flex-col items-center justify-center">
+    <div class="my-5 mt-20 mx-10 p-6 w-full rounded-xl mx-5 shadow bg-accent flex flex-col items-center justify-center">
+        <h1>Nie posiadasz wystarczającej ilości punktów!</h1>
+        <h2>To download {{ sampel.title }} you need {{ sampel.cena }} punktów. 
+            Niestety posiadasz tylko {{ points }}.</h2>
     </div>
+    <div class="w-3/4">
+        <a href="{% url 'ankiety:ankiety' %}">
+            <button class="secondary-button p-10 w-full transition duration-200 ease-in-out hover:scale-105">Go answer some polls to get your points!</button>
+        </a>
     </div>
 </div>
 

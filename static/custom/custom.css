@@ -51,7 +51,7 @@ body{
   }
 
 .secondary-button {
-  background-color: rgba(15, 20, 15, 0.363);
+  background-color: rgba(45, 80, 82, 1);
   border-radius: 8px;
   margin: 5px;
   padding: 5px;
@@ -60,7 +60,7 @@ body{
 box-shadow: 2px 2px 5px rgba(27, 48, 49, 0,5);
 transition: background-color 0.3s;
 } .secondary-button:hover {
-  background-color: rgba(27, 48, 49, 1);
+  background-color: rgba(63,112,115);
 }
 
   .item:hover{
