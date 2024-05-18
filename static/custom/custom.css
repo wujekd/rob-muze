@@ -64,7 +64,7 @@ transition: background-color 0.3s;
 }
 
   .item:hover{
-    background-color: rgba(27, 48, 49, 1);
+    background-color: rgb(36,64,65);
   }
   .item p{
     flex-shrink: 3;

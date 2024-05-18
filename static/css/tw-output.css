@@ -943,6 +943,10 @@ h1,h2,h3,h4,h5,h6 {
   max-width: 20rem;
 }
 
+.flex-1{
+  flex: 1 1 0%;
+}
+
 .shrink{
   flex-shrink: 1;
 }
@@ -1252,12 +1256,24 @@ h1,h2,h3,h4,h5,h6 {
   padding-top: 1rem;
 }
 
+.pt-10{
+  padding-top: 2.5rem;
+}
+
+.pt-20{
+  padding-top: 5rem;
+}
+
 .text-left{
   text-align: left;
 }
 
 .text-center{
   text-align: center;
+}
+
+.text-right{
+  text-align: right;
 }
 
 .text-2xl{
