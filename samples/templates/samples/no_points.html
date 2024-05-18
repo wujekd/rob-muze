@@ -4,9 +4,13 @@
 
 <div class="p-6 bg-primary rounded-xl mx-5 flex flex-col items-center justify-center">
     <div class="my-5 mt-20 mx-10 p-6 w-full rounded-xl mx-5 shadow bg-accent flex flex-col items-center justify-center">
-        <h1>Nie posiadasz wystarczającej ilości punktów!</h1>
-        <h2>To download {{ sampel.title }} you need {{ sampel.cena }} punktów. 
-            Niestety posiadasz tylko {{ points }}.</h2>
+        {% if LANG == "pl" %}
+                <h2>Zeby pobrać {{ sampel.title }} you need {{ sampel.cena }} punktów. 
+                Niestety posiadasz tylko {{ points }}.</h2>
+        {% elif LANG == 'en' %}
+        <h2>You need {{ sampel.cena }} points in order to download {{ sampel.title }}. 
+                Unfortunately, you only have {{ points }} points.</h2>
+        {% endif %}
     </div>
     <div class="w-3/4">
         <a href="{% url 'ankiety:ankiety' %}">

@@ -6,9 +6,11 @@ from django.contrib.auth.models import User
 
 class Sampel(models.Model):
     title = models.CharField(max_length=200)
+    title_en = models.CharField(max_length=200, blank=True)
     demo = models.FileField(upload_to='music/', null=True, blank=True) 
     file = models.FileField(upload_to='music/', null=True, blank=True)
     description = models.TextField()
+    description_en = models.TextField(blank=True)
     tags = models.CharField(max_length=100, blank=True, null=True)
     added_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='music/images/', blank=True, null=True)

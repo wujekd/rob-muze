@@ -193,12 +193,6 @@ EMAIL_USE_SSL = False
 
 PASSWORD_RESET_TIMEOUT = 14400
 
-# STATIC_ROOT = BASE_DIR.parent / 'local-cdn' / 'static'
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
-# import os
-# MEDIA_ROOT = BASE_DIR / 'media'
-# MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

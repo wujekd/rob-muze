@@ -91,15 +91,15 @@ Collab
                     {% if request.user.is_authenticated %}
                         {% if downloaded %}
                             {% if submitted %}
-                                <div class =""><p>You already answered this collab</p></div>
+                                <div class =""><p>{% trans "Przesłano już odpowiedź" %}</p></div>
                             {% else %}
-                             <a href="{% url 'collabs:sub_collab' collab.id %}"><button class="tableButtons">Przeslij odpowiedz</button></a>
+                             <a href="{% url 'collabs:sub_collab' collab.id %}"><button class="tableButtons">{% trans "Przeslij odpowiedz" %}</button></a>
                             {% endif %}
                         {% else %}
                             <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
                         {% endif %}
                     {% else %}
-                        <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">Musisz najpierw sie zalogowac</button>
+                        <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">{% trans "Musisz najpierw sie zalogować" %}</button>
                     {% endif %}
                     </div>
                 </div>

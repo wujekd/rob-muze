@@ -3,11 +3,11 @@ from .models import Collab, CollabSub
 
 class CollabSubform(forms.ModelForm):
     title = forms.CharField(label='Tytół Utworu', widget=forms.TextInput(attrs={
-        'class': 'w-full py-4 px-6 rounded-xl white-txt',}))
-    msg = forms.CharField(widget=forms.Textarea(attrs={'rows':4, 'class': 'w-full py-4 px-6 rounded-xl white-txt',}), label='Description',)
+        'class': 'w-full py-4 px-6 rounded-xl', 'style' : "color: black"}))
+    msg = forms.CharField(widget=forms.Textarea(attrs={'rows':4, 'class': 'w-full py-4 px-6 rounded-xl', "style" : 'color: black'}), label='Description',)
     
     file = forms.FileField(label='Plik audio', widget=forms.ClearableFileInput(attrs={
-        'class': 'downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl white-txt',}))
+        'class': 'downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl',}))
 
     class Meta:
         model = CollabSub

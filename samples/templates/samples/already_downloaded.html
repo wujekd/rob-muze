@@ -1,23 +1,11 @@
 {% extends 'core/base.html' %}
 {% block title %}Already downloaded{% endblock %}
 {% block content %}
-<br/>
-<br/>
-<br/>
-<br/>
+{% load static %}{% load i18n %}
 
-<h1>Pobrales/as juz ten sampel!!!</h1>
-<div class="p-6 rounded-xl mt-40 mainContainer">
 
-        
-        <p>Urwalo Ci od internetu i nie pobralo sie? Jesli chcesz pobrac ponownie to 
-        skontaktuj sie ze mna i odblokuje mozliwosc pobrania tej paczki, spoko.</p><br>
-        
-        <p><i>Dlaczego tak?</i></p>
-        <p>Dlatego, ze mam ograniczone zaoby serwera. Wszystko kosztuje, 
-        za darmo to se mozesz bloga na wykopie zalozyc najwyzej.<br> 
-        <b>Nie mam chajsu</b> na to zeby ludzie po kilka razy pobierali to samo.</p>
-
+<div class="p-6 bg-secondary mt-20 rounded-xl mx-5 flex flex-col items-center justify-center">
+        <div class="p-10 w-full flex items-center justify-center">{% trans "Ze wzglegu na ograniczony budet projektu, kadzdy sampel moze zostać pobrany tylko raz przez jednego uzytkownika." %}</div>
 </div>
 
 {% endblock content %}
