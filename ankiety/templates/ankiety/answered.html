@@ -4,19 +4,19 @@
 
 
 
-<div class="col-span-2 p-6 rounded-xl mt-40">
+<div class="flex flex-row flex-wrap justify-center p-5 pt-20 my-5 bg-secondary rounded-xl mx-5">
 
-    <div class="mt=20">
+    <div class="my-5 p-6 bg-primary rounded-xl mx-5">
         <h1>{{ ankieta.tytol }}</h1>
         <h3 class="text-red-700">Odpowiedz na to pytanie zostala juz udzielona!</h3>
+    </div>
+    <div class="my-5 p-6 bg-primary rounded-xl mx-5">
         <p>{{ ankieta.pytanie }}</p>
         <p>Twoja zajebista odpowiedz:</p>
-
-        {% comment %} GET ONLY FIRST ITEM {% endcomment %}
-{% for odpowiedz in odpowiedz %}
-        <p>{{ odpowiedz.answer }}</p>
-{% endfor %}
-    </div>
+        {% comment %}!!! send only one poll remove for loop {% endcomment %}
+        {% for odpowiedz in odpowiedz %}
+                <p>{{ odpowiedz.answer }}</p>
+        {% endfor %}
     </div>
 </div>
 

@@ -343,3 +343,13 @@ transition: background-color 0.3s;
   height: auto; 
   max-width: 100%;
 }
+
+
+.attention-needed {
+  border-bottom: 2px solid #691313; /* Initial red underline */
+  transition: border-bottom-width 0.3s; /* Transition effect */
+}
+
+.attention-needed:hover {
+  border-bottom-width: 3px; /* Increase the underline width on hover */
+}
