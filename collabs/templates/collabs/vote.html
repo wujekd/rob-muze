@@ -1,20 +1,31 @@
 {% extends 'core/base.html' %}
+{% load static %}{% load i18n %}
 {% block title %}
-Kolaboracje
+{% trans "Zagłosuj" %}
 {% endblock title %}
 
 
 {% block content %}
 
+{% get_current_language as LANG %}
+
+
 <br><br><br>
 
 <div class="about my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
 <div class="mainContainer">
-<p>zaglosuj na {{ sub.title }}</p>
+    {% if LANG == "pl" %}
+        <p>zaglosuj na {{ sub.title }}</p>
+        <p>nazwa kolaboracji {{ sub.collab.title }}</p>
+    {% elif LANG == "en" %}
+        <p>Vote on {{ sub.title_en }}</p>
+        <p>nazwa kolaboracji {{ sub.collab.title_en }}</p>
+    {% endif %}
+
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="submission_id" value="{{ sub.id }}">
-                <button type="submit" class="tableButtons">Vote</button>
+                <button type="submit" class="tableButtons">{% trans "Vote" %}</button>
             </form>
         </div>
 </div>

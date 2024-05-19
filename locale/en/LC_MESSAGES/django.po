@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-18 21:23+0000\n"
+"POT-Creation-Date: 2024-05-19 09:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,6 +60,14 @@ msgstr "Open Votings"
 #: collabs/templates/collabs/collabs.html:64
 msgid "Zobacz wszystkie glosowania"
 msgstr "Check All Votings"
+
+#: collabs/templates/collabs/vote.html:3
+msgid "Zagłosuj"
+msgstr "Vote"
+
+#: collabs/templates/collabs/vote.html:25
+msgid "Vote"
+msgstr ""
 
 #: core/forms.py:22 core/forms.py:94
 msgid "Nazwa Użytkownika"
@@ -259,15 +267,17 @@ msgid ""
 "Musisz zgodzic sie na warunki uzywania serwisu zeby zarejestrowac konto."
 msgstr "You must agree to terms of service to register an account"
 
-#: samples/templates/samples/already_downloaded.html:9
+#: samples/templates/samples/already_downloaded.html:8
 msgid ""
 "Ze wzglegu na ograniczony budet projektu, kadzdy sampel moze zostać pobrany "
 "tylko raz przez jednego uzytkownika."
-msgstr "Due to the limited budget of this project, each sample can be downloaded only once."
+msgstr ""
+"Due to the limited budget of this project, each sample can be downloaded "
+"only once."
 
 #: samples/templates/samples/sampledetail.html:24
 msgid "Added Date:"
-msgstr ""
+msgstr "Dodano"
 
 #: samples/templates/samples/sampledetail.html:39
 msgid "Pobierz!"
@@ -292,9 +302,6 @@ msgstr "Type"
 #: samples/templates/samples/samples.html:30
 msgid "Cena"
 msgstr "Price"
-
-#~ msgid "Zagłosuj"
-#~ msgstr "Vote"
 
 #~ msgid "Język"
 #~ msgstr "Language"
