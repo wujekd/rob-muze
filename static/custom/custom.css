@@ -353,3 +353,61 @@ transition: background-color 0.3s;
 .attention-needed:hover {
   border-bottom-width: 3px; /* Increase the underline width on hover */
 }
+
+
+
+    .vertext {
+        /* writing-mode: vertical-rl;
+        text-orientation: upright; */
+        z-index: 100;
+        font-size: 0.66rem;
+    }
+
+    :root {
+      --slider-track-color: #6c7b8e; /* Unfilled track color */
+
+      --slider-progress-color: #F2EBE3; /* Filled track color */
+
+
+      --slider-thumb-color: #adb0b4; /* Thumb color */
+      --range-progress: 0%; /* Initial progress */
+      --progress-bar-width: 200px; /* Initial width of the progress bar */
+  }
+  
+  input[type="range"] {
+      appearance: none;
+      height: 0.5rem;
+      width: var(--progress-bar-width); /* Set the width using custom property */
+      background: linear-gradient(to right, var(--slider-progress-color) 0%, var(--slider-progress-color) var(--range-progress, 0%), var(--slider-track-color) var(--range-progress, 0%), var(--slider-track-color) 100%);
+      border-radius: 0.25rem;
+      outline: none;
+      transition: background 0.3s ease-in-out;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 1rem;
+      height: 1rem;
+      background: var(--slider-thumb-color);
+      border-radius: 50%;
+      cursor: pointer;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+      appearance: none;
+      width: 1rem;
+      height: 1rem;
+      background: var(--slider-thumb-color);
+      border-radius: 50%;
+      cursor: pointer;
+  }
+  
+  input[type="range"]::-ms-thumb {
+      appearance: none;
+      width: 1rem;
+      height: 1rem;
+      background: var(--slider-thumb-color);
+      border-radius: 50%;
+      cursor: pointer;
+  }
+  

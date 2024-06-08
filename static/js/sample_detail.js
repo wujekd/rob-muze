@@ -41,8 +41,8 @@ var originalContent = null;
         var content = document.getElementById('dynamic');
         content.style.opacity = '0';
         setTimeout(function() {
-            content.style.display = 'block';  // restore the original display value
-            content.innerHTML = originalContent;  // restore the original content of the div
+            content.style.display = 'block';
+            content.innerHTML = originalContent;
             content.style.opacity = '1';
         }, 500);
     }

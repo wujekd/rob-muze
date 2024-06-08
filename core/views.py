@@ -52,6 +52,7 @@ def index(request):
 
     return render(request, 'core/index.html')
 
+
 def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -123,8 +124,8 @@ def signup(request):
         'form' : form, 'policy' : policy
     })
 
-    
-    
+
+
 @login_required
 def profil(request):
 
@@ -139,8 +140,6 @@ def profil(request):
     }
 
     return render(request, 'core/dash.html', context)
-
-
 
 
 

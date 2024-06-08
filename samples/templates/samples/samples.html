@@ -2,78 +2,146 @@
 {% block title %}
 Browse
 {% endblock title %}
+{% load static %}
 {% load i18n %}
 {% block content %}
 
+<script src="{% static 'js/player1.js' %}" defer></script>
+
+<div  class="flex mt-20 justify-center w-full items-center">
+
+    <table  style="box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);" class="table-auto bg-secondary bg-opacity-50 text-sm text-left w-5/6">
+        <thead class="text-xs uppercase bg-primary">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Image</span>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    {% trans "Nazwa" %}
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    {% trans "Opis" %}
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    {% trans "Rodzaj" %}
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    {% trans "Cena" %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sampel in sample %}
+            
+            <tr class="product-td">
+                
+                <td class="w-32 p-4">
+                    <a href="{% url 'samples:sampel' sampel.id %}">
+                    <img src="{{ sampel.image.url }}" 
+                        style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" />
+                    </a>
+                </td>
+            
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    <a href="{% url 'samples:sampel' sampel.id %}"><div>{{ sampel.title }}</a>
+                </td>
+                <td class="px-6 py-4">
+                    {{ sampel.description }}
+                </td>
+                <td class="py-4 font-semibold text-gray-900 dark:text-white">
+                    <p>{{ sampel.cena }}</p>
+                </td>
+                <td class="px-6 py-4">
+                    <button data-audio-url="{{ sampel.demo.url }}" pic-url="{{ sampel.image.url }}" 
+                    audio-name="{{ sampel.title }}" author="{{ sampel.artist }}" 
+                    class="pick-btn rounded-xl relative bg-teal-600 w-20 relative overflow-hidden border-1 border-white">
+                        <div style="width: 0%" class="absolute h-full bg-primary py-2"></div>
+                        <span class="btn-txt pt-1 relative">▶</span>
+                    </button>
+                </td>
+            
+            </tr>
+        
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 
 
 
-    <div  class="flex mt-20 justify-center w-full items-center">
-
-        <table  style="box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);" class="table-auto bg-secondary bg-opacity-50 text-sm text-left w-5/6">
-            <thead class="text-xs uppercase bg-primary">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        <span class="sr-only">Image</span>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        {% trans "Nazwa" %}
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        {% trans "Opis" %}
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        {% trans "Rodzaj" %}
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        {% trans "Cena" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sampel in sample %}
-                <tr class="product-td">
-                    <td class="w-32 p-4">
-                        <a href="{% url 'samples:sampel' sampel.id %}"><img src="{{ sampel.image.url }}" 
-                            style="border-radius: 15%; width: 64px; height: 64px; overflow: hidden;" /></a>
-                        
-                    </td>
-                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        <a href="{% url 'samples:sampel' sampel.id %}"><div>{{ sampel.title }}</a>
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ sampel.description }}
-                    </td>
-                    <td class="py-4 font-semibold text-gray-900 dark:text-white">
-                        <audio controls style="border-radius: 15%">
-                            <source src="{{ sampel.demo.url }}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                          </audio>
-                    </td>
-                    <td class="px-6 py-4">
-                        <p>{{ sampel.cena }}</p>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-{% comment %} <a href="{% url 'samples:message' %}">MSG</a> {% endcomment %}
 
 
-<script>
-    document.addEventListener('play', function(e) {
-        var audios = document.getElementsByTagName('audio');
+{% comment %} PLAYER PLAYER {% endcomment %}
+
+<div id="player" class="fixed bottom-0 w-2/3 bg-primary flex flex-col items-center px-6 border-t border-l border-r rounded-tl-xl rounded-tr-xl overflow-hidden">
+    <audio src="" id="audioAPI"></audio>
     
-        for (var i = 0, len = audios.length; i < len; i++) {
-            if (audios[i] != e.target) {
-                audios[i].pause();
-            }
-        }
-    }, true);
-</script>
+    <div class="flex justify-between items-center w-full">
+
+
+<div style="width: 108px">
+        <img id="cover" src="" style="width: 108px" alt="Cover Image" class="rounded z-10" />
+    </div>
+        <div style="width: 120px" class="flex flex-col w-full items-center justify-evenly text-center mb-3">
+            <div><h2 id="title" class="text-white text-xl font-medium uppercase tracking-wide">Title</h2></div>
+            <div><h3 id="author" class="text-gray-500 text-xl leading-6">Author</h3></div>
+    </div>
+        
+        <div class="flex flex-col flex-grow items-center w-full mx-4">
+
+            <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
+            <div class="flex justify-between w-full text-sm text-white">
+                <p id="current-time">.</p>
+                <p id="duration">.</p>
+            </div>
+            <div class="flex justify-center space-x-4 mt-2">
+                <button id="back-btn">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button id="play-btn">
+                    <svg width="17" height="17" viewBox="-3 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <title>play</title>
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-419.000000, -571.000000)" fill="#ffffff">
+                                    <path d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554" id="play" sketch:type="MSShapeGroup"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+                <button id="fwd-btn">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="rotate(180)">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-center justify-center" style="height: 10rem">
+            <span class="vertext text-white mb-2">VOLUME</span>
+            <input type="range" style="" id="volume" min="0" max="1" value="1" step="0.01" 
+            class="range-slider w-4/5 bg-red-500">
+        </div>
+    </div>
+</div>
+
+
 
 
 {% endblock content %}

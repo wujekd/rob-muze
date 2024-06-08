@@ -151,7 +151,7 @@ def voting(request, pk):
     collab = Collab.objects.get(pk=voting.collab.id)
     subs = CollabSub.objects.filter(collab=collab)
     vote_count = Vote.objects.filter(voting=voting).count()
-    
+    downloaded = False
     
     
     if request.user.is_authenticated:
@@ -173,7 +173,6 @@ def voting(request, pk):
 
 
 def vote(request, pk):
-    
     if request.method == 'POST':
         voter_ip = request.META.get('REMOTE_ADDR')
         id = request.POST.get('submission_id')
@@ -199,7 +198,6 @@ def vote(request, pk):
             return render(request, 'collabs/voted.html', {
                 'vote_success' : False
             })
-        
     
     else:
         sub = CollabSub.objects.get(pk=pk)

@@ -6,7 +6,9 @@ from django.views.i18n import set_language
 
 from .forms import LoginForm
 
+
 app_name = 'core'
+
 
 urlpatterns = [
     path('', views.index, name='index'),

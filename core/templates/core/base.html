@@ -40,8 +40,8 @@
                         <a href="{% url 'core:logout' %}" class="nav-link ml-2">{% trans "Wyloguj" %}</a>
                         
                         {% else %}
-                        <a href="{% url 'core:signup' %}" class="nav-link">{% trans "Rejestracja" %}</a>
-                        <a href="{% url 'core:login' %}" class="nav-link">{% trans "Logowanie"%}</a>
+                        <a href="{% url 'core:signup' %}" class="nav-link ml-2">{% trans "Rejestracja" %}</a>
+                        <a href="{% url 'core:login' %}" class="nav-link ml-2">{% trans "Logowanie"%}</a>
                         
                         {% endif %}
                         
@@ -76,12 +76,12 @@
 {% endif %}
 
 
-<main>
-    <div style="flex justify-center items-center">
-    </br>
-        {% block content %}{% endblock %}
-    </div>
-</main>
+{% comment %} CONTENT EXTENDS HERE {% endcomment %}
+    <main>
+        <div class="flex flex-col min-h-screen justify-top items-center">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
 </body>
 
 <script>
@@ -91,10 +91,13 @@
     }
     
     // Show the toast and then hide it after 3 seconds
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
         var toast = document.getElementById('toast-default');
-        toast.classList.remove('hidden');
-        setTimeout(hideToast, 12000); // Hide the toast after 3 seconds (3000 milliseconds)
+
+        if(toast){
+            toast.classList.remove('hidden');
+            setTimeout(hideToast, 12000); // Hide the toast after 3 seconds (3000 milliseconds)
+        }
     });
 </script>
 </html>
