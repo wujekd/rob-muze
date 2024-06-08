@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function changeButtonText(button, newText) {
         const spanElement = button.querySelector('.btn-txt');
+
         if (spanElement) {
             spanElement.textContent = newText;
         }
@@ -88,13 +89,14 @@ console.log("test")
         const audioUrl = button.getAttribute('data-audio-url')
         playList.push(audioUrl);
         button.addEventListener('click', function() {
-
+            console.log(audioUrl)
             if (currentPlayingButton && currentPlayingButton !== this) {
                 changeButtonText(currentPlayingButton, '▶')
                 currentPlayingButton.querySelector('div').style.width = `0%`
             }
 
             if (audio.src == new URL(audioUrl, window.location.href).href) {
+                console.log(gainNode.gain.value)
                 if (playing == true) {
                     if (audioBacking) {audioBacking.pause()}
                     audio.pause();
@@ -115,10 +117,14 @@ console.log("test")
                     audioBacking.currentTime = 0;
                     audioBacking.play()
                     
-                    volOffset = button.getAttribute('data-vol-offset');
+                    volOffset = parseFloat(button.getAttribute('data-vol-offset'));
+                    console.log(parseFloat(button.getAttribute('data-vol-offset')))
                     gainNode.gain.value = volValue * volOffset;
+                    
+
                     console.log("vol val: " + volValue)
                     console.log("gain node: " + gainNode.gain.value)
+                    console.log("offset: " + volOffset)
 
                 } else {
                     cover.src = this.getAttribute('pic-url');
@@ -255,13 +261,14 @@ console.log("test")
         updateSlider(slider);
     });
 
-
+console.log(audio)
     audio.addEventListener('loadedmetadata', function() {
         totalInSeconds = audio.duration;
         const fullMinutes = Math.floor(totalInSeconds / 60);
         const fullSeconds = Math.floor(totalInSeconds % 60);
         const formattedSec = fullSeconds < 10 ? '0' + fullSeconds : fullSeconds;
         fullTime.textContent = `${fullMinutes}:${formattedSec}`
+        console.log("loaded")
         });
 
 });

@@ -9,10 +9,10 @@ Kolaboracje
 <br>
 
 {% get_current_language as LANG %}<br><br>
-
+<script src="{% static 'js/player1.js' %}" defer></script>
 
 {% comment %} top part {% endcomment %}
-<div class="header my-5 p-6 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+<div class="header w-4/5 mt-8 w-1/2 mb-2 p-2 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
     <div class="header-container myContainer">
         <div class="title">
             <span>{% if LANG == 'pl' %}
@@ -25,14 +25,17 @@ Kolaboracje
         </div>
         <div class="date-time">
             <div class="date"><span>{% trans "Dodano" %}: </span> <span>{{ voting.date }}</span></div>
-            <div class="time"><span>{% trans "Pozostało" %}: </span> <span id="countdown-timer"></span></div>
+            <div class="time">
+                <span>{% trans "Pozostało" %}: </span>
+                <span id="countdown-timer"></span>
+            </div>
         </div>
     </div>
 </div>
 
 
 <!-- Main info -->
-<div class="about my-5 p-6 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+<div class="about w-4/5 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
     <div class="about-container myContainer">
         <div class="about-item">
             <div class="title">votig info</div>
@@ -62,19 +65,16 @@ Kolaboracje
 
             </div>
         </div>
-        <div class="about-item">
+        <div class="submisstions">
             <strong>Original collab</strong>
-            <iframe src="https://www.youtube.com/embed/X9ZBb-yBQng?si=MwF7_FH_pWU4gL3s" title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
         </div>
     </div>
 </div>
 
 
 <div class="flex flex-col items-center">
-    <div class="w-3/4 bg-secondary header p-6 rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
+    <div class="w-3/4 bg-secondary header rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
         <h2>Przeslane Odpowiedzi:</h2>
         <div class="w-full flex flex-col items-center">
             {% for sub in subs %}
@@ -82,16 +82,105 @@ Kolaboracje
                 <h3>{{ sub.user.username }}</h3>
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
-                <audio controls class="audio-player">
-                    <source src="{{ sub.file.url }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
+
                 <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Sprawdź</a>
+
+                <button data-audio-url="{{ sub.file.url }}"
+                    audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="{{ sub.volumeOffset }}"
+                    class="pick-btn rounded-xl relative bg-teal-600 w-20 relative overflow-hidden border-1 border-white">
+                        <div style="width: 0%" class="absolute h-full bg-primary py-2"></div>
+                        <span class="btn-txt pt-1 relative">▶</span>
+                    </button>
+
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+
+
+
+{% comment %} PLAYER PLAYER {% endcomment %}
+
+<div id="player" class="fixed bottom-0 w-4/5 bg-primary flex flex-col items-center px-6 border-t border-l border-r rounded-tl-xl rounded-tr-xl overflow-hidden">
+    <audio src="" id="audioAPI"></audio>
+    <audio src="{{ collab.backing_track.url }}" id="audio-backing"></audio>
+    
+    <div class="flex justify-between items-center w-full">
+
+
+<div style="width: 108px">
+        <img id="cover" src="{{ collab.pic.url }}" style="width: 108px" alt="Cover Image" class="rounded z-10" />
+    </div>
+        <div style="width: 120px" class="flex flex-col w-full items-center justify-evenly text-center mb-3">
+            <div><h2 id="title" class="text-white text-xl font-medium uppercase tracking-wide">Title</h2></div>
+            <div><h3 id="author" class="text-gray-500 text-xl leading-6">Author</h3></div>
+    </div>
+        
+        <div class="flex flex-col flex-grow items-center w-full mx-4">
+
+            <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
+            <div class="flex justify-between w-full text-sm text-white">
+                <p id="current-time">.</p>
+                <p id="duration">.</p>
+            </div>
+            <div class="flex justify-center space-x-4 mt-2">
+                <button id="back-btn">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button id="play-btn">
+                    <svg width="17" height="17" viewBox="-3 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <title>play</title>
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-419.000000, -571.000000)" fill="#ffffff">
+                                    <path d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554" id="play" sketch:type="MSShapeGroup"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+                <button id="fwd-btn">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="rotate(180)">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center" style="height: 10rem">
+            <span class="vertext text-white ">VOLUME</span>
+            <input type="range" 
+            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;" {% endcomment %}
+             id="volume" min="0" max="1" value="1" step="0.01" 
+            class="range-slider w-4/5 bg-red-500">
+
+            <span class="vertext text-white mt-4">BACKING</span>
+            <input type="range" 
+            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;"  {% endcomment %}
+            id="backing-volume" min="0" max="1" 
+            value="1" step="0.01" class="range-slider bg-red-500">
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 <script>

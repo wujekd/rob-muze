@@ -77,11 +77,11 @@
 
 
 {% comment %} CONTENT EXTENDS HERE {% endcomment %}
-    <main>
-        <div class="flex flex-col min-h-screen justify-top items-center">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
+<main class="mt-16"> <!-- Adjust the margin-top as needed -->
+    <div class="flex flex-col justify-top items-center">
+        {% block content %}{% endblock %}
+    </div>
+</main>
 </body>
 
 <script>
@@ -91,7 +91,7 @@
     }
     
     // Show the toast and then hide it after 3 seconds
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var toast = document.getElementById('toast-default');
 
         if(toast){

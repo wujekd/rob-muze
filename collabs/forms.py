@@ -20,7 +20,7 @@ class CollabSubform(forms.ModelForm):
             if file.size > 100*1024*1024:
                 raise forms.ValidationError('Maksymalny rozmiar pliku to 100MB')
 
-            if not file.name.endswith('.wav'):
-                raise forms.ValidationError('Tylko pliki .wav!')
+            # if not file.name.endswith('.wav'):
+            #     raise forms.ValidationError('Tylko pliki .wav!')
         
         return file

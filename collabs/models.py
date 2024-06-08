@@ -14,10 +14,11 @@ class Collab(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
     duration = models.IntegerField(null= True, blank= True)
+    pic = models.FileField(upload_to="collabs/demos", null=True)
 
     # the pack
     download_pack = models.FileField(upload_to='collabs/downloads', null=True, blank=True)
-    backing_track = models.BooleanField(default=False)
+    backing_track = models.FileField(upload_to='collabs/demos', null=True, blank=True)
     demo = models.BooleanField(default=False)
     score = models.BooleanField(default=False)
     midi = models.BooleanField(default=False)
@@ -27,12 +28,10 @@ class Collab(models.Model):
 
     
     
-    # tag fields
     wokal = models.BooleanField(default=False)
     instrument = models.BooleanField(default=False)
     rap = models.BooleanField(default=False)
-    # use for tagname in tags --> <a href media/tags/tagname
-    glosowanie = models.BooleanField(default=False)
+    votingActive = models.BooleanField(default=False)
     
     
     def __str__(self):
@@ -56,16 +55,20 @@ class PackDownloads(models.Model):
 
 class CollabSub(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
+    collab = models.ForeignKey(Collab, on_delete=models.CASCADE, related_name='responses')
     title = models.TextField(max_length=40, null=True)
     msg = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(upload_to='collabs/downloads', null=True)
-    sprawdzone = models.BooleanField(default=False)
-    odpowiedz = models.TextField(max_length=500, blank=True)
+    file = models.FileField(upload_to='collabs/responses', null=True)
+    approved = models.BooleanField(default=False)
+    demoCreated = models.BooleanField(default=False, blank=True, null=True)
+    checked = models.BooleanField(default=False, null=True, blank=True) #if che
+    volumeOffset = models.FloatField(null=True, blank=True)
+    modComment = models.TextField(max_length=150, null=True, blank=True)
     
     def __str__(self):
-        return f"{self.user.username} - {self.collab.title}"
+        return f"{self.id} - {self.title} - Approved: {self.approved} - Vol: {self.volumeOffset}"
+    
     
     def vote_count(self):
         return Vote.objects.filter(vote_on=self).count()
