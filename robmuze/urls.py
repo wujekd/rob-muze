@@ -20,6 +20,7 @@ from django.urls import path, include
 from core.views import *
 
 from django.conf.urls.i18n import i18n_patterns
+from collabs.views import unchecked, check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,9 @@ urlpatterns = [
     path('', include('core.urls')),
     path('ankiety/', include('ankiety.urls')),
     path('collabs/', include('collabs.urls')),
+    
+    path('check/', unchecked, name = "unchecked"),
+    path('check/<pk>', check, name= "check-sub")
     
 ]
 

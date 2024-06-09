@@ -8,6 +8,7 @@ from django.dispatch import receiver
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
+    is_moderator = models.BooleanField(default=False)
     
     vocals = models.BooleanField(default=False)
     production = models.BooleanField(default=False)

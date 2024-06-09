@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="mt-20 w-3/4">
+    {% if collabs %}
+        <div class="border-white border-2 w-full items-between bg-secondary justify-evenly">
+            {% for collab in collabs %}
+                <div class="flex justify-evenly items-center my-5">
+                    <h1 class="p-4">{{ collab.title }}</h1>
+                    <ul class="p-2">
+                        {% for response in collab.unapproved_responses %}
+                            <li class="p-1">{{ response.title }} by {{ response.author }} - id: {{ response.id }} 
+                                <a href="{% url 'check-sub' response.id %}">check</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2>No unapproved submissions</h2>
+    {% endif %}
+</div>
+{% endblock %}

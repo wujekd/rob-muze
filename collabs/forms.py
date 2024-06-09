@@ -26,3 +26,13 @@ class CollabSubform(forms.ModelForm):
             #     raise forms.ValidationError('Tylko pliki .wav!')
         
         return file
+    
+    
+class SubCheckForm(forms.ModelForm):
+    class Meta:
+        model = CollabSub
+        fields = ['volumeOffset', 'approved']
+        widgets = {
+            'volumeOffset': forms.NumberInput(attrs={'type': 'range', 'min': '0', 'max': '10', 'step': '0.1'}),
+            'approved': forms.CheckboxInput()
+        }

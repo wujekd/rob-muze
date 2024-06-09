@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Collab, CollabSub, Voting, Vote, PackDownloads
 from account.models import Account
-from .forms import CollabSubform
+from .forms import CollabSubform, SubCheckForm
 from django.contrib import messages
 from django.utils import timezone
 from datetime import timedelta
@@ -12,6 +12,8 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
 import os
+
+from django.db.models import Prefetch, Q
 
 def collabs(request):
     collabs = Collab.objects.all()
@@ -142,6 +144,46 @@ def przeslij(request, pk):
         'collab' : collab,
         'form' : form,
 })
+
+def unchecked(request):
+    # unapproved_responses = CollabSub.objects.filter(Q(approved=False) | Q(approved__isnull=True), demoCreated=True)
+    unapproved_responses = CollabSub.objects.filter(Q(approved=False) | Q(approved__isnull=True))
+    collabs_with_unapproved_responses = Collab.objects.prefetch_related(
+        Prefetch('responses', queryset=unapproved_responses, to_attr='unapproved_responses')
+    )
+    # Filter songs that have unapproved responses
+    collabs_with_unapproved_responses = [collab for collab in collabs_with_unapproved_responses if collab.unapproved_responses]
+    print('collabs with no responses: ', collabs_with_unapproved_responses)
+    # Pass the data to the template
+    context = {
+        'collabs': collabs_with_unapproved_responses
+    }
+    return render(request, "collabs/checksubmissions.html", context)
+
+
+
+def check(request, pk):
+    response = get_object_or_404(CollabSub, pk=pk)
+    collab = response.collab
+
+    if request.method == 'POST':
+        form = SubCheckForm(request.POST, instance=response)
+        if form.is_valid():
+            form.save()
+            print("form valid")
+            return redirect('unchecked') 
+    else:
+        form = SubCheckForm(instance=response)
+
+    context = {
+        'response': response,
+        'collab': collab,
+        'form': form
+    }
+    return render(request, 'collabs/check-sub.html', context)
+
+
+
 
 
                                 # VOTINGS

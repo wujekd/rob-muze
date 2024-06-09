@@ -10,6 +10,7 @@ urlpatterns = [
     path('glosowania/', views.votings, name='votings'),
     path('glosowanie/<pk>', views.voting, name='voting'),
     path('glosowanie/<pk>/check', views.vote, name='vote'),
+
     
     path('download/<int:pk>/', views.collab_pack_download, name='download_pack'),
 ]
