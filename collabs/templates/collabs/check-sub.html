@@ -7,7 +7,7 @@
 <script src="{% static 'js/check-sub.js' %}" defer></script>
 <script>
     // Render Django template value into a JavaScript variable
-    const volumeOffset = "{{ form.volumeOffset.value|default:'1' }}";
+    const volumeOffset = "{{ form.volumeOffset.value|default:'0,0' }}";
     
     // Replace commas with periods
     const volumeOffsetFloat = volumeOffset.replace(',', '.');
@@ -19,7 +19,7 @@
 <audio src="{{ collab.backing_track.url }}" id="backing"></audio>
 <audio src="{{ response.file.url }}" id="submitted"></audio>
 
-<div class="flex flex-col bg-primary p-2 mt-10 items-center w-3/4 rounded-xl">
+<div class="flex flex-col bg-primary p-2 mt-10 items-center w-4/5 rounded-xl">
 
     {% comment %} info {% endcomment %}
     <div class="flex w-full justify-evenly my-2">
@@ -31,13 +31,18 @@
         <div class="p-4 m-2 grow bg-gray-100 text-black rounded">{{ response.msg }}</div>
     </div>
 
-    <p>Submission mix level: {{form.volumeOffset.value}}</p>
+    
 
     {% comment %} transport {% endcomment %}
-    <button id="play" class="border-gray-300 rounded w-1/2 bg-gray-800 border-2 my-4 p-3 hover:bg-gray-700">PLAY</button>
-    <input type="range" class="w-3/4 h-10" id="progress" value="0" min="0" max="1" step="0.01">
+    <div class="bg-secondary flex flex-col items-center w-full">
+        <button id="play" class="border-gray-300 rounded w-1/2 bg-gray-800 border-2 my-4 p-3 hover:bg-gray-700">PLAY</button>
+        <input type="range" style="width: 45vw" class="m-5" id="progress" value="0" min="0" max="1" step="0.01">
+    </div>
 
-    <div id="info" class="pt-4">{{ form.volumeOffset.value }}</div>
+    <div id="info" class="pt-4">
+        <p>Submission user mix level: {{form.volumeOffset.value}}</p>
+        {{ form.volumeOffset.value }}
+    </div>
 
     {% comment %} form {% endcomment %}
     
