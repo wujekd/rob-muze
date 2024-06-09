@@ -103,6 +103,8 @@ def collab_pack_download(request, pk):
         })
 
 
+from django.http import JsonResponse
+
 def przeslij(request, pk):
     user = request.user
     collab = Collab.objects.get(pk=pk)
@@ -114,19 +116,25 @@ def przeslij(request, pk):
     if request.method == 'POST':
         collab_id = collab.id
         title = request.POST.get('title')
-        description = request.POST.get('msg')
+        msg = request.POST.get('msg')
         file = request.FILES.get('file')
+        volOffset = request.POST.get("volumeOffset")
         
         if form.is_valid():
             collab_sub = CollabSub.objects.create(
                 user=user,
                 collab_id=collab_id,
                 title=title,
-                msg=description,
-                file=file
+                msg=msg,
+                file=file,
+                volumeOffset = volOffset
             )
             collab_sub.save()
-            return redirect('core:profil')
+            with open('submissions_to_render_demos.txt', 'a') as f:
+                f.write(f"{collab_sub.id},{collab_sub.file.path}\n")
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = CollabSubform
     

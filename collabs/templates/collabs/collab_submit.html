@@ -2,18 +2,89 @@
 {% block title %}
 Signup
 {% endblock title %}
+{% load static %}
 
 {% block content %}
+<script src="{% static 'js/submit.js' %}" defer></script>
+
+
+<script src="{% static 'axios/dist/axios.js' %}"></script>
+
+<script>
+    // Resolve Django URL and store it in a global variable
+    {% comment %} const myUrl = "{% url 'check' %}"; {% endcomment %}
+    var successUrl = "{% url 'core:profil' %}";
+</script> 
 
 
 
-    <div class="w=1/2 my-5 p-6 bg-primary rounded-xl mt-20 mx-10">
-        <h1 class="mb-6 text-3xl">Przeslij Swoje nagranie!</h1>
-        <form method='post' enctype='multipart/form-data'>
-            {% csrf_token %}
-            {{ form.as_p }}
-            {% comment %} <input type="hidden" name="collab_id" value="{{ collab.id }}"> {% endcomment %}
-            <button class="py-4 mt-6 w-full text-lg bg-secondary hover:bg-teal-700 rounded-xl" type='submit'>Przeslij</button>
-        </form>
-    </div>
+<div class="w-2/3 my-5 p-6 bg-primary rounded-xl mt-20 mx-10">
+    <h1 class="mb-6 text-3xl">Przeslij Swoje nagranie!</h1>
+
+
+    <form method="post" id="submissionForm" 
+    enctype="multipart/form-data" data-collab-id="{{ collab.id }}">
+
+        {% csrf_token %}
+        
+        <!-- Title field -->
+        <div class="mb-4">
+            <label for="id_title" class="block text-lg">Tytół Utworu</label>
+            <input type="text" name="title" id="id_title" class="w-full py-4 px-6 rounded-xl" style="color: black" required>
+        </div>
+
+        <!-- Description field -->
+        <div class="mb-4">
+            <label for="id_msg" class="block text-lg">Description</label>
+            <textarea name="msg" id="id_msg" rows="4" class="w-full py-4 px-6 rounded-xl" style="color: black" required></textarea>
+        </div>
+
+        <!-- File field -->
+        <div class="mb-4">
+            <label for="id_file" class="block text-lg">Plik audio</label>
+            <input type="file" name="file" id="userAudio" class="downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl" required>
+        </div>
+        <div>
+            <input type="hidden" class="" id="volumeOffset" name="volumeOffset">
+            <button id="play" 
+        class="border-2 border-white p-2 m-4 w-3/4 bg-gray-800 hover:bg-gray-700">Nothing to play...</button>
+        <input type="range" class="w-3/4 mb-3 h-10" id="progress" value="0" min="0" max="1" step="0.01">
+
+        {% comment %} <input type="hidden" name="song" value="{{ collab.id }}"> {% endcomment %}
+        </div>
+
+        
+        <div id="loadingContainer" style="display: none; width: 100%; height:35px;" class="flex flex-col justify-center">
+            <div style="border: 1px solid #ccc;" class="rounded">
+            <div id="loadingBar" class="bg-green-600 rounded" style="height: 20px; width: 0%; transition: width 0.3s ease-in-out;"></div>
+            </div>
+        </div>
+
+
+        <div id="volume_container" class="flex items-center" style="display: ">
+            <label class="px-4 shrink" for="id_volumeOffset">Adjust Volume:</label>
+            <input type="range" class="p-2" name="volumeOffset" id="volume" 
+            value="1" min="0" max="2" step="0.01">
+        </div>
+
+
+
+
+
+
+        <div class="w-full flex items-center flex-col" id="respBox">
+            <button type="submit" id="submit-btn" 
+            class="border-gray-800 border-2 p-3 m-4 mt-6 w-2/3">Submit</button>
+        </div>
+
+        {% comment %} <button class="py-4 mt-6 w-full text-lg bg-secondary hover:bg-teal-700 rounded-xl" type="submit">Przeslij</button> {% endcomment %}
+    </form>
+</div>
+
+
+<audio src="" id="response" class="p-2"></audio>
+<audio src="{{ collab.backing_track.url }}" id="backing"></audio>
+
+
+
 {% endblock content %} 

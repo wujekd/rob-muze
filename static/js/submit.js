@@ -24,7 +24,7 @@ console.log("test")
 
 //  FORM SUBMISSION 
     const submissionForm = document.getElementById("submissionForm");
-    const songId = submissionForm.getAttribute("data-song-id");
+    const collabId = submissionForm.getAttribute("data-collab-id");
 
     submissionForm.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -34,8 +34,10 @@ console.log("test")
         loadingContainer.style.minHeight = height + 'px';
         loadingContainer.style.display = 'block';
         volumeContainer.style.display = "none";
+
+
     
-        console.log(`collabId: ${collabId}`); // Log collabId to ensure it is correctly set
+        console.log(`collabId: ${collabId}`); 
         
         const fullUrl = `/collabs/${collabId}/przeslij`; // Construct the full URL
         console.log(`Full URL: ${fullUrl}`); // Log the URL to verify it's correct
@@ -80,6 +82,7 @@ console.log("test")
     vol.addEventListener("input", function() {
         gainNode.gain.value = vol.value;
         volumeOffsetField.value = vol.value;
+        console.log("test")
     })
 
 
