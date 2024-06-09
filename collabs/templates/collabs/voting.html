@@ -12,8 +12,8 @@ Kolaboracje
 <script src="{% static 'js/player1.js' %}" defer></script>
 
 {% comment %} top part {% endcomment %}
-<div class="header w-4/5 mt-8 w-1/2 mb-2 p-2 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
-    <div class="header-container myContainer">
+<div class="header w-4/5 mt-6 w-1/2 mb-2 px-2 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <div class="flex justify-between">
         <div class="title">
             <span>{% if LANG == 'pl' %}
                 {{ voting.name }}
@@ -35,11 +35,11 @@ Kolaboracje
 
 
 <!-- Main info -->
-<div class="about w-4/5 bg-primary rounded-xl mx-5 shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+<div class="about w-4/5 bg-primary rounded-xl shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
     <div class="about-container myContainer">
         <div class="about-item">
             <div class="title">votig info</div>
-            <div class="description">
+            <div class="description flex flex-col">
 
                 <div class="iconHolder">
                     {% if voting.collab.wokal == True %}
@@ -48,48 +48,44 @@ Kolaboracje
                     {% if voting.collab.instrument == True %}
                     <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
                     {% endif %}
-                    </div>
-                    <p>downloaded: {{ voted }}</p>
+                </div>
+                    <p>downloaded: xx{{ voted }}</p>
                 <p>{% if LANG == 'pl' %}
-                    {{voting.description}}
+                    <div>description: {{voting.description}}</div>
                     {% elif LANG == 'en'%}
                     {{voting.description_en}}
-                    {% endif %}</p>
-
-                    <div class='mainContainer'>
-    
-                        <h1>Glosowanie: {{ collab.title }}</h1>
-                        <p>Opis {{ collab.desc }}</p>
-                        <p>Ilosc glosow {{ vote_count }}</p>
-                    </div>
-
+                    {% endif %}</p>  
             </div>
-        </div>
-        <div class="submisstions">
-            <strong>Original collab</strong>
             
+        </div>
+        <div class='mainContainer bg-secondary'>
+            <p>The Collab</p>
+    
+            <h1>Glosowanie: {{ collab.title }}</h1>
+            <p>Opis {{ collab.desc }}</p>
+            <p>Ilosc glosow {{ vote_count }}</p>
         </div>
     </div>
 </div>
 
 
-<div class="flex flex-col items-center">
-    <div class="w-3/4 bg-secondary header rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
+<div class="flex flex-col w-5/6 items-center">
+    <div class="w-5/6 bg-secondary header rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
         <h2>Przeslane Odpowiedzi:</h2>
         <div class="w-full flex flex-col items-center">
             {% for sub in subs %}
-            <div class="item flex flex-wrap w-2/3 bg-gray-100 p-10 m-5 rounded-lg my-2 flex justify-center items-center">
+            <div class="item flex flex-wrap w-5/6 bg-gray-100 p-5 m-5 rounded-lg my-2 flex justify-center items-center">
                 <h3>{{ sub.user.username }}</h3>
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
 
                 <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Sprawdź</a>
-                <p>{{ sub.file.url }}</p>
-                <p>{{ sub.demo_file_url }}</p>
+                {% comment %} <p>{{ sub.file.url }}</p>
+                <p>{{ sub.demo_file_url }}</p> {% endcomment %}
 
-                <button data-audio-url="{{ sub.file.url }}"
+                <button data-audio-url="{{ sub.demo_file_url }}"
                     audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
-                    class="pick-btn rounded-xl relative bg-teal-600 w-20 relative overflow-hidden border-1 border-white">
+                    class="pick-btn rounded-xl relative bg-secondary w-20 relative overflow-hidden border-1 border-white">
                         <div style="width: 0%" class="absolute h-full bg-primary py-2"></div>
                         <span class="btn-txt pt-1 relative">▶</span>
                     </button>
