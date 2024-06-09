@@ -84,6 +84,8 @@ Kolaboracje
                 <p>{{ sub.msg }}</p>
 
                 <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Sprawdź</a>
+                <p>{{ sub.file.url }}</p>
+                <p>{{ sub.demo_file_url }}</p>
 
                 <button data-audio-url="{{ sub.file.url }}"
                     audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"

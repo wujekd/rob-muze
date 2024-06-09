@@ -62,6 +62,7 @@ class CollabSub(models.Model):
     file = models.FileField(upload_to='collabs/responses', null=True)
     approved = models.BooleanField(default=False)
     demoCreated = models.BooleanField(default=False, blank=True, null=True)
+    demo_file_url = models.CharField(max_length=200, null=True, blank=True)
     checked = models.BooleanField(default=False, null=True, blank=True) #if che
     volumeOffset = models.FloatField(null=True, blank=True)
     modComment = models.TextField(max_length=150, null=True, blank=True)
@@ -79,8 +80,8 @@ class CollabSub(models.Model):
 class Voting(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=30, blank=True)
-    name_en = models.CharField(max_length=30, blank=True,)
+    name = models.CharField(max_length=200, blank=True)
+    name_en = models.CharField(max_length=40, blank=True)
     active = models.BooleanField(default= True)
     description = models.TextField(max_length=150, blank=True)
     description_en = models.TextField(max_length=150, blank=True)
@@ -93,7 +94,8 @@ class Voting(models.Model):
         return f'Glosowanie - {self.collab.title}'
     
     def save(self, *args, **kwargs):
-        self.name = self.name + '-' + self.collab.title  # Set collab name when saving
+        if not self.name.endswith(f"-{self.collab.title}"):
+            self.name = f"{self.name}-{self.collab.title}"
         super(Voting, self).save(*args, **kwargs)
 
 class Vote(models.Model):
