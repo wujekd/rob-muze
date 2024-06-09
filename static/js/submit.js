@@ -56,9 +56,11 @@ console.log("test")
     
             if (response.status === 200) {
                 submitBtn.textContent = "SUCCESS! Click to continue...";
+                updateProgressBar(100);
                 submitBtn.addEventListener("click", (e) => {
                     e.preventDefault();
                     window.location.href = successUrl;
+                    
                 });
                 submitBtn.disabled = false;
             } else {
