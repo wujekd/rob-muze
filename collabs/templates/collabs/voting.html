@@ -86,7 +86,7 @@ Kolaboracje
                 <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Sprawdź</a>
 
                 <button data-audio-url="{{ sub.file.url }}"
-                    audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="{{ sub.volumeOffset }}"
+                    audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                     class="pick-btn rounded-xl relative bg-teal-600 w-20 relative overflow-hidden border-1 border-white">
                         <div style="width: 0%" class="absolute h-full bg-primary py-2"></div>
                         <span class="btn-txt pt-1 relative">▶</span>

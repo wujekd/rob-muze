@@ -11,10 +11,12 @@ class CollabSubform(forms.ModelForm):
 
     class Meta:
         model = CollabSub
-        fields = ['title', 'msg', 'file']
+        fields = ['title', 'msg', 'file', 'volumeOffset']
+
 
     def clean_file(self):
         file = self.cleaned_data.get('file')
+
 
         if file:
             if file.size > 100*1024*1024:
