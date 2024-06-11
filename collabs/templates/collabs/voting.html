@@ -69,6 +69,7 @@ Kolaboracje
 </div>
 
 
+{% comment %} submissions {% endcomment %}
 <div class="flex flex-col w-5/6 items-center">
     <div class="w-5/6 bg-secondary header rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
         <h2>Przeslane Odpowiedzi:</h2>
@@ -100,14 +101,14 @@ Kolaboracje
 
 {% comment %} PLAYER PLAYER {% endcomment %}
 
-<div id="player" class="fixed bottom-0 w-4/5 bg-primary flex flex-col items-center px-6 border-t border-l border-r rounded-tl-xl rounded-tr-xl overflow-hidden">
+<div id="player" class="fixed bottom-0 w-4/5 bg-primary flex flex-row flex-wrap items-center px-6 border-t border-l border-r rounded-tl-xl rounded-tr-xl overflow-hidden">
     <audio src="" id="audioAPI"></audio>
     <audio src="{{ collab.backing_track.url }}" id="audio-backing"></audio>
     
     <div class="flex justify-between items-center w-full">
 
 
-<div style="width: 108px">
+<div style="w-full flex flex-wrap">
         <img id="cover" src="{{ collab.pic.url }}" style="width: 108px" alt="Cover Image" class="rounded z-10" />
     </div>
         <div style="width: 120px" class="flex flex-col w-full items-center justify-evenly text-center mb-3">

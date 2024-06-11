@@ -16,9 +16,14 @@ class Command(BaseCommand):
             response = CollabSub.objects.get(pk=response_id)
             response.demoCreated = True
             file_path = options['demo_file_path']
-            cleaned_demo_path = file_path.replace('.', '')
+            if file_path.startswith('.'):
+                cleaned_demo_path = file_path.replace('.', '', 1)
+            else:
+                cleaned_demo_path = file_path
+                
             response.demo_file_url = cleaned_demo_path
             response.save()
             self.stdout.write(self.style.SUCCESS(f"Demo created flagged true for response {response_id} marked as True."))
+            
         except CollabSub.DoesNotExist:
             self.stderr.write(self.style.ERROR(f"Response with ID {response_id} does not exist."))
