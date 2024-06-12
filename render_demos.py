@@ -44,14 +44,13 @@ for line in lines:
                 if line.strip().split(',', 1)[1] != submission_path:
                     f.write(line)
 
-        venv_activate_script = '../rmvenv/bin/activate'
 
 
-        # command = f'source {venv_activate_script} && python loadjango/manage.py mark_demo_rendered {response_id}'
+        venv_activate_script = './venv/bin/activate'
         command = f'source {venv_activate_script} && python3 manage.py mark_demo_rendered {response_id} {low_quality_path}'
 
- 
-        call(command, shell=True)
+        # Use bash explicitly to ensure source is found
+        call(f'bash -c "{command}"', shell=True)
 
     except Exception as e:
         print(f"Failed to process {submission_path}: {e}")
