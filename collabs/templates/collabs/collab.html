@@ -5,7 +5,7 @@ Collab
 {% load static %}{% load i18n %}
 {% block content %}
 
-{% get_current_language as LANG %}<br><br>
+{% get_current_language as LANG %}
 
 
 {% comment %} top part {% endcomment %}
@@ -54,10 +54,7 @@ Collab
                 </div>
             </div>
             <div class="about-item">
-                <iframe src="https://www.youtube.com/embed/X9ZBb-yBQng?si=MwF7_FH_pWU4gL3s" title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                test
             </div>
         </div>
     </div>
@@ -71,35 +68,35 @@ Collab
                     {% elif LANG == 'en'%}
                     {{collab.desc2_en}}
                     {% endif %}</p>
-                    <p>{% trans "Ilosc przesłanych zgłoszeń" %}: {{ submission_count }}</p>
+                    <p>Responses: {{ submission_count }}</p>
             </div>
             <div class="description-item">
                 <div class="list-container">
                     <div class="flex flex-col">
                     <p>In the pack:</p>
                     <ul style="list-style-type: disc">
-                        {% if collab.backing_track %}<li><span>Podkład audio</span></li>{% endif %}
-                        {% if collab.demo %}<li><span>Przykładowe wykonanie</span></li>{% endif %}
-                        {% if collab.score %}<li><span>Zapis w nutach</span></li>{% endif %}
-                        {% if collab.midi %}<li><span>MIDI</span></li>{% endif %}
-                        {% if collab.ableton %}<li><span>Projekt ableton</span></li>{% endif %}
-                        {% if collab.reaper %}<li><span>Projekt reaper</span></li>{% endif %}
-                        {% if collab.logic %}<li><span>Projekt Logic</span></li>{% endif %}
+                        {% if collab.backing_track %}<li><span>Backing track</span></li>{% endif %}
+                        {% if collab.demo %}<li><span>Example execution</span></li>{% endif %}
+                        {% if collab.score %}<li><span>Sheet Music</span></li>{% endif %}
+                        {% if collab.midi %}<li><span>MIDI file</span></li>{% endif %}
+                        {% if collab.ableton %}<li><span>Ableton Project</span></li>{% endif %}
+                        {% if collab.reaper %}<li><span>Reaper Project</span></li>{% endif %}
+                        {% if collab.logic %}<li><span>Logic Project</span></li>{% endif %}
                     </ul></div>
                     <div class="py-4 mt-6 text-lg bg-teal-700 hover:bg-secondary rounded-xl">
 
                     {% if request.user.is_authenticated %}
                         {% if downloaded %}
                             {% if submitted %}
-                                <div class =""><p>{% trans "Przesłano już odpowiedź" %}</p></div>
+                                <div class =""><p>Already submitted</p></div>
                             {% else %}
-                             <a href="{% url 'collabs:sub_collab' collab.id %}"><button class="tableButtons">{% trans "Przeslij odpowiedz" %}</button></a>
+                             <a href="{% url 'collabs:sub_collab' collab.id %}"><button class="tableButtons">Upload Your Answer</button></a>
                             {% endif %}
                         {% else %}
-                            <button onclick="showConfirmation()">{% trans "Pobierz" %}</button>
+                            <button onclick="showConfirmation()">Download</button>
                         {% endif %}
                     {% else %}
-                        <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">{% trans "Musisz najpierw sie zalogować" %}</button>
+                        <button class="list-description mt-5 mb-4 p-6 rounded-xl mx-5 bg-accent">Log in first</button>
                     {% endif %}
                     </div>
                 </div>
@@ -109,11 +106,6 @@ Collab
 
 
 
-{% comment %} <div class="button-container rounded-xl w-full">
-        <button class="py-4 mt-6 text-lg bg-primary hover:bg-secondary rounded-xl"
-                style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zagłosuj" %}</button>
-    </div>  {% endcomment %}
-
 
     <script>
         var timeRemaining = {{ time }};
@@ -122,7 +114,6 @@ Collab
 
 
 
-    {% comment %} download warning {% endcomment %}
 <script>
     var downloadUrl = "{% url 'collabs:download_pack' collab.id %}";
 </script>

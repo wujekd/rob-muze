@@ -35,11 +35,11 @@
 
 {% if unanswered %}
 <div class="mt-5 w-full">
-    <p class=>Pytania bez udzielonej odpowiedzi</p>
+    <p class=>Unanswered:</p>
     <div class="item w-full flex flex-col items-around justify-center">
         <div class="flex flex-row m-3">
-            <div class="flex-1 font-bold">Tytół</div>
-            <div class="flex-1 font-bold">Pytanie</div>
+            <div class="flex-1 font-bold">Title:</div>
+            <div class="flex-1 font-bold">Question:</div>
         </div>
         {% for ankieta in unanswered %}
         <div class="flex flex-row m-3">
@@ -53,23 +53,23 @@
             <div class="flex-1 flex flex-col justify-between">
                 <div class="text-right">{{ ankieta.date }}</div>
                 <div class="text-right">{{ ankieta.kategoria }}</div>
-                <div class="text-right"><a href="{% url 'ankiety:ankietaotw' ankieta.id %}"><button class="btn-primary">Odpowiedz</button></a></div>
+                <div class="text-right"><a href="{% url 'ankiety:ankietaotw' ankieta.id %}"><button class="btn-primary">Answer</button></a></div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
 {% else %}
-<div class="item w-2/3 flex flex-col items-center"><p class="p-5">Odpowiedziano na wszystkie pytania!</p></div>
+<div class="item w-2/3 flex flex-col items-center"><p class="p-5">You have answered all polls!</p></div>
 {% endif %}
 
 {% if answered %}
 <div class="mt-5">
-    <p class=>Pytania na ktore juz odpowiedziano:</p>
+    <p class=>Already answered</p>
     <div class="item w-full flex flex-col items-around justify-center">
         <div class="flex flex-row m-3">
-            <div class="flex-1 font-bold">Tytół</div>
-            <div class="flex-1 font-bold">Pytanie</div>
+            <div class="flex-1 font-bold">Title:</div>
+            <div class="flex-1 font-bold">Question:</div>
         </div>
         {% for ankieta in answered %}
         <div class="flex flex-row m-3">
@@ -83,7 +83,7 @@
             <div class="flex-1 flex flex-col justify-between">
                 <div class="text-right">{{ ankieta.date }}</div>
                 <div class="text-right">{{ ankieta.kategoria }}</div>
-                <div class="text-right"><a href="{% url 'ankiety:ankietaotw' ankieta.id %}"><button class="btn-primary">Odpowiedz</button></a></div>
+                <div class="text-right"><a href="{% url 'ankiety:ankietaotw' ankieta.id %}"><button class="btn-primary">Answer:</button></a></div>
             </div>
         </div>
         {% endfor %}

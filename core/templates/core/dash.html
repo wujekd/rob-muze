@@ -17,12 +17,9 @@
         
         <div class="m-5"><p>Email:</p><p>{{ user.email }}</p></div>
        <div class="m-5"> <p>{% trans "Konto stworzone" %}:</p><p>{{ user.date_joined }}</p></div>
-       <div class="m-5"><p>{% trans "Masz" %}: {{ profil.points }} {% trans "punkty" %}.</p></div>
+       <div class="m-5"><p>You Have: {{ profil.points }} {% trans "punkty" %}.</p></div>
 
     </div>
-
-
-
 
     <div class="flex flex-col items-evenly mx-6 justify-center">
         <a href="{% url 'core:changePassword' %}" style="display: inline-block; width: 100%;"><button class="p-2 mt-2 text-lg w-full bg-primary hover:bg-secondary rounded-xl"
@@ -30,7 +27,7 @@
         <a href="{% url 'core:editMail' %}" style="display: inline-block; width: 100%;"><button class="p-2 mt-4 text-lg w-full bg-primary hover:bg-secondary rounded-xl"
             style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zmień Email" %}</button></a>
         <a href="{% url 'core:profilePic' %}" style="display: inline-block; width: 100%;"><button class="p-2 mt-4 text-lg w-full bg-primary hover:bg-secondary rounded-xl"
-            style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">Dodaj zdjecie profilowe</button></a>
+            style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">Add a Picture</button></a>
     </div>
 </div>
 

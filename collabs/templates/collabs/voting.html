@@ -72,7 +72,7 @@ Kolaboracje
 {% comment %} submissions {% endcomment %}
 <div class="flex flex-col w-5/6 items-center">
     <div class="w-5/6 bg-secondary header rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
-        <h2>Przeslane Odpowiedzi:</h2>
+        <h2>Submitted responses:</h2>
         <div class="w-full flex flex-col items-center">
             {% for sub in subs %}
             <div class="item flex flex-wrap w-5/6 bg-gray-100 p-5 m-5 rounded-lg my-2 flex justify-center items-center">
@@ -80,9 +80,7 @@ Kolaboracje
                 <p>{{ sub.title }}</p>
                 <p>{{ sub.msg }}</p>
 
-                <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Sprawdź</a>
-                {% comment %} <p>{{ sub.file.url }}</p>
-                <p>{{ sub.demo_file_url }}</p> {% endcomment %}
+                <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Check</a>
 
                 <button data-audio-url="{{ sub.demo_file_url }}"
                     audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
