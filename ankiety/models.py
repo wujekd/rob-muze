@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
+
 class AnkietaOtw(models.Model):
     title = models.CharField(max_length=40)
     title_en = models.CharField(max_length=40, blank = True)

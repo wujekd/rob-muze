@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     gainNode.connect(audioContext.destination);
 
     const submitBtn = document.getElementById("submit-btn");
-console.log("test")
 
 //  FORM SUBMISSION 
     const submissionForm = document.getElementById("submissionForm");
@@ -40,16 +39,20 @@ console.log("test")
         console.log(`collabId: ${collabId}`); 
         
         const fullUrl = `/collabs/${collabId}/przeslij`; // Construct the full URL
-        console.log(`Full URL: ${fullUrl}`); // Log the URL to verify it's correct
+        let uploadStarted = false;
+        const startTime = Date.now();
+
     
         try {
             const response = await axios.post(fullUrl, formData, {
                 onUploadProgress: function(progressEvent) {
+                    
+                    uploadStarted = true;
+
                     if (progressEvent.lengthComputable) {
                         const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
                         updateProgressBar(percentComplete);
-                        submitBtn.textContent = `${Math.round(percentComplete)}%`; // Update text content
-                        console.log(`Upload Progress: ${percentComplete}%`); // Log progress
+                        submitBtn.textContent = `${Math.round(percentComplete)}%`;
                     }
                 }
             });
@@ -70,7 +73,26 @@ console.log("test")
             console.error('Error:', error);
             alert("Submission failed!");
         }
+
+        setTimeout(()=> {
+            if (!uploadStarted) {
+                console.log("simulated triggered")
+                const duration = Date.now() - startTime;
+                let simulated = 0;
+
+                const interval = setInterval(()=> {
+                    simulated += 10;
+                    updateProgressBar(simulated);
+                    submitBtn.textContent = `${simulated}`;
+                    if (simulated >= 100) {
+                        clearInterval(interval)
+                    }
+                }, Math.min(100, duration / 10));
+            }
+        }, 100);
     });
+
+
 
 
     function updateProgressBar(percent) {
@@ -79,12 +101,9 @@ console.log("test")
     }
 
 
-
-
     vol.addEventListener("input", function() {
         gainNode.gain.value = vol.value;
         volumeOffsetField.value = vol.value;
-        console.log("test")
     })
 
 
