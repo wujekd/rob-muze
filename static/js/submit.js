@@ -60,6 +60,7 @@ console.log("test")
     
             if (response.status === 200) {
                 updateProgressBar(100);
+                submitBtn.textContent = "SUCCESS! Click to continue...";
                 submitBtn.addEventListener("click", (e) => {
                     e.preventDefault();
                     window.location.href = successUrl;
@@ -67,7 +68,6 @@ console.log("test")
                 });
                 submitBtn.disabled = false;
                 console.log("status 200")
-                submitBtn.textContent = "SUCCESS! Click to continue...";
             } else {
                 alert("Submission failed!");
             }
@@ -78,12 +78,9 @@ console.log("test")
 
         setTimeout(()=> {
             if (!uploadStarted) {
-                const duration = Date.now() - sta
+                const duration = Date.now() - startTime
             }
-        })
-
-
-
+        }, 5000);
 
 
 
