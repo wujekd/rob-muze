@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from . models import Ideas
 from . forms import AddIdeaForm
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -13,7 +15,7 @@ def ideas(request):
     })
     
     
-
+@login_required
 def add_idea(request):
     if request.method == "POST":
         form = AddIdeaForm(request.POST, request.FILES)

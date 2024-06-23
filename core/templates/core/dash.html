@@ -6,14 +6,14 @@
 {% block content %}
 <br><br>
 <div class="bg-secondary bg-opacity-50 shadow-lg w-full">
-<div class="flex flex-row flex-wrap mt-5 w-full justify-around">
+<div class="flex flex-row flex-wrap mt-5 w-full items-center justify-around">
     <div class="my-3 p-3 mx-4 flex flex-col items-center">
         <img class="profile-pic" src="{% if profil.pic %}{{ profil.pic.url }}
         {% else %}{% static 'images/utility/no_pic.jpg' %}{% endif %}"/>
         <div class="m-5"><h1>{% trans "Witaj" %}, {{ user.username }}!</h1></div>
     </div>
 
-    <div class="item flex flex-col grow h-1/2 flex-wrap m-10 items-center">
+    <div class="item flex grow h-full flex-wrap m-10 items-center">
         
         <div class="m-5"><p>Email:</p><p>{{ user.email }}</p></div>
        <div class="m-5"> <p>{% trans "Konto stworzone" %}:</p><p>{{ user.date_joined }}</p></div>
@@ -40,7 +40,7 @@
 
 <div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
 {% if collabs %}
-        <h2 class="mainContainer mt-5 bg-secondary p-5 rounded-xl mx-5 w-full">{% trans "Przeslane nagrania" %}</h2>
+        <h2 class="mainContainer bg-secondary p-5 rounded-xl mx-5 w-full">{% trans "Przeslane nagrania" %}</h2>
     {% for collab in collabs %}
         <div class="item w-full">
             <h1>{{ collab.title }}</h1>
@@ -61,7 +61,7 @@
 
 <div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
     {% if ideas %}
-            <h2 class="mainContainer mt-5 bg-secondary p-5 rounded-xl mx-5 w-full">Submitted Ideas</h2>
+            <h2 class="mainContainer bg-secondary p-5 rounded-xl mx-5 w-full">Submitted Ideas</h2>
         {% for idea in ideas %}
             <div class="item w-full">
                 <h1>{{ idea.title_en }}</h1>
