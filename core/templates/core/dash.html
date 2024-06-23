@@ -40,7 +40,7 @@
 
 <div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
 {% if collabs %}
-        <h2 class="mainContainer mt-5 mb-4 bg-secondary p-5 rounded-xl mx-5 w-full">{% trans "Przeslane nagrania" %}</h2>
+        <h2 class="mainContainer mt-5 bg-secondary p-5 rounded-xl mx-5 w-full">{% trans "Przeslane nagrania" %}</h2>
     {% for collab in collabs %}
         <div class="item w-full">
             <h1>{{ collab.title }}</h1>
@@ -54,6 +54,26 @@
     <h2 class="mb-12 text-2xl text-center">{% trans "Nie masz jeszcze przesłanych nagrań" %}.</h2>
 {% endif %}
     </div>
+
+
+
+{% comment %} ideas {% endcomment %}
+
+<div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
+    {% if ideas %}
+            <h2 class="mainContainer mt-5 bg-secondary p-5 rounded-xl mx-5 w-full">Submitted Ideas</h2>
+        {% for idea in ideas %}
+            <div class="item w-full">
+                <h1>{{ idea.title_en }}</h1>
+                <p>{{ idea.desc_en }}</p>
+                <p>{{ idea.date }}</p>
+               <div> <p>{% trans "Nazwa pliku" %}: <br>{{ idea.file.name|basename }}</p></div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2 class="mb-12 text-2xl text-center">No Ideas Submitted.</h2>
+    {% endif %}
+        </div>
 
 </div>
 {% endblock %}
