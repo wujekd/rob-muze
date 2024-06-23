@@ -41,6 +41,7 @@ console.log("test")
         
         const fullUrl = `/collabs/${collabId}/przeslij`; // Construct the full URL
         let uploadStarted = false;
+        let uploadCompleted = false;
         const startTime = Date.now();
 
     
@@ -50,7 +51,7 @@ console.log("test")
                     
                     uploadStarted = true;
 
-                    if (progressEvent.lengthComputable) {
+                    if (progressEvent.lengthComputable && !uploadCompleted) {
                         const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
                         updateProgressBar(percentComplete);
                         submitBtn.textContent = `${Math.round(percentComplete)}%`;
@@ -59,6 +60,7 @@ console.log("test")
             });
     
             if (response.status === 200) {
+                uploadCompleted = true;
                 updateProgressBar(100);
                 submitBtn.textContent = "SUCCESS! Click to continue...";
                 submitBtn.addEventListener("click", (e) => {
