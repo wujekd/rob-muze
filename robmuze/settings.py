@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'account',
     'ankiety',
     'collabs',
+    'ideas',
 ]
 
 MIDDLEWARE = [

@@ -35,7 +35,6 @@ console.log("test")
         loadingContainer.style.display = 'block';
         volumeContainer.style.display = "none";
 
-
     
         console.log(`collabId: ${collabId}`); 
         
@@ -87,8 +86,6 @@ console.log("test")
 
 
     });
-
-
 
 
     function updateProgressBar(percent) {
@@ -158,8 +155,6 @@ console.log("test")
     
 
     });
-
-    
 
 
     backingAudio.addEventListener('timeupdate', updateProgress);

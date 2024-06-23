@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% block title %}
+Kolaboracje
+{% endblock title %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+
+<div style="margin-top: 35px" class="mainContainer mb-4 bg-secondary p-5 pt-10 w-5/6 rounded-xl mx-5"> 
+<h1 class="test">IDEAS:</h1>
+
+
+{% for idea in ideas %}
+{% comment %} <a href="{% url 'collabs:collab' collab.id %}" class="w-3/4">
+    <div class="item" style="height: 30wh w-3/4">
+      <div class="logo"><img src="/rob_muze_logo.PNG" alt=""/></div>
+      <div class="text">
+      <h2 style="white-space: nowrap">{{collab.title}}</h2>
+      <p>{{collab.desc|slice:"128" }}...</p>
+      </div>
+      <div class="detailSmall">
+        <div class="iconHolder">
+        {% if collab.wokal == True %}
+        <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+        {% endif %}
+        {% if collab.instrument == True %}
+        <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+        {% endif %}
+        </div>
+    </div>
+    </div>
+  </a> {% endcomment %}
+  <p>idea name: {{ idea.title_en }}</p>
+{% endfor %}
+
+</div>
+
+<a href="{% url "ideas:add_idea" %}" class="item"> ADD YOUR IDEA</a>
+
+
+
+{% endblock %}

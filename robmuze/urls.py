@@ -31,7 +31,9 @@ urlpatterns = [
     path('collabs/', include('collabs.urls')),
     
     path('check/', unchecked, name = "unchecked"),
-    path('check/<pk>', check, name= "check-sub")
+    path('check/<pk>', check, name= "check-sub"),
+    
+    path("ideas/", include('ideas.urls')),
     
 ]
 

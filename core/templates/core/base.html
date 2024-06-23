@@ -24,7 +24,8 @@
                     {% comment %} M E N U - O P C J E {% endcomment %}
                     <ul id="menu">
                         
-                        <a href="{% url 'samples:samples' %}" class="nav-link ml-2">{% trans "Sample" %}</a>
+                        {% comment %} <a href="{% url 'samples:samples' %}" class="nav-link ml-2">{% trans "Sample" %}</a> {% endcomment %}
+                        <a href="{% url 'ideas:ideas' %}" class="nav-link ml-2">Ideas</a>
                         <a href="{% url 'collabs:collabs' %}" class="nav-link ml-2">{% trans "Kolaboracje" %}</a>
                         <a href="{% url 'ankiety:ankiety' %}" class="nav-link ml-2"
                         
