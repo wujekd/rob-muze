@@ -12,12 +12,12 @@ class Ideas(models.Model):
     file = models.FileField(upload_to="ideas/uploaded", null=True)
     
     
-    vocals = models.BooleanField(default=False)
-    acoustic = models.BooleanField(default=False)
-    electronic = models.BooleanField(default=False)
-    drums = models.BooleanField(default=False)
-    rap = models.BooleanField(default=False)
-    beat = models.BooleanField(default=False)
+    vocals = models.BooleanField(default=False, null=True)
+    acoustic = models.BooleanField(default=False, null=True)
+    electronic = models.BooleanField(default=False, null=True)
+    drums = models.BooleanField(default=False, null=True)
+    rap = models.BooleanField(default=False, null=True)
+    beat = models.BooleanField(default=False, null=True)
     
     
     
