@@ -40,15 +40,15 @@
             bg-transparent md:dark:bg-transparent
             transition duration-500
             shadow-none
-}
+    }
 
     .nav-link {
         @apply
-        font-semibold
         border-b-4 border-transparent 
         hover:scale-110
         text-white
-}
+        px-2
+    }
 
     .home-section {
         @apply

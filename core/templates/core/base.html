@@ -15,14 +15,13 @@
 <body>
     {% comment %} N A V - B A R {% endcomment %}
         <nav class="nav"    style=" box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); z-index: 10000">
-            <div class="container flex items-center justify-between h-20 shadow-lg" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
+            <div class="flex px-4 items-center justify-between h-20 shadow-lg" style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
                 <a href="{% url 'core:index' %}" class="nav-link ml-3"><h1 class="text-green-50 font-semibold text-2xl mr-4 hover:scale-125 transition duration-500">
                     Rob Muze
                 </h1></a>
-                <div class="place-content-center gap=2">
-                    <div class="">
+                <div class="place-content-center flex-grow gap=2">
+                    <div class="flex items-center ">
                     {% comment %} M E N U - O P C J E {% endcomment %}
-                    <ul id="menu">
                         
                         {% comment %} <a href="{% url 'samples:samples' %}" class="nav-link ml-2">{% trans "Sample" %}</a> {% endcomment %}
                         <a href="{% url 'ideas:ideas' %}" class="nav-link ml-2">Ideas</a>
@@ -45,8 +44,6 @@
                         <a href="{% url 'core:login' %}" class="nav-link ml-2">{% trans "Logowanie"%}</a>
                         
                         {% endif %}
-                        
-                      </ul> 
                     </div>
                 </div>
 
@@ -58,7 +55,7 @@
                 </div>
                 {% endif %}</div>
             <div>
-            <div class="shrink">
+            <div class="shrink px-2">
                 <form action="{% url 'set_language' %}" method="post">
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ request.path }}">

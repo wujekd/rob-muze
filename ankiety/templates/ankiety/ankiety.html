@@ -4,37 +4,11 @@
 {% load static %}
 {% load i18n %}{% get_current_language as LANG %}
 
-{% comment %} {% if unanswered %}
-<div class="flex bg-secondary bg-opacity-50 mt-20 pt-4">
-    <div class="text-gray-100 m-10 pl-5">
-        <p>losowe pytanie: </br></p>
-        <h1>{{ random_poll.tytol }} </h1>
-        <p>{{ random_poll.pytanie }}</p>
-    </div>
-    <div class="grow"> 
-    <form method="post" action=".">
-        {% csrf_token %}
-                {{ form.answer }}
-           
-      {% if form.errors or form.non_field_errors %}
-                <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                    {% for field in form %}
-                        {{ field.errors }}
-                    {% endfor %}
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
-        
-            <button class="btn-primary m-3">Submit</button>
-        </form>
-    </div>
-</div>
-{% endif %} {% endcomment %}
 
-<div class="mainContainer w-3/4 mt-5 p-5 pt-20 my-5 bg-secondary rounded-xl mx-5">
+<div class="mainContainer w-3/4 pt-2 my-5 px-2 bg-secondary rounded-xl mx-5">
 
 {% if unanswered %}
-<div class="mt-5 w-full">
+<div class="w-full">
     <p class=>Unanswered:</p>
     <div class="item w-full flex flex-col items-around justify-center">
         <div class="flex flex-row m-3">
@@ -42,7 +16,7 @@
             <div class="flex-1 font-bold">Question:</div>
         </div>
         {% for ankieta in unanswered %}
-        <div class="flex flex-row m-3">
+        <div class="flex flex-row">
             {% if LANG == "pl" %}
             <div class="flex-1">{{ ankieta.title }}</div>
             <div class="flex-1">{{ ankieta.question }}</div>
@@ -60,35 +34,34 @@
     </div>
 </div>
 {% else %}
-<div class="item w-2/3 flex flex-col items-center"><p class="p-5">You have answered all polls!</p></div>
+<div class="item w-5/6 h-5/6 flex flex-col items-center"><p class="p-5">You have answered all polls!</p></div>
 {% endif %}
 
 {% if answered %}
-<div class="mt-5 w-full">
-    <p class=>Already answered</p>
+    
     <div class="item w-full flex flex-col items-around justify-center">
-        <div class="flex flex-row m-3">
+        <p class=>Already answered</p>
+        <div class="flex flex-row">
             <div class="flex-1 font-bold">Title:</div>
             <div class="flex-1 font-bold">Question:</div>
         </div>
         {% for ankieta in answered %}
         <div class="flex flex-row m-3">
             {% if LANG == "pl" %}
-            <div class="flex-1">{{ ankieta.title }}</div>
-            <div class="flex-1">{{ ankieta.question }}</div>
+            <div class="flex-shrink-0">{{ ankieta.title }}</div>
+            <div class="flex-grow px-3">{{ ankieta.question }}</div>
             {% else %}
-            <div class="flex-1">{{ ankieta.title_en }}</div>
-            <div class="flex-1">{{ ankieta.question_en }}</div>
+            <div class="flex-shrink-0">{{ ankieta.title_en }}</div>
+            <div class="flex-grow">{{ ankieta.question_en }}</div>
             {% endif %}
             <div class="flex-1 flex flex-col justify-between">
                 <div class="text-right">{{ ankieta.date }}</div>
                 <div class="text-right">{{ ankieta.kategoria }}</div>
-                <div class="text-right"><a href="{% url 'ankiety:ankietaotw' ankieta.id %}"><button class="btn-primary">Answer:</button></a></div>
+                <div class="text-right"><a href="{% url 'ankiety:ankietaotw' ankieta.id %}"><button class="btn-primary">Answer</button></a></div>
             </div>
         </div>
         {% endfor %}
     </div>
-</div>
 
 {% endif %}
 
