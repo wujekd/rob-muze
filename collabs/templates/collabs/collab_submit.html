@@ -18,7 +18,7 @@ Signup
 
 
 <div class="w-2/3 my-5 p-6 bg-primary rounded-xl mt-20 mx-10">
-    <h1 class="mb-6 text-3xl">Przeslij Swoje nagranie!</h1>
+    <h1 class="mb-6 text-3xl">Send Your Recording!</h1>
 
 
     <form method="post" id="submissionForm" 
@@ -28,7 +28,7 @@ Signup
         
         <!-- Title field -->
         <div class="mb-4">
-            <label for="id_title" class="block text-lg">Tytół Utworu</label>
+            <label for="id_title" class="block text-lg">Title</label>
             <input type="text" name="title" id="id_title" class="w-full py-4 px-6 rounded-xl" style="color: black" required>
         </div>
 
@@ -40,7 +40,7 @@ Signup
 
         <!-- File field -->
         <div class="mb-4">
-            <label for="id_file" class="block text-lg">Plik audio</label>
+            <label for="id_file" class="block text-lg">Audio File</label>
             <input type="file" name="file" id="userAudio" class="downloadbtn bg-secondary hover:bg-teal-700 w-full py-4 px-6 rounded-xl" required>
         </div>
         <div>
@@ -55,7 +55,7 @@ Signup
 
         <div id="loadingContainer" style="display: none; width: 100%; height:35px;" class="flex flex-col justify-center">
             <div style="border: 1px solid #ccc;" class="rounded">
-            <div id="loadingBar" class="bg-green-600 rounded" style="height: 20px; width: 0%; transition: width 0.3s ease-in-out;"></div>
+            <div id="loadingBar" class="bg-secondary rounded" style="height: 20px; width: 0%; transition: width 0.3s ease-in-out;"></div>
             </div>
         </div>
 
