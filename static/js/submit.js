@@ -66,6 +66,7 @@ console.log("test")
                     
                 });
                 submitBtn.disabled = false;
+                console.log("status 200")
                 submitBtn.textContent = "SUCCESS! Click to continue...";
             } else {
                 alert("Submission failed!");
