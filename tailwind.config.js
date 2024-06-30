@@ -4,8 +4,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-
-
 "druk": "#c9cfc22",
 
 "background": "#3f7072",
@@ -19,10 +17,7 @@ module.exports = {
 
 "secondary": "#2d5052",
 
-
 "bone" : "#F2EBE3",
-
-
 
 "accent": "#691313",
         "color-primary" : "#01051e",

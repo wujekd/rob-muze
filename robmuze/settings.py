@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tailwind',
+    'theme',
+    'django_browser_reload',
     # 'social_django',
     'django_recaptcha',
     # 'captcha',
@@ -52,6 +54,11 @@ INSTALLED_APPS = [
     'ankiety',
     'collabs',
     'ideas',
+]
+
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 MIDDLEWARE = [
@@ -65,6 +72,7 @@ MIDDLEWARE = [
     # 'path.to.ForceDefaultLanguageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     
 ]
 
