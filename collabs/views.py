@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Collab, CollabSub, Voting, Vote, PackDownloads
+from .models import Collab, CollabSub, Stages, Vote, PackDownloads
 from account.models import Account
 from .forms import CollabSubform, SubCheckForm
 from django.contrib import messages
@@ -16,36 +16,57 @@ from django.db.models import Prefetch, Q
 
 def collabs(request):
     collabs = Collab.objects.all()
-    active_votings = Voting.objects.filter(active = True)
+    # active_votings = Voting.objects.filter(active = True)
     # for voting in active_votings:
     #     voting.tags_list = voting.tags.split(',')
         
     return render(request, 'collabs/collabs.html', {
         'collabs' : collabs,
-        'votings' : active_votings,
+        # 'votings' : active_votings,
     })
+    
+    
 
 def collab(request, pk):
     user = request.user
     collab = Collab.objects.get(pk=pk)
-    submission_count = CollabSub.objects.filter(collab=pk).count()
-    download_count = PackDownloads.objects.filter(collab=pk).count()
     deadline = collab.date + timedelta(weeks=4)
     time = int((deadline - timezone.now()).total_seconds())
     
+    stages = Stages.objects.filter(collab=collab)
+    
     context = {
         'collab' : collab,
-        "submission_count" : submission_count,
-        "download_coult" : download_count,
-        "time": time,
     }
+    
+    if len(stages) == 1:
+        current_stage = stages.last()
+        time = int((current_stage.deadline - timezone.now()).total_seconds())
+        download_count = PackDownloads.objects.filter(stage=current_stage).count()
+        subs = CollabSub.objects.filter(stage=current_stage)
+        vote_count = len(subs)
+        context.update({
+            "download_count" : download_count,
+            "time": time,
+            
+        'subs' : subs,
+        'vote_count' : vote_count,
+        })
+        
+    elif len(stages) > 1:
+        past_stages = stages.exclude(pk=current_stage.pk)
+    
+    
+
+    
+
     
     
     if request.user.is_authenticated:
         submitted = False
-        if PackDownloads.objects.filter(collab=pk, user=user):
+        if PackDownloads.objects.filter(stage=pk, user=user):
             downloaded = True
-            if CollabSub.objects.filter(collab=pk, user=user):
+            if CollabSub.objects.filter(stage=pk, user=user):
                 submitted = True
         else:
             downloaded = False
@@ -56,6 +77,33 @@ def collab(request, pk):
         })
 
     return render(request, 'collabs/collab.html', context)
+
+
+                                 # VOTING
+def voting(request, pk):
+    voting = Voting.objects.get(pk=pk)
+    collab = Collab.objects.get(pk=voting.collab.id)
+    subs = CollabSub.objects.filter(collab=collab)
+    vote_count = Vote.objects.filter(voting=voting).count()
+    downloaded = False
+    
+    
+    if request.user.is_authenticated:
+        downloaded = ()
+    
+    deadline = voting.date + timedelta(weeks=1)
+    time = int((deadline - timezone.now()).total_seconds())
+    
+        
+    return render(request, 'collabs/voting.html', {
+        'voting' : voting,
+        'collab' : collab,
+        'subs' : subs,
+        "time" : time,
+        'vote_count' : vote_count,
+        "downloaded" : downloaded,
+    })
+
     
     
     
@@ -194,30 +242,8 @@ def votings(request):
     })
     
 
-                                 # VOTING
-def voting(request, pk):
-    voting = Voting.objects.get(pk=pk)
-    collab = Collab.objects.get(pk=voting.collab.id)
-    subs = CollabSub.objects.filter(collab=collab)
-    vote_count = Vote.objects.filter(voting=voting).count()
-    downloaded = False
-    
-    
-    if request.user.is_authenticated:
-        downloaded = ()
-    
-    deadline = voting.date + timedelta(weeks=1)
-    time = int((deadline - timezone.now()).total_seconds())
-    
-        
-    return render(request, 'collabs/voting.html', {
-        'voting' : voting,
-        'collab' : collab,
-        'subs' : subs,
-        "time" : time,
-        'vote_count' : vote_count,
-        "downloaded" : downloaded,
-    })
+
+
 
 
 
