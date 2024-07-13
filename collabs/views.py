@@ -15,14 +15,9 @@ from django.db.models import Prefetch, Q
 
 
 def collabs(request):
-    collabs = Collab.objects.all()
-    # active_votings = Voting.objects.filter(active = True)
-    # for voting in active_votings:
-    #     voting.tags_list = voting.tags.split(',')
-        
+    collabs = Collab.objects.all()    
     return render(request, 'collabs/collabs.html', {
         'collabs' : collabs,
-        # 'votings' : active_votings,
     })
     
     
@@ -30,36 +25,33 @@ def collabs(request):
 def collab(request, pk):
     user = request.user
     collab = Collab.objects.get(pk=pk)
-    deadline = collab.date + timedelta(weeks=4)
-    time = int((deadline - timezone.now()).total_seconds())
-    
     stages = Stages.objects.filter(collab=collab)
     
     context = {
         'collab' : collab,
     }
     
-    if len(stages) == 1:
+    if len(stages) > 0:
         current_stage = stages.last()
-        time = int((current_stage.deadline - timezone.now()).total_seconds())
+        print('pnt: ', current_stage)
+        duration_in_seconds = current_stage.duration * 7 * 24 * 60 * 60
+        time = int((current_stage.date + timezone.timedelta(seconds=duration_in_seconds) - timezone.now()).total_seconds())
         download_count = PackDownloads.objects.filter(stage=current_stage).count()
         subs = CollabSub.objects.filter(stage=current_stage)
         vote_count = len(subs)
         context.update({
             "download_count" : download_count,
             "time": time,
-            
-        'subs' : subs,
-        'vote_count' : vote_count,
+            'current_stage' : current_stage,
+            'subs' : subs,
+            'vote_count' : vote_count,
         })
         
-    elif len(stages) > 1:
+    if len(stages) > 1:
         past_stages = stages.exclude(pk=current_stage.pk)
-    
-    
-
-    
-
+        context.update({
+            'past_stages' : past_stages
+        })
     
     
     if request.user.is_authenticated:
@@ -80,29 +72,29 @@ def collab(request, pk):
 
 
                                  # VOTING
-def voting(request, pk):
-    voting = Voting.objects.get(pk=pk)
-    collab = Collab.objects.get(pk=voting.collab.id)
-    subs = CollabSub.objects.filter(collab=collab)
-    vote_count = Vote.objects.filter(voting=voting).count()
-    downloaded = False
+# def voting(request, pk):
+#     voting = Voting.objects.get(pk=pk)
+#     collab = Collab.objects.get(pk=voting.collab.id)
+#     subs = CollabSub.objects.filter(collab=collab)
+#     vote_count = Vote.objects.filter(voting=voting).count()
+#     downloaded = False
     
     
-    if request.user.is_authenticated:
-        downloaded = ()
+#     if request.user.is_authenticated:
+#         downloaded = ()
     
-    deadline = voting.date + timedelta(weeks=1)
-    time = int((deadline - timezone.now()).total_seconds())
+#     deadline = voting.date + timedelta(weeks=1)
+#     time = int((deadline - timezone.now()).total_seconds())
     
         
-    return render(request, 'collabs/voting.html', {
-        'voting' : voting,
-        'collab' : collab,
-        'subs' : subs,
-        "time" : time,
-        'vote_count' : vote_count,
-        "downloaded" : downloaded,
-    })
+#     return render(request, 'collabs/voting.html', {
+#         'voting' : voting,
+#         'collab' : collab,
+#         'subs' : subs,
+#         "time" : time,
+#         'vote_count' : vote_count,
+#         "downloaded" : downloaded,
+#     })
 
     
     
@@ -154,22 +146,24 @@ from django.http import JsonResponse
 def przeslij(request, pk):
     user = request.user
     collab = Collab.objects.get(pk=pk)
+    current_stage = Stages.objects.filter(collab=collab, open=True).first()
     # if CollabSub.objects.filter(user=user, collab=collab):
     #     return redirect('core:profil') 
         # !!!^
     form = CollabSubform(request.POST, request.FILES)
     # ??? can i just put pk instead of collab.id if collab pk=pk
     if request.method == 'POST':
-        collab_id = collab.id
+        stage_id = current_stage.id
         title = request.POST.get('title')
         msg = request.POST.get('msg')
         file = request.FILES.get('file')
         volOffset = request.POST.get("volumeOffset")
         
+        
         if form.is_valid():
             collab_sub = CollabSub.objects.create(
                 user=user,
-                collab_id=collab_id,
+                stage_id=stage_id,
                 title=title,
                 msg=msg,
                 file=file,
@@ -186,6 +180,7 @@ def przeslij(request, pk):
     
     return render(request, 'collabs/collab_submit.html', {
         'collab' : collab,
+        'current_stage' : current_stage,
         'form' : form,
 })
 
@@ -194,15 +189,15 @@ def przeslij(request, pk):
 def unchecked(request):
     # unapproved_responses = CollabSub.objects.filter(Q(approved=False) | Q(approved__isnull=True), demoCreated=True)
     unapproved_responses = CollabSub.objects.filter(Q(approved=False) | Q(approved__isnull=True))
-    collabs_with_unapproved_responses = Collab.objects.prefetch_related(
+    stages_with_unapproved_responses = Stages.objects.prefetch_related(
         Prefetch('responses', queryset=unapproved_responses, to_attr='unapproved_responses')
     )
     # Filter songs that have unapproved responses
-    collabs_with_unapproved_responses = [collab for collab in collabs_with_unapproved_responses if collab.unapproved_responses]
-    print('collabs with no responses: ', collabs_with_unapproved_responses)
+    stages_with_unapproved_responses = [collab for collab in stages_with_unapproved_responses if collab.unapproved_responses]
+    print('collabs with no responses: ', stages_with_unapproved_responses)
     # Pass the data to the template
     context = {
-        'collabs': collabs_with_unapproved_responses
+        'collabs': stages_with_unapproved_responses
     }
     return render(request, "collabs/checksubmissions.html", context)
 
@@ -211,7 +206,7 @@ def unchecked(request):
 
 def check(request, pk):
     response = get_object_or_404(CollabSub, pk=pk)
-    collab = response.collab
+    stage = response.stage
 
     if request.method == 'POST':
         form = SubCheckForm(request.POST, instance=response)
@@ -225,23 +220,10 @@ def check(request, pk):
     context = {
         'response': response,
         'collab': collab,
-        'form': form
+        "stage" : stage,
+        'form': form,
     }
     return render(request, 'collabs/check-sub.html', context)
-
-
-
-
-
-                                # VOTINGS
-def votings(request):
-    votings = Voting.objects.all()
-    
-    return render(request, 'collabs/votings.html', {
-        'votings' : votings
-    })
-    
-
 
 
 

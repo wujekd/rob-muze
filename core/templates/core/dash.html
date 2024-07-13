@@ -47,7 +47,6 @@
             <p>{{ collab.msg }}</p>
             <p>{{ collab.date }}</p>
            <div> <p>{% trans "Nazwa pliku" %}: <br>{{ collab.file.name|basename }}</p></div>
-           <div><a href="{% url 'collabs:collab' collab.collab.id %}" class=""><button class="secondary-button">original collab - {{ collab.collab.id }}</button></a></div>
         </div>
     {% endfor %}
 {% else %}

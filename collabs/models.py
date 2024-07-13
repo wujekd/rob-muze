@@ -23,11 +23,11 @@ class Collab(models.Model):
 class Stages(models.Model):
     collab = models.ForeignKey(Collab, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=35)
+    name = models.CharField(max_length=75)
     name_pl = models.CharField(max_length=35, blank=True)
     desc = models.TextField(max_length=200)
     desc_pl = models.TextField(max_length=200, blank=True)
-    
+    open = models.BooleanField(default=False, blank=True, null=True)
     duration = models.IntegerField(null= True, blank= True)
     tags = models.CharField(max_length=50, blank=True)
     
@@ -48,7 +48,7 @@ class Stages(models.Model):
         return self.tags.split(',')
     
     def __str__(self):
-        return f'Glosowanie - {self.collab.title}'
+        return f'Stage: {self.name}, of: {self.collab.title}'
     
     def save(self, *args, **kwargs):
         if not self.name.endswith(f"-{self.collab.title}"):
@@ -71,12 +71,12 @@ class PackDownloads(models.Model):
         ]
 
 
-        
+
 class CollabSub(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stages, on_delete=models.CASCADE, related_name='responses', null=True, blank=True)
     title = models.TextField(max_length=40, null=True)
-    msg = models.TextField()
+    msg = models.TextField(max_length=300, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='collabs/responses', null=True)
     approved = models.BooleanField(default=False)

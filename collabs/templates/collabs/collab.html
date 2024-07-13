@@ -17,7 +17,7 @@
             <p>Ilosc glosow {{ vote_count }}</p>
             <h3 id="author" class="text-gray-500 text-xl leading-6">Author</h3>
         </div>
-        <p>Opis {{ collab.desc }} poi to jest opis i w ogole co wiecej jeszcze tutoj o tym kolabie kurde chcialbym tak szybko pisac wowjak prajmadzen hehe takze dobra moze jeszcze jedno zdanie i wystarczy</p>
+        <p>{{ collab.desc }}</p>
 
         <div style="w-full flex flex-wrap">
             <img id="cover" src="{{ collab.pic.url }}" style="width: 370px" alt="Cover Image" class="rounded z-10" />
@@ -26,15 +26,16 @@
 
 <section class="w-full flex">
     <div class="p-6 w-3/5 bg-primary1-800 flex justify-between">
-        <div>
-        <p>Current stage: 
+        <div class="flex flex-col justify-around">
+            <p>Current stage: </p>
+        <h3>
             {% if LANG == 'pl' %}
             {{ voting.name }}
             {% elif LANG == 'en'%}
-            {{voting.name_en}}
+            {{current_stage.name}}
             {% endif %}
-        </p>
-        <p>description description description</p>
+        </h3>
+        <p class="p-1">{{current_stage.desc}}</p>
     </div>
     <div>
         <div class="date-time">
@@ -68,7 +69,7 @@
     <div class="player bg-primary1-500 w-2/5 flex flex-col gap-3 pt-4">
 
         <audio src="" id="audioAPI"></audio>
-        <audio src="{{ collab.backing_track.url }}" id="audio-backing"></audio>
+        <audio src="{{ current_stage.backing_track.url }}" id="audio-backing"></audio>
         
 
 
@@ -148,7 +149,7 @@
             <button data-audio-url="{{ sub.demo_file_url }}"
                 audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                 class="pick-btn rounded-xl relative bg-secondary w-4/5 h-2/5 overflow-hidden border-1 border-white">
-                    <div style="width: 40%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
+                    <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
                     <span class="btn-txt h-full relative">▶</span>
                 </button>
             </div>
