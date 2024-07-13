@@ -22,6 +22,15 @@
 }
 
 @layer components {
+    .btn {
+        @apply border-2 px-2 py-1 border-primary1-900 bg-primary1-500 rounded-lg transition duration-200
+        active:opacity-50 disabled:opacity-40;
+      }
+      
+      .btn:hover {
+        @apply bg-primary1-700 scale-110;
+      }
+
     .nav {
         @apply
             fixed top-0 left-0 z-40

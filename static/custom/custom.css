@@ -6,13 +6,13 @@ body{
 #dynamic {
   transition: opacity 0.5s; 
 
-  h1 {
+  /* h1 {
     font-size: 2.5em;
     color: #102a45;
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
-}
+} */
 
 
 }
@@ -354,8 +354,6 @@ transition: background-color 0.3s;
   border-bottom-width: 3px; /* Increase the underline width on hover */
 }
 
-
-
     .vertext {
         /* writing-mode: vertical-rl;
         text-orientation: upright; */
@@ -410,4 +408,3 @@ transition: background-color 0.3s;
       border-radius: 50%;
       cursor: pointer;
   }
-  

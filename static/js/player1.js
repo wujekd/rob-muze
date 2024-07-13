@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-console.log("test")
+
 
     var playButtons = document.querySelectorAll('.pick-btn');
     playButtons.forEach(function(button) {

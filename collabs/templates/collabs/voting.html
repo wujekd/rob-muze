@@ -1,182 +1,163 @@
 {% extends 'core/base.html' %}
 {% block title %}
-Kolaboracje
+{{collab.title}}
 {% endblock title %}
 {% load i18n %}{% load static %}
 
 {% block content %}
 
-<br>
-
 {% get_current_language as LANG %}<br><br>
 <script src="{% static 'js/player1.js' %}" defer></script>
 
-{% comment %} top part {% endcomment %}
-<div class="header w-4/5 mt-6 w-1/2 mb-2 px-2 bg-primary rounded-xl mx-5" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
-    <div class="flex justify-between">
-        <div class="title">
-            <span>{% if LANG == 'pl' %}
-                {{ voting.name }}
-                {% elif LANG == 'en'%}
-                {{voting.name_en}}
-                {% endif %}
-            </span>
-            
+
+<div class="wrapper w-5/6 flex items-center flex-col mt-8 rounded" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <div class="flex w-full p-6 gap-8 mx-5 border-2 border-primary1-400 rounded-t-xl bg-primary1-700 items-center">
+        <div class="w-2/3 flex flex-col gap-6">
+            <h3>{{ collab.title }}</h3>
+            <p>Ilosc glosow {{ vote_count }}</p>
+            <h3 id="author" class="text-gray-500 text-xl leading-6">Author</h3>
         </div>
+        <p>Opis {{ collab.desc }} poi to jest opis i w ogole co wiecej jeszcze tutoj o tym kolabie kurde chcialbym tak szybko pisac wowjak prajmadzen hehe takze dobra moze jeszcze jedno zdanie i wystarczy</p>
+
+        <div style="w-full flex flex-wrap">
+            <img id="cover" src="{{ collab.pic.url }}" style="width: 370px" alt="Cover Image" class="rounded z-10" />
+        </div>
+    </div>
+
+<section class="w-full flex">
+    <div class="p-6 w-3/5 bg-primary1-800 flex justify-between">
+        <div>
+        <p>Current stage: 
+            {% if LANG == 'pl' %}
+            {{ voting.name }}
+            {% elif LANG == 'en'%}
+            {{voting.name_en}}
+            {% endif %}
+        </p>
+        <p>description description description</p>
+    </div>
+    <div>
         <div class="date-time">
-            <div class="date"><span>{% trans "Dodano" %}: </span> <span>{{ voting.date }}</span></div>
+            <div class="date"><span>created: </span> <span>{{ voting.date }}</span></div>
             <div class="time">
                 <span>{% trans "Pozostało" %}: </span>
                 <span id="countdown-timer"></span>
             </div>
         </div>
-    </div>
-</div>
+        <div class="description flex flex-col">
 
-
-<!-- Main info -->
-<div class="about w-4/5 bg-primary rounded-xl shadow" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
-    <div class="about-container myContainer">
-        <div class="about-item">
-            <div class="title">votig info</div>
-            <div class="description flex flex-col">
-
-                <div class="iconHolder">
-                    {% if voting.collab.wokal == True %}
-                    <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
-                    {% endif %}
-                    {% if voting.collab.instrument == True %}
-                    <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
-                    {% endif %}
-                </div>
-                    <p>downloaded: xx{{ voted }}</p>
-                <p>{% if LANG == 'pl' %}
-                    <div>description: {{voting.description}}</div>
-                    {% elif LANG == 'en'%}
-                    {{voting.description_en}}
-                    {% endif %}</p>  
+            <div class="iconHolder">
+                {% if voting.collab.wokal == True %}
+                <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+                {% endif %}
+                {% if voting.collab.instrument == True %}
+                <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+                {% endif %}
             </div>
-            
-        </div>
-        <div class='mainContainer bg-secondary'>
-            <p>The Collab</p>
-    
-            <h1>Glosowanie: {{ collab.title }}</h1>
-            <p>Opis {{ collab.desc }}</p>
-            <p>Ilosc glosow {{ vote_count }}</p>
+                <p>downloaded: xx{{ voted }}</p>
+            <p>{% if LANG == 'pl' %}
+                <div>description: {{voting.description}}</div>
+                {% elif LANG == 'en'%}
+                {{voting.description_en}}
+                {% endif %}</p>  
         </div>
     </div>
 </div>
 
 
-{% comment %} submissions {% endcomment %}
-<div class="flex flex-col w-5/6 items-center">
-    <div class="w-5/6 bg-secondary header rounded-xl mx-5 flex flex-col items-center" style="width: 90%">
-        <h2>Submitted responses:</h2>
-        <div class="w-full flex flex-col items-center">
-            {% for sub in subs %}
-            <div class="item flex flex-wrap w-5/6 bg-gray-100 p-5 m-5 rounded-lg my-2 flex justify-center items-center">
-                <h3>{{ sub.user.username }}</h3>
-                <p>{{ sub.title }}</p>
-                <p>{{ sub.msg }}</p>
+    <div class="player bg-primary1-500 w-2/5 flex flex-col gap-3 pt-4">
 
-                <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Check</a>
-
-                <button data-audio-url="{{ sub.demo_file_url }}"
-                    audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
-                    class="pick-btn rounded-xl relative bg-secondary w-20 relative overflow-hidden border-1 border-white">
-                        <div style="width: 0%" class="absolute h-full bg-primary py-2"></div>
-                        <span class="btn-txt pt-1 relative">▶</span>
-                    </button>
-
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-
-
-{% comment %} PLAYER PLAYER {% endcomment %}
-
-<div id="player" class="fixed bottom-0 w-4/5 bg-primary flex flex-row flex-wrap items-center px-6 border-t border-l border-r rounded-tl-xl rounded-tr-xl overflow-hidden">
-    <audio src="" id="audioAPI"></audio>
-    <audio src="{{ collab.backing_track.url }}" id="audio-backing"></audio>
-    
-    <div class="flex justify-between items-center w-full">
-
-
-<div style="w-full flex flex-wrap">
-        <img id="cover" src="{{ collab.pic.url }}" style="width: 108px" alt="Cover Image" class="rounded z-10" />
-    </div>
-        <div style="width: 120px" class="flex flex-col w-full items-center justify-evenly text-center mb-3">
-            <div><h2 id="title" class="text-white text-xl font-medium uppercase tracking-wide">Title</h2></div>
-            <div><h3 id="author" class="text-gray-500 text-xl leading-6">Author</h3></div>
-    </div>
+        <audio src="" id="audioAPI"></audio>
+        <audio src="{{ collab.backing_track.url }}" id="audio-backing"></audio>
         
-        <div class="flex flex-col flex-grow items-center w-full mx-4">
 
-            <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
-            <div class="flex justify-between w-full text-sm text-white">
-                <p id="current-time">.</p>
-                <p id="duration">.</p>
-            </div>
-            <div class="flex justify-center space-x-4 mt-2">
-                <button id="back-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </button>
-                <button id="play-btn">
-                    <svg width="17" height="17" viewBox="-3 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <title>play</title>
-                            <desc>Created with Sketch Beta.</desc>
-                            <defs></defs>
-                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-419.000000, -571.000000)" fill="#ffffff">
-                                    <path d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554" id="play" sketch:type="MSShapeGroup"></path>
-                                </g>
+
+        <div class="flex justify-center space-x-4 mt-4">
+            <p id="current-time"></p>
+            <button id="back-btn">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </button>
+            <button id="play-btn">
+                <svg width="17" height="17" viewBox="-3 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <title>play</title>
+                        <desc>Created with Sketch Beta.</desc>
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                            <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-419.000000, -571.000000)" fill="#ffffff">
+                                <path d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554" id="play" sketch:type="MSShapeGroup"></path>
                             </g>
                         </g>
-                    </svg>
-                </button>
-                <button id="fwd-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="rotate(180)">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </button>
-            </div>
+                    </g>
+                </svg>
+            </button>
+            <button id="fwd-btn">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="rotate(180)">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </button>
+            <p id="duration"></p>
         </div>
-
-        <div class="flex flex-col items-center justify-center" style="height: 10rem">
-            <span class="vertext text-white ">VOLUME</span>
-            <input type="range" 
-            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;" {% endcomment %}
-             id="volume" min="0" max="1" value="1" step="0.01" 
-            class="range-slider w-4/5 bg-red-500">
-
+        <div class="flex flex-col items-center w-full">
+            <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
+        </div>
+        <div class="flex flex-col items-center p-4">
             <span class="vertext text-white mt-4">BACKING</span>
             <input type="range" 
             {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;"  {% endcomment %}
             id="backing-volume" min="0" max="1" 
-            value="1" step="0.01" class="range-slider bg-red-500">
+            value="1" step="0.01" class="range-slider">
         </div>
     </div>
+</section>
+
+<section class="w-full flex">
+    <div class="responses-banner w-3/5 bg-primary1-500">
+        <h3>responses:</h2>
+    </div>
+        <div class="flex flex-col items-center bg-primary1-500 w-2/5 p-4">
+            <span class="vertext text-white ">VOLUME</span>
+            <input type="range" 
+            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;" {% endcomment %}
+            id="volume" min="0" max="1" value="1" step="0.01" 
+            class="range-slider w-full">
+        </div>
+
+</section>
+<section class="w-full flex flex-col">
+    <div class="w-full flex flex-col items-center">
+        {% for sub in subs %}
+        <div class="item flex flex-wrap w-5/6 bg-gray-100 p-5 m-5 rounded-lg my-2 justify-center items-center">
+            <h3>{{ sub.user.username }}</h3>
+            <p>{{ sub.title }}</p>
+            <p>{{ sub.msg }}</p>
+
+            <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Check</a>
+
+            <button data-audio-url="{{ sub.demo_file_url }}"
+                audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
+                class="pick-btn rounded-xl relative bg-secondary w-20 overflow-hidden border-1 border-white">
+                    <div style="width: 0%" class="absolute h-full bg-primary py-2"></div>
+                    <span class="btn-txt pt-1 relative">▶</span>
+                </button>
+
+        </div>
+        {% endfor %}
+    </div>
+</section>
 </div>
-
-
-
 
 
 

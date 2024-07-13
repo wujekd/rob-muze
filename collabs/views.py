@@ -7,13 +7,12 @@ from django.utils import timezone
 from datetime import timedelta
 from django.http import FileResponse
 import mimetypes
-
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
 import os
-
 from django.db.models import Prefetch, Q
+
 
 def collabs(request):
     collabs = Collab.objects.all()
@@ -26,14 +25,11 @@ def collabs(request):
         'votings' : active_votings,
     })
 
-
-
 def collab(request, pk):
     user = request.user
     collab = Collab.objects.get(pk=pk)
     submission_count = CollabSub.objects.filter(collab=pk).count()
     download_count = PackDownloads.objects.filter(collab=pk).count()
-    
     deadline = collab.date + timedelta(weeks=4)
     time = int((deadline - timezone.now()).total_seconds())
     
@@ -145,6 +141,8 @@ def przeslij(request, pk):
         'form' : form,
 })
 
+
+
 def unchecked(request):
     # unapproved_responses = CollabSub.objects.filter(Q(approved=False) | Q(approved__isnull=True), demoCreated=True)
     unapproved_responses = CollabSub.objects.filter(Q(approved=False) | Q(approved__isnull=True))
@@ -159,6 +157,7 @@ def unchecked(request):
         'collabs': collabs_with_unapproved_responses
     }
     return render(request, "collabs/checksubmissions.html", context)
+
 
 
 

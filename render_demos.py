@@ -46,7 +46,7 @@ for line in lines:
 
 
 
-        venv_activate_script = './venv/bin/activate'
+        venv_activate_script = '../rmvenv/bin/activate'
         command = f'source {venv_activate_script} && python3 manage.py mark_demo_rendered {response_id} {low_quality_path}'
 
         # Use bash explicitly to ensure source is found

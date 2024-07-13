@@ -1,34 +1,24 @@
-{% extends 'core/base.html' %}
-{% block title %}
-Kolaboracje
-{% endblock title %}
-{% load static %}
-{% load i18n %}
-{% block content %}
+{% extends 'core/base.html' %} {% block title %} Kolaboracje {% endblock title
+%} {% load static %} {% load i18n %} {% block content %}
 
+<div
+  style="margin-top: 35px"
+  class="mainContainer mx-5 mb-4 w-5/6 rounded-xl bg-secondary p-5 pt-10"
+>
+  <h1 class="test">add idea:</h1>
 
-<div style="margin-top: 35px" class="mainContainer mb-4 bg-secondary p-5 pt-10 w-5/6 rounded-xl mx-5"> 
-<h1 class="test">add idea:</h1>
-
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-        <p>
-            {{ field.label_tag }} {{ field }}
-            {% if field.help_text %}
-                <br><small>{{ field.help_text }}</small>
-            {% endif %}
-            {% for error in field.errors %}
-                <br><span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {% for field in form %}
+    <p>
+      {{ field.label_tag }} {{ field }} {% if field.help_text %}
+      <br /><small>{{ field.help_text }}</small>
+      {% endif %} {% for error in field.errors %}
+      <br /><span style="color: red">{{ error }}</span>
+      {% endfor %}
+    </p>
     {% endfor %}
-    <button class="bg-primary p-2 rounded" type="submit">Submit</button>
-</form>
-
-
+    <button class="rounded bg-primary p-2" type="submit">Submit</button>
+  </form>
 </div>
-
-
 
 {% endblock %}
