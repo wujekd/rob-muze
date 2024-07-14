@@ -28,8 +28,11 @@ class Stages(models.Model):
     desc = models.TextField(max_length=200)
     desc_pl = models.TextField(max_length=200, blank=True)
     open = models.BooleanField(default=False, blank=True, null=True)
+    completed = models.BooleanField(default=False, blank=True, null=True)
     duration = models.IntegerField(null= True, blank= True)
     tags = models.CharField(max_length=50, blank=True)
+    
+    winner = models.ForeignKey('CollabSub', on_delete=models.SET_NULL, null=True, blank=True)
     
         # the pack
     download_pack = models.FileField(upload_to='collabs/downloads', null=True, blank=True)
@@ -55,23 +58,7 @@ class Stages(models.Model):
             self.name = f"{self.name}-{self.collab.title}"
         super(Stages, self).save(*args, **kwargs)
         
-
-class PackDownloads(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    stage = models.ForeignKey(Stages, on_delete=models.CASCADE, blank=True, null=True)
-    date = models.DateTimeField(auto_now_add=True)
     
-    class Meta:
-        constraints = [
-            UniqueConstraint(
-                'user',
-                'stage',
-                name='pack-download',
-            )
-        ]
-
-
-
 class CollabSub(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stages, on_delete=models.CASCADE, related_name='responses', null=True, blank=True)
@@ -93,6 +80,25 @@ class CollabSub(models.Model):
         return Vote.objects.filter(vote_on=self).count()
     
     
+        
+
+class PackDownloads(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stages, on_delete=models.CASCADE, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                'user',
+                'stage',
+                name='pack-download',
+            )
+        ]
+
+
+
+
 
 class Vote(models.Model):
     stage = models.ForeignKey(Stages, on_delete=models.CASCADE, blank=True, null=True)

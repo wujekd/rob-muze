@@ -1576,6 +1576,46 @@ h1,h2,h3,h4,h5,h6 {
   background-color: rgb(63 141 141 / var(--tw-bg-opacity));
 }
 
+.bg-contrast-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(228 119 43 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-800{
+  --tw-bg-opacity: 1;
+  background-color: rgb(141 58 31 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 236 217 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 214 178 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 186 129 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 143 70 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(213 95 33 / var(--tw-bg-opacity));
+}
+
+.bg-contrast-700{
+  --tw-bg-opacity: 1;
+  background-color: rgb(177 72 29 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
 }

@@ -71,6 +71,46 @@ def collab(request, pk):
     return render(request, 'collabs/collab.html', context)
 
 
+
+# MODERATE 
+
+def collab_moderate(request, pk):
+    collab = Collab.objects.get(pk=pk)
+    stages = Stages.objects.filter(collab=collab)
+    
+    context = {
+        'collab' : collab,
+    }
+    
+    
+    if len(stages) > 0:
+        current_stage = stages.last()
+        print('pnt: ', current_stage)
+        duration_in_seconds = current_stage.duration * 7 * 24 * 60 * 60
+        time = int((current_stage.date + timezone.timedelta(seconds=duration_in_seconds) - timezone.now()).total_seconds())
+        download_count = PackDownloads.objects.filter(stage=current_stage).count()
+        subs = CollabSub.objects.filter(stage=current_stage)
+        vote_count = len(subs)
+        context.update({
+            "download_count" : download_count,
+            "time": time,
+            'current_stage' : current_stage,
+            'subs' : subs,
+            'vote_count' : vote_count,
+        })
+        
+    if len(stages) > 1:
+        past_stages = stages.exclude(pk=current_stage.pk)
+        context.update({
+            'past_stages' : past_stages
+        })
+    
+    
+    return render(request, 'collabs/collab_moderate.html', context)
+
+
+
+
                                  # VOTING
 # def voting(request, pk):
 #     voting = Voting.objects.get(pk=pk)
@@ -234,7 +274,7 @@ def vote(request, pk):
         voter_ip = request.META.get('REMOTE_ADDR')
         id = request.POST.get('submission_id')
         sub = CollabSub.objects.get(pk=id)
-        voting = Voting.objects.get(collab=sub.collab)
+        voting = Stages.objects.get(collab=sub.collab)
         #
         ip_check = Vote.objects.filter(voting=voting, voter_ip=voter_ip).exists()
         # ip_check = False

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.collabs, name='collabs'),
     path('<pk>', views.collab, name='collab'),
     path('<pk>/przeslij', views.przeslij, name='sub_collab'),
+    path('<pk>/moderate', views.collab_moderate, name="collab_moderate"),
     path('glosowanie/<pk>/check', views.vote, name='vote'),
 
     
