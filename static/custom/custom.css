@@ -92,6 +92,11 @@ transition: background-color 0.3s;
   flex-direction: column;
 }
 
+.vertical-text {
+  writing-mode: vertical-rl; /* or vertical-lr */
+  text-orientation: upright;
+}
+
 .blk-txt {
   color: #333;
 }

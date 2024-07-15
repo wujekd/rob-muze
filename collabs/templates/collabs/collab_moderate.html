@@ -6,11 +6,20 @@ Moderate {{collab.title}}
 
 {% block content %}
 
-{% get_current_language as LANG %}<br><br>
+{% get_current_language as LANG %}
+
+<br><br>
 <script src="{% static 'js/player1.js' %}" defer></script>
 
+<div class="fixed p-3 gap-2 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 13vw">
+    <p class="">ADMIN MODE</p>
+    <p>Hello</p>
+    <button class="bg-slate-700 ">add new stage</button>
 
-<div class="wrapper w-5/6 flex items-center flex-col mt-8 rounded" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <button class="bg-slate-700 ">exit panel</button>
+</div>
+
+<div class="absolute wrapper w-5/6 flex items-center flex-col mt-8 rounded" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5); left: 20px">
 
     <section class="flex w-full p-6 gap-8 mx-5 border-2 border-primary1-700 rounded-t-xl bg-primary1-700 items-center rounded">
         <div class="w-2/3 flex flex-col gap-6">
@@ -28,111 +37,132 @@ Moderate {{collab.title}}
         </div>
     </section>
 
-    <section class="flex w-full">
-        <p>stages:</p>
+
+    <section id="current-stage" class="w-full flex">
+        <div class="p-6 w-3/5 bg-primary1-800 flex justify-between">
+            <div class="flex flex-col justify-around">
+                <p>Current stage: </p>
+                <h3>
+                    {% if LANG == 'pl' %}
+                    {{ voting.name }}
+                    {% elif LANG == 'en'%}
+                    {{ current_stage.name }}
+                    {% endif %}
+                </h3>
+                <p class="p-1">{{ current_stage.desc }}</p>
+            </div>
+            <div>
+                <div class="date-time">
+                    <div class="date"><span>created: </span> <span>{{ voting.date }}</span></div>
+                    <div class="time">
+                        <span>{% trans "Pozostało" %}: </span>
+                        <span id="countdown-timer"></span>
+                    </div>
+                </div>
+                <div class="description flex flex-col">
+                    <div class="iconHolder">
+                        {% if voting.collab.wokal == True %}
+                        <img class="icon" src="{% static 'images/icons/vocals.png' %}" alt=""/> 
+                        {% endif %}
+                        {% if voting.collab.instrument == True %}
+                        <img class="icon" src="{% static 'images/icons/guitar.png' %}" alt=""/> 
+                        {% endif %}
+                    </div>
+                    <p>downloaded: xx{{ voted }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col_mod_check flex w-2/5 justify-around items-center gap-3 bg-gradient-to-l from-contrast-800 via-primary-500 to-primary1-800">
+            <div class="">
+                <p>submissions</p>
+                <p>unchecked</p>
+                <p>submissions:</p>
+            </div>
+            <button class="p-2 px-6 bg-slate-600 h-1/2">Check submissions</button>
+            <button class="p-2 px-6 bg-slate-600 h-1/2">Check submissions</button>
+        </div>
     </section>
 
-
-
-<section class="w-full flex">
-    <div class="p-6 w-3/5 bg-primary1-800 flex justify-between">
-        <div class="flex flex-col justify-around">
-            <p>Current stage: </p>
-        <h3>
-            {% if LANG == 'pl' %}
-            {{ voting.name }}
-            {% elif LANG == 'en'%}
-            {{current_stage.name}}
-            {% endif %}
-        </h3>
-        <p class="p-1">{{current_stage.desc}}</p>
-    </div>
-    <div>
-        <div class="date-time">
-            <div class="date"><span>created: </span> <span>{{ voting.date }}</span></div>
-            <div class="time">
-                <span>{% trans "Pozostało" %}: </span>
-                <span id="countdown-timer"></span>
-            </div>
+    <section class="stages-header-player flex w-full">
+        <div class="w-3/5 bg-slate-500">
+        <p>
+            past stages:</p>
         </div>
-        <div class="description flex flex-col">
+        <div class="player bg-primary1-500 w-2/5 flex flex-col gap-3 py-2">
 
-            <div class="iconHolder">
-                {% if voting.collab.wokal == True %}
-                <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
-                {% endif %}
-                {% if voting.collab.instrument == True %}
-                <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
-                {% endif %}
-            </div>
-                <p>downloaded: xx{{ voted }}</p>
-            <p>{% if LANG == 'pl' %}
-                <div>description: {{voting.description}}</div>
-                {% elif LANG == 'en'%}
-                {{voting.description_en}}
-                {% endif %}</p>  
-        </div>
-    </div>
-</div>
-
-
-    <div class="player bg-primary1-500 w-2/5 flex flex-col gap-3 pt-4">
-
-        <audio src="" id="audioAPI"></audio>
-        <audio src="{{ current_stage.backing_track.url }}" id="audio-backing"></audio>
-        
-
-
-        <div class="flex justify-center space-x-4 mt-4">
-            <p id="current-time"></p>
-            <button id="back-btn">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
-                </svg>
-            </button>
-            <button id="play-btn">
-                <svg width="17" height="17" viewBox="-3 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <title>play</title>
-                        <desc>Created with Sketch Beta.</desc>
-                        <defs></defs>
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                            <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-419.000000, -571.000000)" fill="#ffffff">
-                                <path d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554" id="play" sketch:type="MSShapeGroup"></path>
+            <audio src="" id="audioAPI"></audio>
+            <audio src="{{ current_stage.backing_track.url }}" id="audio-backing"></audio>
+            
+    
+    
+            <div class="flex justify-center space-x-4">
+                <p id="current-time"></p>
+                <button id="back-btn">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button id="play-btn">
+                    <svg width="17" height="17" viewBox="-3 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <title>play</title>
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs></defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-419.000000, -571.000000)" fill="#ffffff">
+                                    <path d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554" id="play" sketch:type="MSShapeGroup"></path>
+                                </g>
                             </g>
                         </g>
-                    </g>
-                </svg>
-            </button>
-            <button id="fwd-btn">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="rotate(180)">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
-                </svg>
-            </button>
-            <p id="duration"></p>
+                    </svg>
+                </button>
+                <button id="fwd-btn">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="rotate(180)">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+                <p id="duration"></p>
+            </div>
+            <div class="flex flex-col items-center w-full">
+                <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
+            </div>
+
         </div>
-        <div class="flex flex-col items-center w-full">
-            <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
+        <div>
+
+    </section>
+
+    <section id="past-stages" class="w-full flex">
+
+        <div class="flex w-4/6">
+            <div class="w-1/2">
+                <p>Name: </p>
+                <p>Description</p>
+            </div>
+            <div>
+                <p>created:<p>
+                <p>closed: </p>
+                <p>duration: </p>
+            </div>
         </div>
-        <div class="flex flex-col items-center p-4">
-            <span class="vertext text-white mt-4">BACKING</span>
-            <input type="range" 
-            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;"  {% endcomment %}
-            id="backing-volume" min="0" max="1" 
-            value="1" step="0.01" class="range-slider">
+        <div>
+            <p>Winner: </p>
+            <button class="p-2 px-6 bg-slate-600">play the selected take</button>
         </div>
-    </div>
-</section>
+
+
+    </section>
+
 
 
 </div>
