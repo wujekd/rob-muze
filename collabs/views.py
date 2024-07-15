@@ -20,7 +20,6 @@ def collabs(request):
         'collabs' : collabs,
     })
     
-    
 
 def collab(request, pk):
     user = request.user
@@ -81,26 +80,34 @@ def collab_moderate(request, pk):
     context = {
         'collab' : collab,
     }
+    print(stages)
     
     
     if len(stages) > 0:
-        current_stage = stages.last()
+        current_stage = stages.filter(active=True).first()
         print('pnt: ', current_stage)
-        duration_in_seconds = current_stage.duration * 7 * 24 * 60 * 60
-        time = int((current_stage.date + timezone.timedelta(seconds=duration_in_seconds) - timezone.now()).total_seconds())
-        download_count = PackDownloads.objects.filter(stage=current_stage).count()
-        subs = CollabSub.objects.filter(stage=current_stage)
-        vote_count = len(subs)
         context.update({
-            "download_count" : download_count,
-            "time": time,
-            'current_stage' : current_stage,
-            'subs' : subs,
-            'vote_count' : vote_count,
+                'current_stage' : current_stage,
+        })
+        if current_stage != None:
+            duration_in_seconds = current_stage.duration * 7 * 24 * 60 * 60
+            time = int((current_stage.date + timezone.timedelta(seconds=duration_in_seconds) - timezone.now()).total_seconds())
+            download_count = PackDownloads.objects.filter(stage=current_stage).count()
+            subs = CollabSub.objects.filter(stage=current_stage)
+            vote_count = len(subs)
+            context.update({
+                "download_count" : download_count,
+                "time": time,
+                'subs' : subs,
+                'vote_count' : vote_count,
         })
         
     if len(stages) > 1:
-        past_stages = stages.exclude(pk=current_stage.pk)
+        if current_stage == None:
+            past_stages = stages
+        else:
+            past_stages = stages.exclude(pk=current_stage.pk)
+            
         context.update({
             'past_stages' : past_stages
         })

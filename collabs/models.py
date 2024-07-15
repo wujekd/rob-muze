@@ -28,6 +28,7 @@ class Stages(models.Model):
     desc = models.TextField(max_length=200)
     desc_pl = models.TextField(max_length=200, blank=True)
     open = models.BooleanField(default=False, blank=True, null=True)
+    active = models.BooleanField(default=False, blank=True, null=True)
     completed = models.BooleanField(default=False, blank=True, null=True)
     duration = models.IntegerField(null= True, blank= True)
     tags = models.CharField(max_length=50, blank=True)
