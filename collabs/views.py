@@ -31,7 +31,7 @@ def collab(request, pk):
     }
     
     if len(stages) > 0:
-        current_stage = stages.last()
+        current_stage = stages.filter(active=True).first()
         print('pnt: ', current_stage)
         duration_in_seconds = current_stage.duration * 7 * 24 * 60 * 60
         time = int((current_stage.date + timezone.timedelta(seconds=duration_in_seconds) - timezone.now()).total_seconds())
@@ -260,7 +260,7 @@ def check(request, pk):
         if form.is_valid():
             form.save()
             print("form valid")
-            return redirect('unchecked') 
+            return redirect('collabs:collab_moderate', pk=response.stage.collab.id) 
     else:
         form = SubCheckForm(instance=response)
 
