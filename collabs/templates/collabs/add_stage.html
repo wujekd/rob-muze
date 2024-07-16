@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+{% block title %}
+{{collab.title}}
+{% endblock title %}
+{% load i18n %}{% load static %}
+
+{% block content %}
+
+<div class="mt-20">
+    <h1>Add New Stage</h1>
+
+    <!-- Display form errors (if any) -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.desc.label_tag }}
+            {{ form.desc }}
+            {{ form.desc.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.download_pack.label_tag }}
+            {{ form.download_pack }}
+            {{ form.download_pack.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.backing_track.label_tag }}
+            {{ form.backing_track }}
+            {{ form.backing_track.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.demo.label_tag }}
+            {{ form.demo }}
+            {{ form.demo.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.score.label_tag }}
+            {{ form.score }}
+            {{ form.score.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.midi.label_tag }}
+            {{ form.midi }}
+            {{ form.midi.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.ableton.label_tag }}
+            {{ form.ableton }}
+            {{ form.ableton.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.reaper.label_tag }}
+            {{ form.reaper }}
+            {{ form.reaper.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.logic.label_tag }}
+            {{ form.logic }}
+            {{ form.logic.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.wokal.label_tag }}
+            {{ form.wokal }}
+            {{ form.wokal.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.instrument.label_tag }}
+            {{ form.instrument }}
+            {{ form.instrument.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.rap.label_tag }}
+            {{ form.rap }}
+            {{ form.rap.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

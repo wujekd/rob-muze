@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Collab, CollabSub, Stages, Vote, PackDownloads
 from account.models import Account
-from .forms import CollabSubform, SubCheckForm
+from .forms import CollabSubform, SubCheckForm, AddStageForm
 from django.contrib import messages
 from django.utils import timezone
 from datetime import timedelta
@@ -230,6 +230,16 @@ def przeslij(request, pk):
         'current_stage' : current_stage,
         'form' : form,
 })
+
+
+
+def add_stage(request, pk):
+    collab = Collab.objects.filter(pk=pk).first()
+    addStageForm = AddStageForm(instance=collab)
+    
+    return render(request, 'collabs/add_stage.html', {
+        'form' : addStageForm
+    })
 
 
 
