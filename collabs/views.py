@@ -116,34 +116,40 @@ def collab_moderate(request, pk):
     return render(request, 'collabs/collab_moderate.html', context)
 
 
+    
 
 
-                                 # VOTING
-# def voting(request, pk):
-#     voting = Voting.objects.get(pk=pk)
-#     collab = Collab.objects.get(pk=voting.collab.id)
-#     subs = CollabSub.objects.filter(collab=collab)
-#     vote_count = Vote.objects.filter(voting=voting).count()
-#     downloaded = False
+def add_stage(request, pk):
+    
+    collab = get_object_or_404(Collab, pk=pk)
+    addStageForm = AddStageForm()
+    
+    if request.method == "POST":
+        form = AddStageForm(request.POST)
+        if form.is_valid():
+            stage = form.save(commit=False)
+            stage.collab = collab
+            stage.save()
+            return redirect("collabs:collab_moderate", pk=collab.id)
+    
+    else:
+        print("ERROR FORM NOT VALID")
+    
+    return render(request, 'collabs/add_stage.html', {
+        'collab' : collab,
+        'form' : addStageForm
+    })
     
     
-#     if request.user.is_authenticated:
-#         downloaded = ()
-    
-#     deadline = voting.date + timedelta(weeks=1)
-#     time = int((deadline - timezone.now()).total_seconds())
-    
-        
-#     return render(request, 'collabs/voting.html', {
-#         'voting' : voting,
-#         'collab' : collab,
-#         'subs' : subs,
-#         "time" : time,
-#         'vote_count' : vote_count,
-#         "downloaded" : downloaded,
-#     })
+    # if request.method == 'POST':
+    #     form = SubCheckForm(request.POST, instance=response)
+    #     if form.is_valid():
+    #         form.save()
+    #         print("form valid")
+    #         return redirect('collabs:collab_moderate', pk=response.stage.collab.id) 
+    # else:
+    #     form = SubCheckForm(instance=response)
 
-    
     
     
 def collab_pack_download(request, pk):
@@ -233,14 +239,6 @@ def przeslij(request, pk):
 
 
 
-def add_stage(request, pk):
-    collab = Collab.objects.filter(pk=pk).first()
-    addStageForm = AddStageForm(instance=collab)
-    
-    return render(request, 'collabs/add_stage.html', {
-        'form' : addStageForm
-    })
-
 
 
 def unchecked(request):
@@ -276,7 +274,6 @@ def check(request, pk):
 
     context = {
         'response': response,
-        'collab': collab,
         "stage" : stage,
         'form': form,
     }

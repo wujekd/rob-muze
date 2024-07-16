@@ -12,6 +12,7 @@
         console.log(volumeOffsetFloat);
 </script>
 
+<a href="{% url 'collabs:collab_moderate' pk=stage.collab.id %}"><button class="absolute bg-gray-500 p-4" style="left: 0px; top: 135px">back to collab</button></a>
 
 <audio src="{{ stage.backing_track.url }}" id="backing"></audio>
 <audio src="{{ response.file.url }}" id="submitted"></audio>

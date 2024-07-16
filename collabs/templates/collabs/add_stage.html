@@ -6,8 +6,10 @@
 
 {% block content %}
 
-<div class="mt-20">
-    <h1>Add New Stage</h1>
+<a href="{% url 'collabs:collab_moderate' pk=collab.id %}"><button class="absolute bg-gray-700 p-4" style="left: 0px; top: 135px">back to collab</button></a>
+
+<div class="" style="margin-top: 27px">
+    <h1 class="">Add New Stage</h1>
 
     <!-- Display form errors (if any) -->
     {% if form.errors %}
@@ -25,7 +27,7 @@
     </div>
     {% endif %}
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="bg-primary1-800 p-7 rounded-xl flex flex-col justify-center">
         {% csrf_token %}
 
         <div class="form-group">
@@ -39,7 +41,7 @@
             {{ form.desc }}
             {{ form.desc.errors }}
         </div>
-
+<div class="p-4 bg-primary1-600 my-4 flex rounded-lg">
         <div class="form-group">
             {{ form.download_pack.label_tag }}
             {{ form.download_pack }}
@@ -51,7 +53,8 @@
             {{ form.backing_track }}
             {{ form.backing_track.errors }}
         </div>
-
+    </div>
+    <div class="flex justify-around pb-6">
         <div class="form-group">
             {{ form.demo.label_tag }}
             {{ form.demo }}
@@ -105,6 +108,7 @@
             {{ form.rap }}
             {{ form.rap.errors }}
         </div>
+    </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
