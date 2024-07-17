@@ -1,6 +1,7 @@
 from django import forms
 from .models import Collab, CollabSub, Stages
 
+
 class AddStageForm(forms.ModelForm):
     title = forms.CharField(
         label='Stage Name',

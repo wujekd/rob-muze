@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'ankiety',
     'collabs',
     'ideas',
+    'groups',
 ]
 
 TAILWIND_APP_NAME = 'theme'

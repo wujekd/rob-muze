@@ -34,6 +34,7 @@ urlpatterns = [
     path('check/<pk>', check, name= "check-sub"),
     
     path("ideas/", include('ideas.urls')),
+    path("groups/", include('groups.urls')),
     
     
     

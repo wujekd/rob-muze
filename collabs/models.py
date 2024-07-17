@@ -74,6 +74,7 @@ class CollabSub(models.Model):
     volumeOffset = models.FloatField(null=True, blank=True)
     modComment = models.TextField(max_length=150, null=True, blank=True)
     
+    
     def __str__(self):
         return f"{self.id} - {self.title} - Approved: {self.approved} - Vol: {self.volumeOffset}"
     
