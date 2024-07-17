@@ -15,7 +15,6 @@ class GroupMembership(models.Model):
         ('mod', 'Moderator'),
         ('user', 'User'),
     ]
-    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=USER_ROLES)
@@ -23,3 +22,10 @@ class GroupMembership(models.Model):
 
     class Meta:
         unique_together = ('user', 'group')
+        
+        
+class MembershipRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='membership_requests')
+    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='pending')
+    created = models.DateTimeField(auto_now_add=True)
