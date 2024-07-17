@@ -6,8 +6,17 @@ Groups
 
 {% block content %}
 
-<div class="pt-20">
-    ok
+
+<div class="mt-20 bg-primary1-800 p-8">
+<h2>Verify Membership Request</h2>
+  <p>User: {{ membership_request.user.username }}</p>
+  <p>Group: {{ membership_request.group.name }}</p>
+
+  <form method="post" class="m-5">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="p-3 m-2 bg-slate-900" type="submit">Submit</button>
+  </form>
 </div>
 
 {% endblock %}

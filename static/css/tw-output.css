@@ -1722,6 +1722,11 @@ h1,h2,h3,h4,h5,h6 {
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
+.bg-slate-900{
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
 }

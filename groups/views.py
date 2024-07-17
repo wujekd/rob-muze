@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Group, MembershipRequest
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Group, MembershipRequest, GroupMembership
 from collabs.models import Collab
+from .forms import VerifyMemberForm
 # Create your views here.
 def groups(request):
     groups = Group.objects.all()
@@ -15,7 +16,6 @@ def group(request, pk):
     members = group.members.all()
     collabs = Collab.objects.filter(group=group)
     
-    
     membership_requests = MembershipRequest.objects.filter(group=group)
     request_count = len(membership_requests)
     
@@ -26,9 +26,29 @@ def group(request, pk):
     return render(request, 'groups/group.html', context)
 
 
+
+
 def verify_member(request, pk):
+    membership_request = MembershipRequest.objects.get(pk=pk)
+    member = request.user
     
-    return render(request, "groups/verify.html")
+    if request.method == "POST":
+        form = VerifyMemberForm(request.POST)
+        if form.is_valid():
+            approve = form.cleaned_data['approve']
+            if approve:
+                GroupMembership.objects.create(
+                    user=membership_request.user,
+                    group=membership_request.group,
+                    role='user'  # or whatever role you want to assign
+                )
+            # Delete the membership request after processing
+            membership_request.delete()
+            return redirect('groups:group', pk=membership_request.group.pk)
+    else:
+        form = VerifyMemberForm()
+
+    return render(request, 'groups/verify.html', {'form': form, 'membership_request': membership_request})
 
 
 

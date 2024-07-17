@@ -46,7 +46,7 @@ Groups
         <p>Membership Requests: {{ request_count }}</p>
 
         {% for request in requests %}
-            <a href"{% url "groups:verify_member" pk=request.id %}"><button class="p-2 bg-slate-800">Verify: {{ request.user.username }}</button></a>
+            <a href="{% url "groups:verify_member" pk=request.id %}"><button class="p-2 bg-slate-800">Verify: {{ request.user.username }}</button></a>
         {% endfor %}
     </div>
 
