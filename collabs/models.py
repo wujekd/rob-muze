@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import UniqueConstraint
+from groups.models import Group
 
 
 class Collab(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, default=None)
+    
     title = models.TextField(max_length=30)
     title_en = models.TextField(max_length=30, null=True, blank=True)
     desc = models.TextField(max_length=300, null=True, blank=True)

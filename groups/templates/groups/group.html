@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block title %}
+Groups
+{% endblock title %}
+{% load i18n %}{% load static %}
+
+{% block content %}
+
+<div class="mt-20">
+    <h1>GROUP NAME: {{ group.name }}</h1>
+    <p>Created by: {{ group.creator.username }}</p>
+
+    <h2 class="pt-4">Members:</h2>
+    <div class="members-list">
+        {% for member in members %}
+            <div class="member">
+                <p>{{ member.username }}</p>
+            </div>
+        {% empty %}
+            <div class="no-members">
+                <p>No members in this group yet.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="m-4">
+        <p>collabs: </p>
+        {% for collab in collabs %}
+        <div class="member">
+            <a href="{% url "collabs:collab" pk=collab.id %}"><p>{{ collab.title }}</p></a>
+        </div>
+    {% empty %}
+        <div class="no-members">
+            <p>No members in this group yet.</p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

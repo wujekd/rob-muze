@@ -7,7 +7,13 @@ Groups
 {% block content %}
 
 <div class="pt-20">
-Groups
+Groups:
+
+{% for group in groups %}
+
+<a href="{% url 'groups:group' pk=group.id %}"><p class="bg-primary1-800 p-2">{{ group.name }}</p></a>
+
+{% endfor %}
 </div>
 
 {% endblock %}
