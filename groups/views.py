@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Group, MembershipRequest, GroupMembership
 from collabs.models import Collab
-from .forms import VerifyMemberForm
+from .forms import VerifyMemberForm, JoinGroupForm
+from django.http import JsonResponse
+
 # Create your views here.
 def groups(request):
     groups = Group.objects.all()
@@ -49,6 +51,26 @@ def verify_member(request, pk):
         form = VerifyMemberForm()
 
     return render(request, 'groups/verify.html', {'form': form, 'membership_request': membership_request})
+
+
+
+
+def join_group(request, pk):
+    
+    group = get_object_or_404(Group, pk=pk)
+    
+    if request.method == "POST":
+        user = request.user
+        if GroupMembership.objects.filter(group=group, user=user).exists():
+            return JsonResponse({'success': False, 'message': 'You are already a member of this group.'})
+
+    # Check if the user has already requested to join this group
+        if MembershipRequest.objects.filter(group=group, user=user).exists():
+            return JsonResponse({'success': False, 'message': 'You have already submitted a membership request for this group.'})
+        
+        MembershipRequest.objects.create(user=user, group=group)
+        return JsonResponse({'success': True, 'message': 'Membership request added'})
+    
 
 
 

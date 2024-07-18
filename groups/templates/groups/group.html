@@ -1,14 +1,21 @@
 {% extends 'core/base.html' %}
 {% block title %}
-Groups
+Group
 {% endblock title %}
 {% load i18n %}{% load static %}
+{% csrf_token %}
 
 {% block content %}
 
+<script src="{% static 'js/group.js' %}" defer></script>
+<script src="{% static 'axios/dist/axios.js' %}"></script>
+<script>
+    const joinGroupUrl = "{% url 'groups:join_group' pk=group.id %}";
+</script>
+
 
 <div class="flex mt-20 justify-around w-full">
-    <div class="bg-primary1-800 p-5">
+    <div class="group-panel bg-primary1-800 p-5">
         <h1>GROUP NAME: {{ group.name }}</h1>
         <p>Created by: {{ group.creator.username }}</p>
 
@@ -40,7 +47,12 @@ Groups
     </div>
 
 
-    <div class="bg-contrast-700 bg-opacity-40 mx-5 p-5">
+    <div class="group bg-primary1-800 p-5">
+        <button id="joinGroupButton" data-group-id="{{ group.id }}" class="p-4 bg-stone-600">Join Group</button>
+        <div id="responseMessage"></div>
+    </div>
+
+    <div class="manage bg-contrast-700 bg-opacity-40 mx-5 p-5">
         <p>Manage Group:</p>
 
         <p>Membership Requests: {{ request_count }}</p>
@@ -49,9 +61,7 @@ Groups
             <a href="{% url "groups:verify_member" pk=request.id %}"><button class="p-2 bg-slate-800">Verify: {{ request.user.username }}</button></a>
         {% endfor %}
     </div>
-
-
-
-
 </div>
+
+
 {% endblock %}

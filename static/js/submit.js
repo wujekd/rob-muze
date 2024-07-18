@@ -58,6 +58,7 @@ console.log("test")
                 }
             });
     
+            
             if (response.status === 200) {
                 uploadCompleted = true;
                 updateProgressBar(100);
