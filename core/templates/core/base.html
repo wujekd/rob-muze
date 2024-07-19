@@ -23,9 +23,11 @@
                     <div class="flex items-center ">
                     {% comment %} M E N U - O P C J E {% endcomment %}
                         
-                        {% comment %} <a href="{% url 'samples:samples' %}" class="nav-link ml-2">{% trans "Sample" %}</a> {% endcomment %}
+                        
                         <a href="{% url 'ideas:ideas' %}" class="nav-link ml-2">Ideas</a>
                         <a href="{% url 'collabs:collabs' %}" class="nav-link ml-2">{% trans "Kolaboracje" %}</a>
+                        <a href="{% url 'groups:groups' %}" class="nav-link ml-2">Groups</a>
+                        <a href="{% url 'samples:samples' %}" class="nav-link ml-2">{% trans "Sample" %}</a>
                         <a href="{% url 'ankiety:ankiety' %}" class="nav-link ml-2"
                         
                         {% if request.user.is_authenticated %}
@@ -34,6 +36,7 @@
                         {% endif %}
                         {%endif%}
                         >{% trans "Ankiety" %}</a>
+
 
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'core:profil' %}" class="nav-link ml-2">{% trans "Dashboard" %}</a>

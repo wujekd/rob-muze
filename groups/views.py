@@ -82,6 +82,7 @@ def join_group(request, pk):
 def join_group_with_token(request, token):
     invitation = get_object_or_404(Invitation, token=token, used_by__isnull=True)
     group = invitation.group
+    print(token)
     
 
     if GroupMembership.objects.filter(group=group, user=request.user).exists():
