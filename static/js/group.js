@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", ()=> {
 
+    const createInvitationButton = document.querySelector('.invitations button');
+    const invitationsDiv = document.querySelector('.invitations');
+
 
 
   function getCookie(name) {
@@ -17,7 +20,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
     return cookieValue;
 }
 
-const csrftoken = getCookie('csrftoken');
+// const csrftoken = getCookie('csrftoken');
 
 document.getElementById('joinGroupButton').addEventListener('click', function() {
     axios.post(joinGroupUrl, {}, {
@@ -33,4 +36,30 @@ document.getElementById('joinGroupButton').addEventListener('click', function() 
         document.getElementById('responseMessage').innerText = 'An error occurred.';
     });
 });
+
+
+
+createInvitationButton.addEventListener('click', function() {
+    axios.post(createInvitationUrl, {}, {
+        headers: {
+            'X-CSRFToken': csrftoken
+        }
+    })
+    .then(function(response) {
+        console.log('Full response:', response); // Log the full response for debugging
+    
+        if (response.data.token) {
+            const invitationLink = document.createElement('p');
+            invitationLink.textContent = `Invitation Link: ${response.data.token}`;
+            invitationsDiv.appendChild(invitationLink);
+        } else {
+            console.error(response.data.message);
+        }
+    })
+    .catch(function(error) {
+        console.error('An error occurred:', error);
+    });
+});
+
+
 })

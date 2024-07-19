@@ -5,17 +5,22 @@ Group
 {% load i18n %}{% load static %}
 {% csrf_token %}
 
+
 {% block content %}
+
+
 
 <script src="{% static 'js/group.js' %}" defer></script>
 <script src="{% static 'axios/dist/axios.js' %}"></script>
 <script>
     const joinGroupUrl = "{% url 'groups:join_group' pk=group.id %}";
+    const createInvitationUrl = "{% url 'groups:create_invitation' pk=group.id %}";
+    const csrftoken = '{{ csrf_token }}';
 </script>
 
 
-<div class="flex mt-20 justify-around w-full">
-    <div class="group-panel bg-primary1-800 p-5">
+<div class="flex mt-20 justify-around w-full items-center">
+    <div class="group-panel bg-primary1-800 p-5 w-3/6">
         <h1>GROUP NAME: {{ group.name }}</h1>
         <p>Created by: {{ group.creator.username }}</p>
 
@@ -32,36 +37,61 @@ Group
             {% endfor %}
         </div>
 
-        <div class="m-4">
+        <div class="">
             <p>collabs: </p>
             {% for collab in collabs %}
             <div class="member">
                 <a href="{% url "collabs:collab" pk=collab.id %}"><p>{{ collab.title }}</p></a>
             </div>
-        {% empty %}
-            <div class="no-members">
-                <p>No members in this group yet.</p>
-            </div>
-        {% endfor %}
+            {% empty %}
+                <div class="no-members">
+                    <p>No members in this group yet.</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="group bg-primary1-800 p-5">
+            <button id="joinGroupButton" data-group-id="{{ group.id }}" class="p-4 bg-stone-600">Join Group</button>
+            <div id="responseMessage"></div>
         </div>
     </div>
 
 
-    <div class="group bg-primary1-800 p-5">
-        <button id="joinGroupButton" data-group-id="{{ group.id }}" class="p-4 bg-stone-600">Join Group</button>
-        <div id="responseMessage"></div>
-    </div>
 
-    <div class="manage bg-contrast-700 bg-opacity-40 mx-5 p-5">
+    <div class="manage bg-contrast-700 bg-opacity-40 p-5 w-2/6">
         <p>Manage Group:</p>
 
         <p>Membership Requests: {{ request_count }}</p>
+        <p>Invitations: {{ invitation_count }}</p>
 
         {% for request in requests %}
             <a href="{% url "groups:verify_member" pk=request.id %}"><button class="p-2 bg-slate-800">Verify: {{ request.user.username }}</button></a>
         {% endfor %}
+
+        <div class="invitations">
+            <div class="mx-auto p-5">
+                <div class="bg-contrast-700 bg-opacity-40 p-5 rounded shadow-lg">
+                    <h2 class="text-xl font-bold mb-4">Manage Group</h2>
+        
+                    <p class="mb-2">Membership Requests: {{ request_count }}</p>
+                    <p class="mb-2">Invitations: {{ invitation_count }}</p>
+        
+                    {% for request in requests %}
+                        <a href="{% url 'groups:verify_member' pk=request.id %}">
+                            <button class="p-2 bg-slate-800 text-white rounded mb-2">Verify: {{ request.user.username }}</button>
+                        </a>
+                    {% endfor %}
+        
+                    <div class="invitations mt-5">
+                        <button id="create-invitation-btn" class="p-3 my-2 bg-contrast-950">Create an Invitation</button>
+                        <div id="invitation-link" class="mt-2 text-green-500"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+
 
 
 {% endblock %}

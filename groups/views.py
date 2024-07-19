@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Group, MembershipRequest, GroupMembership
+from django.contrib.auth.decorators import login_required
+from .models import Group, MembershipRequest, GroupMembership, Invitation
 from collabs.models import Collab
 from .forms import VerifyMemberForm, JoinGroupForm
 from django.http import JsonResponse
+from django.contrib import messages
+from django.urls import reverse
+from django.utils.crypto import get_random_string
 
 # Create your views here.
 def groups(request):
@@ -11,6 +15,7 @@ def groups(request):
     context = { 'groups' : groups}
     
     return render(request, 'groups/groups.html', context)
+
 
 
 def group(request, pk):
@@ -64,13 +69,52 @@ def join_group(request, pk):
         if GroupMembership.objects.filter(group=group, user=user).exists():
             return JsonResponse({'success': False, 'message': 'You are already a member of this group.'})
 
-    # Check if the user has already requested to join this group
         if MembershipRequest.objects.filter(group=group, user=user).exists():
             return JsonResponse({'success': False, 'message': 'You have already submitted a membership request for this group.'})
         
         MembershipRequest.objects.create(user=user, group=group)
         return JsonResponse({'success': True, 'message': 'Membership request added'})
     
+    
+
+    
+@login_required
+def join_group_with_token(request, token):
+    invitation = get_object_or_404(Invitation, token=token, used_by__isnull=True)
+    group = invitation.group
+    
+
+    if GroupMembership.objects.filter(group=group, user=request.user).exists():
+        messages.error(request, 'You are already a member of this group.')
+        return redirect('groups:group', pk=group.id)
+    
+
+    GroupMembership.objects.create(user=request.user, group=group, role='user')
+    
+
+    invitation.used_by = request.user
+    invitation.save()
+
+    messages.success(request, 'You have joined the group.')
+    return redirect('groups:group', pk=group.id)
+
+
+
+def create_invitation(request, pk):
+    group = get_object_or_404(Group, id=pk)
+    
+    # Create an invitation instance without manually handling the token
+    invitation = Invitation(group=group)
+    invitation.save()
+
+    return JsonResponse({'token': invitation.token})
+
+
+
+
+
+
+
 
 
 
