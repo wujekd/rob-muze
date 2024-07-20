@@ -6,73 +6,95 @@
 {% block content %}
 <br><br>
 <div class="bg-secondary bg-opacity-50 shadow-lg w-full">
-<div class="flex flex-row flex-wrap mt-5 w-full items-center justify-around">
-    <div class="my-3 p-3 mx-4 flex flex-col items-center">
-        <img class="profile-pic" src="{% if profil.pic %}{{ profil.pic.url }}
-        {% else %}{% static 'images/utility/no_pic.jpg' %}{% endif %}"/>
-        <div class="m-5"><h1>{% trans "Witaj" %}, {{ user.username }}!</h1></div>
+    <div class="flex flex-row flex-wrap mt-5 w-full items-center justify-around">
+        <div class="my-3 p-3 mx-4 flex flex-col items-center">
+            <img class="profile-pic" src="{% if profil.pic %}{{ profil.pic.url }}{% else %}{% static 'images/utility/no_pic.jpg' %}{% endif %}"/>
+            <div class="m-5">
+                <h1>{% trans "Witaj" %}, {{ user.username }}!</h1>
+            </div>
+        </div>
+
+        <div class="item flex grow h-full flex-wrap m-10 items-center">
+            <div class="m-5">
+                <p>Email:</p>
+                <p>{{ user.email }}</p>
+            </div>
+            <div class="m-5">
+                <p>{% trans "Konto stworzone" %}:</p>
+                <p>{{ user.date_joined }}</p>
+            </div>
+            <div class="m-5">
+                <p>You Have: {{ profil.points }} {% trans "punkty" %}.</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-evenly mx-6 justify-center">
+            <a href="{% url 'core:changePassword' %}" style="display: inline-block; width: 100%;">
+                <button class="p-2 mt-2 text-lg w-full bg-primary hover:bg-secondary rounded-xl" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zmień Hasło" %}</button>
+            </a>
+            <a href="{% url 'core:editMail' %}" style="display: inline-block; width: 100%;">
+                <button class="p-2 mt-4 text-lg w-full bg-primary hover:bg-secondary rounded-xl" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zmień Email" %}</button>
+            </a>
+            <a href="{% url 'core:profilePic' %}" style="display: inline-block; width: 100%;">
+                <button class="p-2 mt-4 text-lg w-full bg-primary hover:bg-secondary rounded-xl" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">Add a Picture</button>
+            </a>
+        </div>
     </div>
-
-    <div class="item flex grow h-full flex-wrap m-10 items-center">
-        
-        <div class="m-5"><p>Email:</p><p>{{ user.email }}</p></div>
-       <div class="m-5"> <p>{% trans "Konto stworzone" %}:</p><p>{{ user.date_joined }}</p></div>
-       <div class="m-5"><p>You Have: {{ profil.points }} {% trans "punkty" %}.</p></div>
-
-    </div>
-
-    <div class="flex flex-col items-evenly mx-6 justify-center">
-        <a href="{% url 'core:changePassword' %}" style="display: inline-block; width: 100%;"><button class="p-2 mt-2 text-lg w-full bg-primary hover:bg-secondary rounded-xl"
-            style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zmień Hasło" %}</button></a>
-        <a href="{% url 'core:editMail' %}" style="display: inline-block; width: 100%;"><button class="p-2 mt-4 text-lg w-full bg-primary hover:bg-secondary rounded-xl"
-            style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">{% trans "Zmień Email" %}</button></a>
-        <a href="{% url 'core:profilePic' %}" style="display: inline-block; width: 100%;"><button class="p-2 mt-4 text-lg w-full bg-primary hover:bg-secondary rounded-xl"
-            style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">Add a Picture</button></a>
-    </div>
-</div>
-
-<div class="flex flex-col items-center pb-5">
-    
-</div>
 </div>
 
 {% comment %} <p>{{ profil.bio }}</p> {% endcomment %}
 
 <div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
-{% if collabs %}
+    {% if subs %}
         <h2 class="mainContainer bg-secondary p-5 rounded-xl mx-5 w-full">{% trans "Przeslane nagrania" %}</h2>
-    {% for collab in collabs %}
-        <div class="item w-full">
-            <h1>{{ collab.title }}</h1>
-            <p>{{ collab.msg }}</p>
-            <p>{{ collab.date }}</p>
-           <div> <p>{% trans "Nazwa pliku" %}: <br>{{ collab.file.name|basename }}</p></div>
-        </div>
-    {% endfor %}
-{% else %}
-    <h2 class="mb-12 text-2xl text-center">{% trans "Nie masz jeszcze przesłanych nagrań" %}.</h2>
-{% endif %}
-    </div>
-
-
+        {% for sub in subs %}
+            <div class="item w-full">
+                <h1>{{ sub.title }}</h1>
+                <p>{{ collab.msg }}</p>
+                <p>{{ sub.date }}</p>
+                <div>
+                    <p>{% trans "Nazwa pliku" %}: <br>{{ collab.file.name|basename }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2 class="mb-12 text-2xl text-center">{% trans "Nie masz jeszcze przesłanych nagrań" %}.</h2>
+    {% endif %}
+</div>
 
 {% comment %} ideas {% endcomment %}
 
 <div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
     {% if ideas %}
-            <h2 class="mainContainer bg-secondary p-5 rounded-xl mx-5 w-full">Submitted Ideas</h2>
+        <h2 class="mainContainer bg-secondary p-5 rounded-xl mx-5 w-full">Submitted Ideas</h2>
         {% for idea in ideas %}
             <div class="item w-full">
                 <h1>{{ idea.title_en }}</h1>
                 <p>{{ idea.desc_en }}</p>
                 <p>{{ idea.date }}</p>
-               <div> <p>{% trans "Nazwa pliku" %}: <br>{{ idea.file.name|basename }}</p></div>
+                <div>
+                    <p>{% trans "Nazwa pliku" %}: <br>{{ idea.file.name|basename }}</p>
+                </div>
             </div>
         {% endfor %}
     {% else %}
         <h2 class="mb-12 text-2xl text-center">No Ideas Submitted.</h2>
     {% endif %}
-        </div>
+</div>
 
+<div class="flex flex-col items-center px-4 py-5 w-5/6 bg-secondary bg-opacity-50 shadow-lg">
+    {% if groups %}
+        <h2 class="mainContainer bg-secondary p-5 rounded-xl mx-5 w-full">Your Groups</h2>
+        {% for group in groups %}
+            <div class="item w-full">
+                <h1>{{ group.group.name }}</h1>
+                <p>{{ idea.desc_en }}</p>
+                <p>Joined: {{ group.joined }}</p>
+                <a href="{% url 'groups:group' pk=group.group.id %}">Go to group</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2 class="mb-12 text-2xl text-center">You don't belong to any groups yet. <a href="{% url 'groups:groups' %}">Check groups</a></h2>
+    {% endif %}
 </div>
 {% endblock %}

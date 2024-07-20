@@ -23,6 +23,7 @@ from django.utils import translation
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language
 from ideas.models import Ideas
+from groups.models import Group, GroupMembership
 
     
 class SetLang(View):
@@ -131,16 +132,17 @@ def signup(request):
 def profil(request):
 
     user = request.user
-    # profil = Account.objects.filter(user=user).first() -needs .first cos a query set
     profil = user.account
-    collabs = CollabSub.objects.filter(user=user)
+    subs = CollabSub.objects.filter(user=user)
     ideas = Ideas.objects.filter(user=user)
+    groups = GroupMembership.objects.filter(user=user)
     
     context = {
         'user': user,
         'profil':profil,
-        'collabs' : collabs,
-        'ideas' : ideas
+        'subs' : subs,
+        'ideas' : ideas,
+        'groups' : groups,
     }
 
     return render(request, 'core/dash.html', context)
