@@ -3,20 +3,20 @@
 {{collab.title}}
 {% endblock title %}
 {% load i18n %}{% load static %}
-
 {% block content %}
+{% get_current_language as LANG %}
 
-{% get_current_language as LANG %}<br><br>
+
 <script src="{% static 'js/player1.js' %}" defer></script>
 
-<div class="fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
+<div class="admin-panel fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
  
     <a href="{% url 'collabs:collab_moderate' pk=collab.id %}"><button class="bg-slate-700 vertical-text py-3 px-1">ADMIN PANEL</button></a>
 </div>
 
 
-<div class="wrapper w-5/6 flex items-center flex-col mt-8 rounded" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
-    <div class="flex w-full p-6 gap-8 mx-5 border-2 border-primary1-700 rounded-t-xl bg-primary1-700 items-center rounded">
+<div class="wrapper w-5/6 h-screen flex items-center flex-col rounded" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+    <div class="top-banner">
         <div class="w-2/3 flex flex-col gap-6">
             <h3>{{ collab.title }}</h3>
             <p>Ilosc glosow {{ vote_count }}</p>
@@ -25,68 +25,106 @@
         <p>{{ collab.desc }}</p>
 
         <div style="w-full flex flex-wrap">
-            <img id="cover" src="{{ collab.pic.url }}" style="width: 370px" alt="Cover Image" class="rounded z-10" />
+            <img id="cover" src="{{ collab.pic.url }}" style="height: 140px" alt="Cover Image" class="rounded z-10" />
         </div>
     </div>
 
-<section class="w-full flex">
-    <div class="p-6 w-3/5 bg-primary1-800 flex justify-between">
-        <div class="flex flex-col justify-around">
-            <p>Current stage: </p>
-        <h3>
-            {% if LANG == 'pl' %}
-            {{ voting.name }}
-            {% elif LANG == 'en'%}
-            {{current_stage.name}}
-            {% endif %}
-        </h3>
-        <p class="p-1">{{current_stage.desc}}</p>
-    </div>
-    <div>
-        <div class="date-time">
-            <div class="date"><span>created: </span> <span>{{ voting.date }}</span></div>
-            <div class="time">
-                <span>{% trans "Pozostało" %}: </span>
-                <span id="countdown-timer"></span>
+<main class="w-full flex grow">
+    <div class="flex flex-col w-4/5">
+        <section class="stage w-full flex">
+            <div class="p-6 w-full bg-primary1-800 flex justify-between">
+                <div class="flex flex-col justify-around">
+                    <p>Current stage: </p>
+                    <h3>
+                        {% if LANG == 'pl' %}
+                        {{ voting.name }}
+                        {% elif LANG == 'en'%}
+                        {{current_stage.name}}
+                        {% endif %}
+                    </h3>
+                    <p class="p-1">{{current_stage.desc}}</p>
+                </div>
+                <div>
+                    <div class="date-time">
+                        <div class="date"><span>created: </span> <span>{{ voting.date }}</span></div>
+                        <div class="time">
+                            <span>{% trans "Pozostało" %}: </span>
+                            <span id="countdown-timer"></span>
+                        </div>
+                    </div>
+                    <div class="description flex flex-col">
+                        <div class="iconHolder">
+                            {% if voting.collab.wokal == True %}
+                            <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
+                            {% endif %}
+                            {% if voting.collab.instrument == True %}
+                            <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
+                            {% endif %}
+                        </div>
+                        <p>downloaded: xx{{ voted }}</p>
+                        <p>
+                            {% if LANG == 'pl' %}
+                            <div>description: {{voting.description}}</div>
+                            {% elif LANG == 'en'%}
+                            {{voting.description_en}}
+                            {% endif %}
+                        </p>  
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="description flex flex-col">
-
-            <div class="iconHolder">
-                {% if voting.collab.wokal == True %}
-                <img class="icon" src="{% static 'images/icons/vocals' %}.png" alt=""/> 
-                {% endif %}
-                {% if voting.collab.instrument == True %}
-                <img class="icon" src="{% static 'images/icons/guitar' %}.png" alt=""/> 
-                {% endif %}
+        </section>
+        
+        <section class="favourites w-full flex">
+            <div class="responses-banner w-full bg-contrast-500">
+                <div id="favourites" class="flex items-center">
+                    <div class="fav-selected relative">
+                        <p class="absolute" style="top: -5px; right: -1px">X</p>
+                        <p>-</p>
+                        <p>+</p>
+                    </div>
+                    <div class="fav-empty">
+                        <p>-</p>
+                        <p>+</p>
+                    </div>
+                </div>
+                <button disabled class="bg-yellow-900 px-4 py-2 w-full">vote</button>
             </div>
-                <p>downloaded: xx{{ voted }}</p>
-            <p>{% if LANG == 'pl' %}
-                <div>description: {{voting.description}}</div>
-                {% elif LANG == 'en'%}
-                {{voting.description_en}}
-                {% endif %}</p>  
-        </div>
+                
+        </section>
+
+        <section class="responses w-full bg-primary1-400 flex grow">
+            {% for sub in subs %}
+            <div class="flex flex-col justify-around bg-primary1-700 rounded-2xl m-3 h-[130px]">
+                    <button data-audio-url="{{ sub.demo_file_url }}"
+                        audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
+                        class="pick-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
+                            <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
+                            <span class="btn-txt h-full relative">▶</span>
+                        </button>
+
+                    <button data-select-id="{{ sub.id }}" class="add-fav-btn">Add to favourites</button>
+
+                </div>
+            {% endfor %}
+        </section>
     </div>
-</div>
 
-
-    <div class="player bg-primary1-500 w-2/5 flex flex-col gap-3 pt-4">
+    <div class="player relative h-full">
 
         <audio src="" id="audioAPI"></audio>
         <audio src="{{ current_stage.backing_track.url }}" id="audio-backing"></audio>
         
-
-
-        <div class="flex justify-center space-x-4 mt-4">
+    
+    
+        <div class="transport">
             <p id="current-time"></p>
-            <button id="back-btn">
+            <button id="back-btn" class="">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
                         <path d="M4 12H20M4 12L8 8M4 12L8 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
+                    </g></p>
                 </svg>
             </button>
             <button id="play-btn">
@@ -116,53 +154,45 @@
             </button>
             <p id="duration"></p>
         </div>
-        <div class="flex flex-col items-center w-full">
-            <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="range-slider w-full mb-2">
-        </div>
-        <div class="flex flex-col items-center p-4">
-            <span class="vertext text-white mt-4">BACKING</span>
-            <input type="range" 
-            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;"  {% endcomment %}
-            id="backing-volume" min="0" max="1" 
-            value="1" step="0.01" class="range-slider">
-        </div>
-    </div>
-</section>
 
-<section class="w-full flex">
-    <div class="responses-banner w-3/5 bg-contrast-500">
-        <h3>responses:</h2>
-    </div>
-        <div class="flex flex-col items-center bg-primary1-500 w-2/5 p-4">
-            <span class="vertext text-white ">VOLUME</span>
-            <input type="range" 
-            {% comment %} style="transform: rotate(-90deg); transform-origin: 50% 50%;" {% endcomment %}
-            id="volume" min="0" max="1" value="1" step="0.01" 
-            class="range-slider w-full">
-        </div>
 
-</section>
-<section class="w-full flex flex-col">
-        {% for sub in subs %}
-        <div class="flex">
-            
-        <div class="flex w-3/5 p-5 m-5 rounded-lg my-2 justify-center items-center">
-            <h3>{{ sub.user.username }}</h3>
-        </div>
+        <input type="range" id="progress" min="0" max="1" value="0" step="0.01" class="absolute range-slider" style="z-index: 101; bottom: 20px; right: 40vw;">
+           
 
-<div class="w-2/5 flex justify-center items-center">
-            <button data-audio-url="{{ sub.demo_file_url }}"
-                audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
-                class="pick-btn rounded-xl relative bg-secondary w-4/5 h-2/5 overflow-hidden border-1 border-white">
-                    <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
-                    <span class="btn-txt h-full relative">▶</span>
-                </button>
+
+        <div class="flex h-full">
+            <div class="channel">
+                <input type="range"
+                    class="range-slider absolute"
+                    id="backing-volume" min="0" max="1"
+                    value="1" step="0.01"
+                    style="transform: rotate(-90deg); transform-origin: 50% 50%; bottom: 190px; left: 50%; translate: -50% 50%;">
             </div>
-
+            <div class="channel">
+                <input type="range"
+                    class="range-slider absolute"
+                    id="volume" min="0" max="1"
+                    value="1" step="0.01"
+                    style="transform: rotate(-90deg); transform-origin: 50% 50%; bottom: 190px; left: 50%; translate: -50% 50%;">
+                <p class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8">ch2</p>
+            yh
         </div>
-        {% endfor %}
-</section>
+        </div>
+        
+    
+        
+    </div>
+    
+
+
+
+</main>
+
 </div>
+
+
+
+
 
 {% comment %} <a href="{% url 'collabs:vote' sub.id %}" class="text-blue-500">Check</a> {% endcomment %}
 

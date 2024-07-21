@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+# from collabs.models import Stages
 from django.utils.crypto import get_random_string
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
+# from collabs.models import Collab, CollabSub
 
 
 class Group(models.Model):
@@ -36,6 +38,7 @@ class MembershipRequest(models.Model):
     
     
     
+    
 class Invitation(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     token = models.CharField(max_length=50, unique=True)
@@ -49,5 +52,5 @@ class Invitation(models.Model):
     
     def __str__(self):
         return f'Invitation to {self.group.name} - {"Used" if self.used_by else "Unused"}'
-
+    
 

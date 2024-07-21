@@ -100,9 +100,20 @@ class PackDownloads(models.Model):
                 name='pack-download',
             )
         ]
+        
+        
+        
+class FavouriteResponse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    stage = models.ForeignKey(Stages, on_delete=models.CASCADE)
+    selection = models.ForeignKey(CollabSub, on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('user', 'selection', 'stage')
 
-
-
+    def __str__(self):
+        return f'{self.user.username} - {self.take.name} - {self.stage.name}'
+    
 
 
 class Vote(models.Model):
