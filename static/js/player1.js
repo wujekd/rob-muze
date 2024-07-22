@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const audioUrl = button.getAttribute('data-audio-url')
         playList.push(audioUrl);
         button.addEventListener('click', function() {
-            console.log(audioUrl)
             if (currentPlayingButton && currentPlayingButton !== this) {
                 changeButtonText(currentPlayingButton, '▶')
                 currentPlayingButton.querySelector('div').style.width = `0%`

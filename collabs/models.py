@@ -103,7 +103,7 @@ class PackDownloads(models.Model):
         
         
         
-class FavouriteResponse(models.Model):
+class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(Stages, on_delete=models.CASCADE)
     selection = models.ForeignKey(CollabSub, on_delete=models.CASCADE)
@@ -113,6 +113,12 @@ class FavouriteResponse(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.take.name} - {self.stage.name}'
+    
+    
+class Listened(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stages, on_delete=models.CASCADE)
+    submission = models.ForeignKey(CollabSub, on_delete=models.CASCADE)
     
 
 

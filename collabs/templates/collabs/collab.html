@@ -15,7 +15,7 @@
 </div>
 
 
-<div class="wrapper w-5/6 h-screen flex items-center flex-col rounded" style="box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);">
+<div class="wrapper">
     <div class="top-banner">
         <div class="w-2/3 flex flex-col gap-6">
             <h3>{{ collab.title }}</h3>
@@ -32,7 +32,7 @@
 <main class="w-full flex grow">
     <div class="flex flex-col w-4/5">
         <section class="stage w-full flex">
-            <div class="p-6 w-full bg-primary1-800 flex justify-between">
+            <div class="px-6 w-full bg-primary1-800 flex justify-between">
                 <div class="flex flex-col justify-around">
                     <p>Current stage: </p>
                     <h3>
@@ -75,7 +75,7 @@
         </section>
         
         <section class="favourites w-full flex">
-            <div class="responses-banner w-full bg-contrast-500">
+            <div class="w-full gradient">
                 <div id="favourites" class="flex items-center">
                     <div class="fav-selected relative">
                         <p class="absolute" style="top: -5px; right: -1px">X</p>
@@ -92,7 +92,7 @@
                 
         </section>
 
-        <section class="responses w-full bg-primary1-400 flex grow">
+        <section class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow">
             {% for sub in subs %}
             <div class="flex flex-col justify-around bg-primary1-700 rounded-2xl m-3 h-[130px]">
                     <button data-audio-url="{{ sub.demo_file_url }}"
@@ -106,6 +106,10 @@
 
                 </div>
             {% endfor %}
+
+
+
+
         </section>
     </div>
 
@@ -166,16 +170,16 @@
                     class="range-slider absolute"
                     id="backing-volume" min="0" max="1"
                     value="1" step="0.01"
-                    style="transform: rotate(-90deg); transform-origin: 50% 50%; bottom: 190px; left: 50%; translate: -50% 50%;">
+                    style="transform: rotate(-90deg); transform-origin: 50% 50%; bottom: 215px; left: 50%; translate: -50% 50%;">
+                    <p class="pt-4">ch 1</p>
             </div>
             <div class="channel">
                 <input type="range"
                     class="range-slider absolute"
                     id="volume" min="0" max="1"
                     value="1" step="0.01"
-                    style="transform: rotate(-90deg); transform-origin: 50% 50%; bottom: 190px; left: 50%; translate: -50% 50%;">
-                <p class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8">ch2</p>
-            yh
+                    style="transform: rotate(-90deg); transform-origin: 50% 50%; bottom: 215px; left: 50%; translate: -50% 50%;">
+                <p class="pt-4">ch 2</p>
         </div>
         </div>
         

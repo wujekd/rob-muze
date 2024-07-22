@@ -44,7 +44,7 @@
             fixed md:static top-0 left-0 z-20
             flex flex-row
             items-center gap-4 md:gap-12
-            pt-28 pb-8 md:p-0
+            pt-2 pb-8 md:p-0
             w-auto
             bg-background
             bg-transparent md:dark:bg-transparent
@@ -85,6 +85,12 @@
         bg-secondary hover:bg-primary
     }
 
+    .wrapper{
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+        @apply
+        w-5/6 h-screen flex items-center flex-col
+    }
+
     .formBody {
         @apply
         w-1/2
@@ -107,6 +113,7 @@
         justify-center 
         items-center
         opacity-60
+        rounded-lg
     }
 
     .fav-selected {
@@ -119,14 +126,14 @@
         flex-col 
         justify-center 
         items-center
+        rounded-lg
     }
 
 
-
     .top-banner {
-        margin-top: 80px;
+        margin-top: 51px;
         @apply
-        flex w-full px-6 gap-8 mx-5 rounded-t-xl bg-primary1-800 items-center
+        flex w-full px-6 gap-8 mx-5 items-center bg-primary1-800
     }
 
     .player {
@@ -136,15 +143,20 @@
 
     .channel {
         @apply
-        bg-contrast-950 h-full w-1/2 relative border-2 border-contrast-700
+        flex flex-col items-center h-full w-1/2 relative border-2 border-contrast-700 border-opacity-50 bg-gradient-to-l from-contrast-950 to-secondary
+    }
+    .gradient {
+        @apply
+        bg-gradient-to-r from-contrast-900 to-secondary
     }
 
     .transport {
-        bottom: 28px;
-        right: 200px;
+        bottom: 20px;
+        right: -1.2vw;
         z-index: 100;
+        width: 115%;
         @apply
-        flex gap-6 absolute bg-primary1-800 justify-center p-5 text-lg
+        flex gap-6 absolute bg-primary1-900 justify-between p-5 text-lg rounded-2xl border-2 border-contrast-600 border-opacity-70
     }
 
     .add-fav-btn {
