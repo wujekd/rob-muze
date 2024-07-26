@@ -100,9 +100,9 @@ class PackDownloads(models.Model):
                 name='pack-download',
             )
         ]
-        
-        
-        
+
+
+
 class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(Stages, on_delete=models.CASCADE)
@@ -112,7 +112,7 @@ class Favourite(models.Model):
         unique_together = ('user', 'selection', 'stage')
 
     def __str__(self):
-        return f'{self.user.username} - {self.take.name} - {self.stage.name}'
+        return f'{self.user.username} - fav of stage: - {self.stage.name}'
     
     
 class Listened(models.Model):

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Collab, CollabSub, Stages, Vote, PackDownloads
+from .models import Collab, CollabSub, Stages, Vote, PackDownloads, Listened, Favourite
 from account.models import Account
 from .forms import CollabSubform, SubCheckForm, AddStageForm
 from django.contrib import messages
@@ -54,25 +54,45 @@ def collab(request, pk):
     
     
     if request.user.is_authenticated:
-        submitted = False
-        if PackDownloads.objects.filter(stage=pk, user=user):
-            downloaded = True
-            if CollabSub.objects.filter(stage=pk, user=user):
-                submitted = True
-        else:
-            downloaded = False
-        
+        # Fetching favourite objects for the current stage and user
+        favourites_objects = Favourite.objects.filter(user=user, stage=current_stage)
+        favourites_subs = [sub.selection for sub in favourites_objects]
+
+        # Debugging output to ensure favourites are being fetched correctly
+        print("Favourites:", favourites_subs)
+
+        # Fetching listened objects for the current stage and user
+        listened_objects = Listened.objects.filter(user=user, stage=current_stage)
+        listened_subs = [sub.submission for sub in listened_objects]
+
+        # Debugging output to ensure listened submissions are being fetched correctly
+        print("Listened:", listened_subs)
+
+        # Determine if the user has downloaded the pack and submitted
+        downloaded = PackDownloads.objects.filter(stage=current_stage, user=user).exists()
+        submitted = CollabSub.objects.filter(stage=current_stage, user=user).exists() if downloaded else False
+
+        # Debugging output to check downloaded and submitted status
+        print("Downloaded:", downloaded)
+        print("Submitted:", submitted)
+
+        # Updating the context
         context.update({
-            'downloaded' : downloaded,
-            'submitted' : submitted,
+            'downloaded': downloaded,
+            'submitted': submitted,
+            'favourites': favourites_subs,
+            'listened': listened_subs,
+            'user_auth': True, #change to is group member
         })
+    else:
+        context.update({ 'user_auth' : False })
 
     return render(request, 'collabs/collab.html', context)
 
 
 
-# MODERATE 
 
+# MODERATE 
 def collab_moderate(request, pk):
     collab = Collab.objects.get(pk=pk)
     stages = Stages.objects.filter(collab=collab)

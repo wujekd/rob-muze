@@ -7,7 +7,9 @@
 {% get_current_language as LANG %}
 
 
-<script src="{% static 'js/player1.js' %}" defer></script>
+<script src="{% static 'js/collab.js' %}" defer></script>
+{% comment %} <script src="{% static 'js/player1.js' %}" defer></script> {% endcomment %}
+
 
 <div class="admin-panel fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
  
@@ -77,11 +79,20 @@
         <section class="favourites w-full flex">
             <div class="w-full gradient">
                 <div id="favourites" class="flex items-center">
+                    {% for fav in favourites %}
                     <div class="fav-selected relative">
                         <p class="absolute" style="top: -5px; right: -1px">X</p>
-                        <p>-</p>
+
+                        <button data-audio-url="{{ fav.demo_file_url }}"
+                        audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
+                        class="play-fav-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
+                            <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
+                            <span class="btn-txt h-full relative">▶</span>
+                        </button>
+                        
                         <p>+</p>
                     </div>
+                    {% endfor %}
                     <div class="fav-empty">
                         <p>-</p>
                         <p>+</p>
@@ -97,7 +108,7 @@
             <div class="flex flex-col justify-around bg-primary1-700 rounded-2xl m-3 h-[130px]">
                     <button data-audio-url="{{ sub.demo_file_url }}"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
-                        class="pick-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
+                        class="play-unlistened-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
                             <span class="btn-txt h-full relative">▶</span>
                         </button>
