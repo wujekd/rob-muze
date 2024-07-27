@@ -11,4 +11,5 @@ urlpatterns = [
     path('<pk>/add-stage', views.add_stage, name='add_stage'),
     path('glosowanie/<pk>/check', views.vote, name='vote'),
     path('download/<int:pk>/', views.collab_pack_download, name='download_pack'),
+    path('mark_listened/<int:stage_id>/', views.mark_listened, name='mark_listened'),
 ]

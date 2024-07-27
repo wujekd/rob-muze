@@ -9,6 +9,12 @@
 
 <script src="{% static 'js/collab.js' %}" defer></script>
 {% comment %} <script src="{% static 'js/player1.js' %}" defer></script> {% endcomment %}
+<script src="{% static 'axios/dist/axios.js' %}"></script>
+<script>
+    const markListenedUrl = "{% url 'collabs:mark_listened' stage_id=current_stage.id %}";
+    {% comment %} const createInvitationUrl = "{% url 'groups:create_invitation' pk=group.id %}"; {% endcomment %}
+    const csrftoken = '{{ csrf_token }}';
+</script>
 
 
 <div class="admin-panel fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
@@ -83,7 +89,7 @@
                     <div class="fav-selected relative">
                         <p class="absolute" style="top: -5px; right: -1px">X</p>
 
-                        <button data-audio-url="{{ fav.demo_file_url }}"
+                        <button data-audio-url="{{ fav.demo_file_url }}" data-sub-id="sort-later"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                         class="play-fav-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
@@ -103,17 +109,19 @@
                 
         </section>
 
-        <section class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow">
+        <section class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow relative">
+            <p class="vertext absolute overflow-visible" style="left: -6px; top: 4px;">Unlistened</p>
             {% for sub in subs %}
-            <div class="flex flex-col justify-around bg-primary1-700 rounded-2xl m-3 h-[130px]">
-                    <button data-audio-url="{{ sub.demo_file_url }}"
+            <div class="relative flex flex-col justify-around bg-primary1-700 rounded-2xl m-3 h-[130px]">
+                    <button data-audio-url="{{ sub.demo_file_url }}" data-sub-id="{{ sub.id }}"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                         class="play-unlistened-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
                             <span class="btn-txt h-full relative">▶</span>
                         </button>
+                    <p class="absolute" style="left: 4px; display:none">o</p>
 
-                    <button data-select-id="{{ sub.id }}" class="add-fav-btn">Add to favourites</button>
+                    <button data-select-id="{{ sub.id }}" class="addFav add-fav-btn">Add to favourites</button>
 
                 </div>
             {% endfor %}

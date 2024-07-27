@@ -360,10 +360,10 @@ transition: background-color 0.3s;
 }
 
     .vertext {
-        /* writing-mode: vertical-rl;
-        text-orientation: upright; */
+        writing-mode: vertical-rl;
+        text-orientation: upright;
         z-index: 100;
-        font-size: 0.66rem;
+        font-size: 0.90rem;
     }
 
     :root {

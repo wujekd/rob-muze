@@ -811,6 +811,17 @@ h1,h2,h3,h4,h5,h6 {
   background-color: rgb(63 63 70 / var(--tw-bg-opacity));
 }
 
+.add-fav-btn-dis{
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+  padding: 0.5rem;
+  opacity: 0.4;
+}
+
 .sr-only{
   position: absolute;
   width: 1px;
@@ -1320,6 +1331,10 @@ h1,h2,h3,h4,h5,h6 {
 
 .overflow-hidden{
   overflow: hidden;
+}
+
+.overflow-visible{
+  overflow: visible;
 }
 
 .overflow-y-auto{

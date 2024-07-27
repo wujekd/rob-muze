@@ -277,7 +277,39 @@ def unchecked(request):
     return render(request, "collabs/checksubmissions.html", context)
 
 
+import json
 
+
+def mark_listened(request, stage_id):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        sub_id = data.get('submission_id')
+        
+        print("sub id: ", sub_id)
+        
+        if not sub_id:
+            return JsonResponse({'error': 'Submission ID not provided'}, status=400)
+        
+        submission = get_object_or_404(CollabSub, id=sub_id)
+        stage = get_object_or_404(Stages, id=stage_id)
+        user = request.user
+        
+        # Create Listened object if it doesn't already exist
+        listened, created = Listened.objects.get_or_create(
+            user=user,
+            stage=stage,
+            submission=submission
+        )
+        
+        if created:
+            return JsonResponse({'status': 'success'}, status=201)
+        else:
+            return JsonResponse({'status': 'already_listened'}, status=200)
+    else:
+        return JsonResponse({'status': 'invalid_method'}, status=405)  
+        
+        
+        
 
 def check(request, pk):
     response = get_object_or_404(CollabSub, pk=pk)
