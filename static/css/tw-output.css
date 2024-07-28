@@ -1465,6 +1465,11 @@ h1,h2,h3,h4,h5,h6 {
   border-color: rgb(238 238 238 / var(--tw-border-opacity));
 }
 
+.border-contrast-700{
+  --tw-border-opacity: 1;
+  border-color: rgb(177 72 29 / var(--tw-border-opacity));
+}
+
 .bg-accent{
   --tw-bg-opacity: 1;
   background-color: rgb(105 19 19 / var(--tw-bg-opacity));

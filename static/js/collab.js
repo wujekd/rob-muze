@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const audioSubmission = document.getElementById("audioAPI");
     const audioBacking = document.getElementById("audio-backing");
     var playButtonsUnlistened = document.querySelectorAll('.play-unlistened-btn');
+    var playButtonsListened = document.querySelectorAll(".play-listened-btn")
     var playButtonsFavs = document.querySelectorAll(".play-fav-btn")
 
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let nowPlayingItem = null;
     let playing = false;
     let totalInSeconds = null;
+    let playing_unlistened = true
 
     let total_listened = 0;
     let listen_started;
@@ -67,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 nowPlayingButton = button;
                 audioSubmission.src = submissionUrl;
                 playing = false;
+                playing_unlistened = false;
                 audioBacking.currentTime = 0;
                 play();
             } else {
@@ -79,9 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log(favEmptyDivCopy)
 
-    addFavBtns = document.querySelectorAll(".addFav")
+    addFavUnlistenedBtns = document.querySelectorAll(".addFavUnlistened")
 
-    addFavBtns.forEach(function(button){
+    addFavUnlistenedBtns.forEach(function(button){
         button.addEventListener('click', function() {
             //exract data and post to add favourite
         })
@@ -101,7 +104,7 @@ function addFavourite(button){
     playButtonsUnlistened.forEach(function(button) {
         const submissionUrl = button.getAttribute('data-audio-url');
         button.addEventListener('click', function() {
-
+            playing_unlistened = true;
             if(nowPlayingButton !== this) { //new button selected
                 listened_POST = false;
                 changeButtonText(nowPlayingButton, 'play');
@@ -119,6 +122,32 @@ function addFavourite(button){
                 console.log('hi mom');
                 play();
             }
+
+        })
+    })
+
+    playButtonsListened.forEach(function(button) {
+        const submissionUrl = button.getAttribute('data-audio-url');
+        button.addEventListener('click', function() {
+            playing_unlistened = false;
+            if(nowPlayingButton !== this) { //new button selected
+                listened_POST = false;
+                changeButtonText(nowPlayingButton, 'play');
+                nowPlayingButton = button;
+                nowPlayingItem.classList.remove('border-2');
+                nowPlayingItem = nowPlayingButton.parentNode;
+                nowPlayingItem.classList.add("border-2");
+                audioSubmission.src = submissionUrl;
+                playing = false;
+                audioBacking.currentTime = 0;
+                total_listened = 0;
+                play();
+
+            } else { //same button pressed again
+                console.log('hi mom');
+                play();
+            }
+
 
         })
     })
@@ -147,13 +176,12 @@ function addFavourite(button){
         //     currTime.textContent = `${minNow}:${formattedSec}`;
         // }
 
-        if (progress >= 0.35 && listened_POST == false){
+        if (progress >= 0.35 && listened_POST == false && playing_unlistened == true){
             //loading in add to fav button
             listened_POST = true;
             mark_listened(nowPlayingButton, nowPlayingItem)
         }
     }
-
 
 
 
@@ -184,8 +212,6 @@ function addFavourite(button){
             })
 
     }
-
-
 
 
 
