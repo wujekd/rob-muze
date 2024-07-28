@@ -75,6 +75,29 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
+    const favEmptyDivCopy = document.getElementById('fav-empty')
+
+    console.log(favEmptyDivCopy)
+
+    addFavBtns = document.querySelectorAll(".addFav")
+
+    addFavBtns.forEach(function(button){
+        button.addEventListener('click', function() {
+            //exract data and post to add favourite
+        })
+    })
+
+
+function addFavourite(button){
+    // indicate parent and empty fav elements as processing
+
+    // POST add fav
+
+    // on SUCCESS 200 => remove parent and move submission to favourites
+}
+
+
+
     playButtonsUnlistened.forEach(function(button) {
         const submissionUrl = button.getAttribute('data-audio-url');
         button.addEventListener('click', function() {
@@ -131,6 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
+
+
     function mark_listened(button, item){
         item.querySelector('p').style.display = "block"
             const submissionId = button.getAttribute("data-sub-id");
@@ -161,15 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-addFavBtns = document.querySelectorAll(".addFav")
-
-function addFav(button){
-    // indicate parent and empty fav elements as processing
-
-    // POST add fav
-
-    // on SUCCESS 200 => remove parent and move submission to favourites
-}
 
 
 

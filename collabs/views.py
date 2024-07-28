@@ -19,6 +19,8 @@ def collabs(request):
     return render(request, 'collabs/collabs.html', {
         'collabs' : collabs,
     })
+   
+   
     
 
 def collab(request, pk):
@@ -54,40 +56,36 @@ def collab(request, pk):
     
     
     if request.user.is_authenticated:
-        # Fetching favourite objects for the current stage and user
-        favourites_objects = Favourite.objects.filter(user=user, stage=current_stage)
-        favourites_subs = [sub.selection for sub in favourites_objects]
+        favourites_subs = CollabSub.objects.filter(
+        favourite__user=user, 
+        favourite__stage=current_stage
+    )
 
-        # Debugging output to ensure favourites are being fetched correctly
-        print("Favourites:", favourites_subs)
-
-        # Fetching listened objects for the current stage and user
-        listened_objects = Listened.objects.filter(user=user, stage=current_stage)
-        listened_subs = [sub.submission for sub in listened_objects]
-
-        # Debugging output to ensure listened submissions are being fetched correctly
-        print("Listened:", listened_subs)
-
-        # Determine if the user has downloaded the pack and submitted
+        listened_subs = CollabSub.objects.filter(
+        listened__user=user, 
+        listened__stage=current_stage
+        ).exclude(id__in=favourites_subs.values("id"))
+        
+        
+        unlistened_subs = subs.exclude(id__in=listened_subs.values('id'))
+        
         downloaded = PackDownloads.objects.filter(stage=current_stage, user=user).exists()
         submitted = CollabSub.objects.filter(stage=current_stage, user=user).exists() if downloaded else False
 
-        # Debugging output to check downloaded and submitted status
-        print("Downloaded:", downloaded)
-        print("Submitted:", submitted)
-
-        # Updating the context
         context.update({
             'downloaded': downloaded,
             'submitted': submitted,
             'favourites': favourites_subs,
             'listened': listened_subs,
+            'unlistened' : unlistened_subs,
             'user_auth': True, #change to is group member
         })
     else:
         context.update({ 'user_auth' : False })
 
     return render(request, 'collabs/collab.html', context)
+
+
 
 
 

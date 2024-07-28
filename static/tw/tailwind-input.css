@@ -131,7 +131,7 @@
 
 
     .top-banner {
-        margin-top: 51px;
+        margin-top: 48px;
         @apply
         flex w-full px-6 gap-8 mx-5 items-center bg-primary1-800
     }

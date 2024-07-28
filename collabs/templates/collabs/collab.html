@@ -91,7 +91,7 @@
 
                         <button data-audio-url="{{ fav.demo_file_url }}" data-sub-id="sort-later"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
-                        class="play-fav-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
+                        class="play-fav-btn rounded-xl relative bg-secondary overflow-hidden border-1 mx-4 my-1 border-white">
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
                             <span class="btn-txt h-full relative">▶</span>
                         </button>
@@ -104,27 +104,29 @@
                         <p>+</p>
                     </div>
                 </div>
-                <button disabled class="bg-yellow-900 px-4 py-2 w-full">vote</button>
+                <button disabled class="bg-yellow-900 px-4 py-1 w-full">vote</button>
             </div>
                 
         </section>
 
         <section class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow relative">
-            <p class="vertext absolute overflow-visible" style="left: -6px; top: 4px;">Unlistened</p>
-            {% for sub in subs %}
+            {% comment %} <p class="vertext absolute overflow-visible" style="left: -6px; top: 4px;">Unlistened</p> {% endcomment %}
+            {% for sub in unlistened %}
             <div class="relative flex flex-col justify-around bg-primary1-700 rounded-2xl m-3 h-[130px]">
                     <button data-audio-url="{{ sub.demo_file_url }}" data-sub-id="{{ sub.id }}"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
-                        class="play-unlistened-btn rounded-xl relative bg-secondary overflow-hidden border-1 m-4 border-white">
+                        class="play-unlistened-btn rounded-xl relative bg-secondary overflow-hidden border-1 mx-4 border-white">
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
                             <span class="btn-txt h-full relative">▶</span>
                         </button>
                     <p class="absolute" style="left: 4px; display:none">o</p>
 
-                    <button data-select-id="{{ sub.id }}" class="addFav add-fav-btn">Add to favourites</button>
+                    <button disabled data-select-id="{{ sub.id }}" class="addFav add-fav-btn-dis">Add to favourites</button>
 
                 </div>
             {% endfor %}
+
+
 
 
 
