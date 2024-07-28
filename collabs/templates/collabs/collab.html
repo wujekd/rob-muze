@@ -14,12 +14,18 @@
     const markListenedUrl = "{% url 'collabs:mark_listened' stage_id=current_stage.id %}";
     {% comment %} const createInvitationUrl = "{% url 'groups:create_invitation' pk=group.id %}"; {% endcomment %}
     const csrftoken = '{{ csrf_token }}';
+    const add_fav_url = "{% url 'collabs:add_favourite' stage_id=current_stage.id %}"
 </script>
 
 
-<div class="admin-panel fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
+<div id="admin-panel" class="admin-panel fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
  
     <a href="{% url 'collabs:collab_moderate' pk=collab.id %}"><button class="bg-slate-700 vertical-text py-3 px-1">ADMIN PANEL</button></a>
+</div>
+<div id="test-btn" class="admin-panel fixed p-2 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600"
+    style="left: 0px; top: 430px; width: 51px">
+ 
+    <button id="test-btn" class="bg-slate-700 vertical-text py-3 px-1">test</button>
 </div>
 
 
@@ -87,7 +93,7 @@
                 <div id="favourites" class="flex items-center">
                     {% for fav in favourites %}
                     <div class="fav-selected relative">
-                        <p class="absolute" style="top: -5px; right: -1px">X</p>
+                        <button class="x absolute" style="top: -5px; right: -1px">X</button>
 
                         <button data-audio-url="{{ fav.demo_file_url }}" data-sub-id="{{ fav.demo_file_url }}"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
@@ -96,11 +102,9 @@
                             <span class="btn-txt h-full relative">▶</span>
                         </button>
                         
-                        <p>+</p>
                     </div>
                     {% endfor %}
                     <div class="fav-empty">
-                        <p>-</p>
                         <p>+</p>
                     </div>
                 </div>
@@ -125,7 +129,7 @@
                 </div>
             {% endfor %}
             {% for sub in listened %}
-            <div class="relative flex flex-col justify-around bg-primary1-600 rounded-2xl m-3 h-[130px]">
+            <div class="response-listened show">
                 <button data-audio-url="{{ sub.demo_file_url }}" data-sub-id="{{ sub.id }}"
                     audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                     class="play-listened-btn rounded-xl relative bg-secondary overflow-hidden border-1 mx-4 border-white">

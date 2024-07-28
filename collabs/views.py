@@ -67,7 +67,7 @@ def collab(request, pk):
         ).exclude(id__in=favourites_subs.values("id"))
         
         
-        unlistened_subs = subs.exclude(id__in=listened_subs.values('id'))
+        unlistened_subs = subs.exclude(id__in=listened_subs.values('id')).exclude(id__in=favourites_subs.values("id"))
         
         downloaded = PackDownloads.objects.filter(stage=current_stage, user=user).exists()
         submitted = CollabSub.objects.filter(stage=current_stage, user=user).exists() if downloaded else False
@@ -82,6 +82,10 @@ def collab(request, pk):
         })
     else:
         context.update({ 'user_auth' : False })
+        
+    print(favourites_subs)
+    print(listened_subs)
+    print(unlistened_subs)
 
     return render(request, 'collabs/collab.html', context)
 
@@ -248,6 +252,7 @@ def przeslij(request, pk):
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = CollabSubform
+        
     
     return render(request, 'collabs/collab_submit.html', {
         'collab' : collab,
@@ -283,8 +288,6 @@ def mark_listened(request, stage_id):
         data = json.loads(request.body)
         sub_id = data.get('submission_id')
         
-        print("sub id: ", sub_id)
-        
         if not sub_id:
             return JsonResponse({'error': 'Submission ID not provided'}, status=400)
         
@@ -306,7 +309,42 @@ def mark_listened(request, stage_id):
     else:
         return JsonResponse({'status': 'invalid_method'}, status=405)  
         
+import time
+
+def add_favourite(request, stage_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        sub_id = data.get('submission_id')
         
+        if not sub_id:
+            return JsonResponse({'error': 'Submission ID not provided from client'}, status=400)
+        
+        time.sleep(0.6)
+        
+        # sub = get_object_or_404(CollabSub, id=sub_id)
+        # stage = get_object_or_404(Stages, id=stage_id)
+        
+        # favourite, created = Favourite.objects.get_or_create(
+        #     user=request.user,
+        #     selection = sub,
+        #     stage = stage,
+        # )
+        
+        # print("created: ", created)
+        
+        # if created == True:
+        #     print('test')
+        #     return JsonResponse({'status': 'success'}, status=201)
+        # else:
+        #     return JsonResponse({'status': 'already_listened'}, status=200)
+        
+        return JsonResponse({'status': 'success'}, status=201)
+    
+    else:
+        return JsonResponse({'status': 'invalid_method'}, status=405)
+            
+        
+
         
 
 def check(request, pk):

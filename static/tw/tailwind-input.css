@@ -104,29 +104,42 @@
 
     .fav-empty {
         width: 14%;
+        height: 40px; /* Initial height */
+        overflow: hidden; /* Prevents content overflow during animation */
+        background-color: #25494a; /* Initial background color */
+        opacity: 0.55; /* Initial opacity */
+        transition: 
+            height 0.6s ease-out,
+            background-color 0.6s ease-out,
+            opacity 0.6s ease-out; /* Add transitions for background-color and opacity */
         @apply
-        bg-slate-700 
         py-2 
         m-2 
         flex 
         flex-col 
         justify-center 
         items-center
-        opacity-60
-        rounded-lg
+        rounded-lg;
     }
-
+    
+    /* Styles for the fav-selected state */
     .fav-selected {
         width: 14%;
+        height: 53px; /* New height */
+        background-color: #3b6b6b; /* New background color */
+        opacity: 1; /* New opacity */
+        transition: 
+            height 0.6s ease-out,
+            background-color 0.6s ease-out,
+            opacity 0.6s ease-out; /* Add transitions for background-color and opacity */
         @apply
-        bg-primary1-700
         py-2 
         m-2 
         flex 
         flex-col 
         justify-center 
         items-center
-        rounded-lg
+        rounded-lg;
     }
 
 
@@ -169,5 +182,27 @@
     }
 
 
+    .fade-out {
+        transition: 
+            opacity 0.8s ease-in-out,
+            height 0.7s ease-out;
+            
+        height: 35px;
+        opacity: 0;
+    }
+    .response-listened{
+        width: 161px;
+        transform: opacity 0.85s ease-in-out;
+        opacity: 0;
+        @apply
+        relative flex flex-col justify-around bg-primary1-600 rounded-2xl m-3 h-[130px]
+    }
+    .response-listened.show {
+        opacity: 1;
+    }
 
+}
+
+@layer utilities {
+    
 }
