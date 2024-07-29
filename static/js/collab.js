@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var playButtonsUnlistened = document.querySelectorAll('.play-unlistened-btn');
     var playButtonsListened = document.querySelectorAll(".play-listened-btn");
     var playButtonsFavs = document.querySelectorAll(".play-fav-btn");
-    var addToFavButtons = document.querySelectorAll('.ad');
-
+    let addFavActiveBtns = document.querySelectorAll(".add-fav-btn");
     let favouritesSection = document.getElementById("favourites");
 
 
@@ -65,36 +64,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }   
     }
 
- 
-
-
-
-    addFavActiveBtns = document.querySelectorAll(".add-fav-btn");
-
+    
 
     addFavActiveBtns.forEach(function(button){
         button.addEventListener('click', function() {
-            addFavourite(button)
+            const parent = button.parentElement;
+            const playBtn = parent.querySelector(".play-listened-btn");
+            addFavourite(button, playBtn);
         })
     })
 
 
+
 const favEmptyDivCopy = document.getElementById('fav-empty')
-
-
-function removeFavourite(x){
-    fav_item = x.parentNode;
-    playBtn = fav_item.querySelector('.play-fav-btn')
-    fav_item.classList.add("fade-out")
-    fav_item.addEventListener('transitionend', function(){
-        fav_item.remove()
-    });
-    responses = document.querySelector('.responses');
-    new_response = createListened(playBtn);
-    responses.appendChild(new_response);
-    new_response.classList.add("show")
-
-}
 
 function createListened(playBtn){
     const container = document.createElement('div');
@@ -104,23 +86,69 @@ function createListened(playBtn){
     hiddenP.style.left = '4px';
     hiddenP.style.display = 'none';
     hiddenP.textContent = 'o';
+    sub_id = playBtn.getAttribute("data-sub-id")
+    let addFavBtn = createAddToFavBtn(sub_id);
+    addFavBtn.addEventListener("click", function() {
+        addFavourite(addFavBtn, playBtn)
+    })
 
     container.appendChild(playBtn);
     container.appendChild(hiddenP);
-    console.log(container)
+    container.appendChild(addFavBtn);
 
-
-    
     return container;
 
 }
+function createAddToFavBtn(subId) {
+    // Create a new button element
+    let button = document.createElement("button");
 
-function addFavourite(button){
+    // Set the button's attributes
+    button.setAttribute("data-select-id", subId);
+    button.classList.add("addFav", "add-fav-btn");
+
+    // Set the button's text content
+    button.textContent = "Add to favourites";
+
+    return button;
+}
+
+// error never gets to this function! make sure its called properly on a newly added favourite
+function removeFavourite(x){
+    fav_item = x.parentNode;
+    playBtn = fav_item.querySelector('.play-fav-btn')
+    
+    console.log("fav item ", fav_item)
+    fav_item.classList.add("fade-out")
+    
+    responses = document.querySelector('.responses');
+
+    new_response = createListened(playBtn);
+
+    new_response.offsetHeight;
+    
+    responses.appendChild(new_response);
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            new_response.classList.add("show");
+        });
+    });
+
+    fav_item.addEventListener('transitionend', function(){
+        fav_item.remove()
+    });
+
+}
+
+
+
+function addFavourite(button, playBtn){ //button here is the addFavBtn
     emptyFav = document.querySelector(".fav-empty")
     const emptyFavCopy = emptyFav.cloneNode(true);
     favEmptyActivate(emptyFav);
 
     sub_id = button.getAttribute("data-select-id");
+    console.log("sub_id: ", sub_id);
     axios.post(add_fav_url,{
         submission_id : sub_id
     }, {
@@ -130,14 +158,21 @@ function addFavourite(button){
         if (response.status == 201){
             sub_item = button.parentNode;
             // console.log(sub_item)
-            sub_play = sub_item.querySelector(".play-listened-btn")
+            sub_play = playBtn
+            sub_play.classList.remove("play-listened-btn");
+            sub_play.classList.add("play-fav-btn");
             emptyFav.innerHTML = "";
             emptyFav.appendChild(sub_play);
             emptyFav.classList.remove("fav-empty")
             emptyFav.classList.add("fav-selected", "relative", "fav-selected")
             emptyFav.insertBefore(createXfav(), emptyFav.firstChild)
+
+            var x = emptyFav.querySelector(".x")
+            x.addEventListener('click', function(){
+                removeFavourite(x)
+            })
+
             let favs = emptyFav.parentNode;
-            
             
             console.log("add favourite SUCCESS")
             sub_item.classList.remove("show")
@@ -146,7 +181,6 @@ function addFavourite(button){
                 sub_item.remove();
                 favs.appendChild(emptyFavCopy);
             })
-            
             
         } else {
             console.log('not created ', response.status);
@@ -306,16 +340,15 @@ function mark_listened(button, item){
 
 
 
-
-
     // gui functions
 
   
 function createXfav(){
-    var x = document.createElement('p');
+    var x = document.createElement('button');
 x.className = 'absolute';
 x.style.top = '-5px';
 x.style.right = '-1px';
+x.classList.add("x")
 x.innerText = 'X';
 return x;
 }
@@ -353,8 +386,6 @@ function favEmptyActivate(node) {
     node.innerHTML = "Loading";
 
 }
-
-
 
 let testBtn = document.getElementById("test-btn")
 
