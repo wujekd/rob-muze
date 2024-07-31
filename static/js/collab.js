@@ -113,11 +113,36 @@ function createAddToFavBtn(subId) {
     return button;
 }
 
-// error never gets to this function! make sure its called properly on a newly added favourite
+
 function removeFavourite(x) {
     const fav_item = x.parentNode;
     let favourites = fav_item.parentNode;
     const playBtn = fav_item.querySelector('.play-fav-btn');
+    const sub_id = playBtn.getAttribute("data-sub-id");
+    console.log(sub_id)
+  
+    axios.post('/collabs/del-fav/', {
+        submission_id : sub_id
+    }, {
+        headers: {'X-CSRFToken' : csrftoken }
+    })
+    .then(response => {
+        if (response.status == 200){
+            console.log('delete success.')
+        }
+        else {
+            console.log("not created: ", response.status);
+        }
+    })
+    .catch(error => {
+        console.log("cholibka no nie dziala: ", error)
+    })
+
+
+
+
+    
+    
 
     console.log("fav item ", fav_item);
     fav_item.classList.add("fade-out");
@@ -125,12 +150,18 @@ function removeFavourite(x) {
     const responses = document.querySelector('.responses');
     const new_response = createListened(playBtn);
 
-    // Force reflow to ensure transition works
+
+
     new_response.offsetHeight;
+
+
+
 
     const oldFlexItemsInfo = getFlexItemsInfo(favourites);
 
 
+
+    // Force reflow to ensure transition works
     responses.appendChild(new_response);
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -138,15 +169,12 @@ function removeFavourite(x) {
         });
     });
 
-    
 
-        // axios.delete(delFavUrl)
-
-        fav_item.addEventListener('transitionend', function() {
-            fav_item.remove();
-            const newFlexItemsInfo = getFlexItemsInfo(favourites);
-            animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo);
-        });
+    fav_item.addEventListener('transitionend', function() {
+        fav_item.remove();
+        const newFlexItemsInfo = getFlexItemsInfo(favourites);
+        animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo);
+    });
 
 
     

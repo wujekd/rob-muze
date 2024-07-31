@@ -57,14 +57,14 @@ def collab(request, pk):
     
     if request.user.is_authenticated:
         favourites_subs = CollabSub.objects.filter(
-        favourite__user=user, 
-        favourite__stage=current_stage
-    )
+            favourite__user=user, 
+            favourite__stage=current_stage
+        )
 
         listened_subs = CollabSub.objects.filter(
-        listened__user=user, 
-        listened__stage=current_stage
-        ).exclude(id__in=favourites_subs.values("id"))
+                listened__user=user, 
+                listened__stage=current_stage
+            ).exclude(id__in=favourites_subs.values("id"))
         
         
         unlistened_subs = subs.exclude(id__in=listened_subs.values('id')).exclude(id__in=favourites_subs.values("id"))
@@ -319,30 +319,59 @@ def add_favourite(request, stage_id):
         if not sub_id:
             return JsonResponse({'error': 'Submission ID not provided from client'}, status=400)
         
-        time.sleep(0.6)
+        time.sleep(0.3)
+        sub = get_object_or_404(CollabSub, id=sub_id)
+        stage = get_object_or_404(Stages, id=stage_id)
         
-        # sub = get_object_or_404(CollabSub, id=sub_id)
-        # stage = get_object_or_404(Stages, id=stage_id)
+        favourite, created = Favourite.objects.get_or_create(
+            user=request.user,
+            selection = sub,
+            stage = stage,
+        )
         
-        # favourite, created = Favourite.objects.get_or_create(
-        #     user=request.user,
-        #     selection = sub,
-        #     stage = stage,
-        # )
+        print("created: ", created)
         
-        # print("created: ", created)
+        if created == True:
+            print('test')
+            return JsonResponse({'status': 'success'}, status=201)
+        else:
+            return JsonResponse({'status': 'already_listened'}, status=200)
         
-        # if created == True:
-        #     print('test')
-        #     return JsonResponse({'status': 'success'}, status=201)
-        # else:
-        #     return JsonResponse({'status': 'already_listened'}, status=200)
         
-        return JsonResponse({'status': 'success'}, status=201)
+        # BYPASS OBJECT CREATION
+        # return JsonResponse({'status': 'success'}, status=201)
     
     else:
         return JsonResponse({'status': 'invalid_method'}, status=405)
-            
+    
+    
+    
+
+def del_favourite(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        sub_id = data.get('submission_id')
+        print("""SSSSSUUUB IDDDDDD:   
+              
+                """, sub_id)
+        
+        if not sub_id:
+            return JsonResponse({'error' : 'didnt get sub_id'}, status=400)
+        time.sleep(0.38)
+        sub = get_object_or_404(CollabSub, id=sub_id)
+        favourite = get_object_or_404(Favourite, selection=sub, user=request.user)
+        print("""FAVOURITE:   
+              
+                """, favourite)
+        
+        favourite.delete()
+        
+        return JsonResponse({'status' : 'delete: success'}, status = 200)
+    else:
+        return JsonResponse({'status' : 'invalid method'}, status=405)
+
+
+
         
 
         

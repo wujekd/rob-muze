@@ -13,4 +13,5 @@ urlpatterns = [
     path('download/<int:pk>/', views.collab_pack_download, name='download_pack'),
     path('mark_listened/<int:stage_id>/', views.mark_listened, name='mark_listened'),
     path('add-fav/<int:stage_id>/', views.add_favourite, name="add_favourite"),
+    path("del-fav/", views.del_favourite, name="del_favourite"),
 ]

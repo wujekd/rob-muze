@@ -15,7 +15,7 @@
     {% comment %} const createInvitationUrl = "{% url 'groups:create_invitation' pk=group.id %}"; {% endcomment %}
     const csrftoken = '{{ csrf_token }}';
     const add_fav_url = "{% url 'collabs:add_favourite' stage_id=current_stage.id %}"
-    {% comment %} const delFavUrl = "{% url 'collaborations:del_favourite' %}" // no id {% endcomment %}
+    const delFavUrl = "{% url 'collabs:del_favourite' %}" // no id
 </script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
@@ -97,7 +97,7 @@
                     <div class="fav-selected relative">
                         <button class="x absolute" style="top: -5px; right: -1px">X</button>
 
-                        <button data-audio-url="{{ fav.demo_file_url }}" data-sub-id="{{ fav.demo_file_url }}"
+                        <button data-audio-url="{{ fav.demo_file_url }}" data-sub-id="{{ fav.id }}"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                         class="play-fav-btn rounded-xl relative bg-secondary overflow-hidden border-1 mx-4 my-1 border-white">
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
