@@ -114,19 +114,23 @@ function createAddToFavBtn(subId) {
 }
 
 // error never gets to this function! make sure its called properly on a newly added favourite
-function removeFavourite(x){
-    fav_item = x.parentNode;
-    playBtn = fav_item.querySelector('.play-fav-btn')
-    
-    console.log("fav item ", fav_item)
-    fav_item.classList.add("fade-out")
-    
-    responses = document.querySelector('.responses');
+function removeFavourite(x) {
+    const fav_item = x.parentNode;
+    let favourites = fav_item.parentNode;
+    const playBtn = fav_item.querySelector('.play-fav-btn');
 
-    new_response = createListened(playBtn);
+    console.log("fav item ", fav_item);
+    fav_item.classList.add("fade-out");
 
+    const responses = document.querySelector('.responses');
+    const new_response = createListened(playBtn);
+
+    // Force reflow to ensure transition works
     new_response.offsetHeight;
-    
+
+    const oldFlexItemsInfo = getFlexItemsInfo(favourites);
+
+
     responses.appendChild(new_response);
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -134,21 +138,27 @@ function removeFavourite(x){
         });
     });
 
-    fav_item.addEventListener('transitionend', function(){
-        fav_item.remove()
-    });
+    
 
+        // axios.delete(delFavUrl)
+
+        fav_item.addEventListener('transitionend', function() {
+            fav_item.remove();
+            const newFlexItemsInfo = getFlexItemsInfo(favourites);
+            animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo);
+        });
+
+
+    
 }
-
 
 
 function addFavourite(button, playBtn){ //button here is the addFavBtn
     emptyFav = document.querySelector(".fav-empty")
     const emptyFavCopy = emptyFav.cloneNode(true);
     favEmptyActivate(emptyFav);
-
     sub_id = button.getAttribute("data-select-id");
-    console.log("sub_id: ", sub_id);
+
     axios.post(add_fav_url,{
         submission_id : sub_id
     }, {
@@ -171,14 +181,18 @@ function addFavourite(button, playBtn){ //button here is the addFavBtn
             x.addEventListener('click', function(){
                 removeFavourite(x)
             })
-
+            
             let favs = emptyFav.parentNode;
+            let subs = sub_item.parentNode;
             
             console.log("add favourite SUCCESS")
             sub_item.classList.remove("show")
             sub_item.classList.add("fade-out");
             sub_item.addEventListener('transitionend', function(){
+                const oldFlexItemsInfo = getFlexItemsInfo(subs);
                 sub_item.remove();
+                const newFlexItemsInfo = getFlexItemsInfo(subs);
+                animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo);
                 favs.appendChild(emptyFavCopy);
             })
             
@@ -388,6 +402,53 @@ function favEmptyActivate(node) {
 }
 
 let testBtn = document.getElementById("test-btn")
+
+
+
+
+// ANIMATION FUNCTIONS BY Maurici Abad https://codepen.io/MauriciAbad/pen/yLbrpey
+function getFlexItemsInfo(container) {
+    return Array.from(container.children).map((item) => {
+      const rect = item.getBoundingClientRect();
+      return {
+        element: item,
+        x: rect.left,
+        y: rect.top,
+        width: rect.right - rect.left,
+        height: rect.bottom - rect.top,
+      };
+    });
+  }
+
+  function animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
+    for (const newFlexItemInfo of newFlexItemsInfo) {
+      const oldFlexItemInfo = oldFlexItemsInfo.find(
+        (itemInfo) => itemInfo.element === newFlexItemInfo.element
+      );
+  
+      const translateX = oldFlexItemInfo.x - newFlexItemInfo.x;
+      const translateY = oldFlexItemInfo.y - newFlexItemInfo.y;
+      const scaleX = oldFlexItemInfo.width / newFlexItemInfo.width;
+      const scaleY = oldFlexItemInfo.height / newFlexItemInfo.height;
+  
+      newFlexItemInfo.element.animate(
+        [
+          {
+            transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+          },
+          { transform: 'none' },
+        ],
+        {
+          duration: 250,
+          easing: 'ease-out',
+        }
+      );
+    }
+  }
+  
+
+
+
 
 
 });

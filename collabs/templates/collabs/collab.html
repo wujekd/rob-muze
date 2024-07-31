@@ -15,7 +15,9 @@
     {% comment %} const createInvitationUrl = "{% url 'groups:create_invitation' pk=group.id %}"; {% endcomment %}
     const csrftoken = '{{ csrf_token }}';
     const add_fav_url = "{% url 'collabs:add_favourite' stage_id=current_stage.id %}"
+    {% comment %} const delFavUrl = "{% url 'collaborations:del_favourite' %}" // no id {% endcomment %}
 </script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 
 <div id="admin-panel" class="admin-panel fixed p-3 bg-opacity-70 ml--50 flex flex-col justify-center bg-contrast-600" style="right: 0px; top: 80px; width: 56px">
@@ -113,7 +115,7 @@
                 
         </section>
 
-        <section class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow relative">
+        <section id="responses" class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow relative">
             {% comment %} <p class="vertext absolute overflow-visible" style="left: -6px; top: 4px;">Unlistened</p> {% endcomment %}
             {% for sub in unlistened %}
                 <div class="relative flex flex-col justify-around bg-primary1-800 rounded-2xl border-2 border-contrast-700 m-3 h-[130px]">
@@ -141,8 +143,20 @@
                 <button data-select-id="{{ sub.id }}" class="addFav add-fav-btn">Add to favourites</button>
             </div>
             {% endfor %}
+            
+            {% comment %} <lottie-player id="lottie" src="{% static 'animation.json' %}" background="transparent"  speed="1"  style="width: 300px; height: 300px;"></lottie-player> {% endcomment %}
 
-
+            <script>
+                LottieInteractivity.create({
+                  player: '#lottie',
+                  mode: 'cursor',
+                  actions: [
+                    {
+                        type: "toggle"
+                    }
+                  ]
+                });
+              </script>
 
         </section>
     </div>
