@@ -90,6 +90,7 @@
             </div>
         </section>
         
+        {% comment %} favourites {% endcomment %}
         <section class="favourites w-full flex">
             <div class="w-full gradient">
                 <div id="favourites" class="flex items-center">
@@ -103,6 +104,10 @@
                             <div style="width: 0%; height: 60px; margin-top: -5px" class="absolute h-full bg-primary"></div>
                             <span class="btn-txt h-full relative">▶</span>
                         </button>
+
+                        {% if fav.final %}
+                            <p>your selection</p> {% else %} <button class="select-final-btn">select</button>
+                        {% endif %}
                         
                     </div>
                     {% endfor %}

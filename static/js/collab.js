@@ -228,7 +228,13 @@ function addFavourite(button, playBtn){ //button here is the addFavBtn
     })
 }
 
+let selectFinalBtns = document.querySelectorAll('.select-final-btn');
 
+selectFinalBtns.forEach((btn)=> {
+    btn.addEventListener('click', function() {
+        console.log(btn)
+    })
+})
 
 
 

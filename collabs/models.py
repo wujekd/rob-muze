@@ -107,6 +107,7 @@ class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(Stages, on_delete=models.CASCADE)
     selection = models.ForeignKey(CollabSub, on_delete=models.CASCADE)
+    final = models.BooleanField(default=False, null=True, blank=True)
     
     class Meta:
         unique_together = ('user', 'selection', 'stage')
