@@ -118,7 +118,7 @@
         <section id="responses" class="responses overflow-y-auto flex-wrap w-full bg-primary1-400 flex grow relative">
             {% comment %} <p class="vertext absolute overflow-visible" style="left: -6px; top: 4px;">Unlistened</p> {% endcomment %}
             {% for sub in unlistened %}
-                <div class="relative flex flex-col justify-around bg-primary1-800 rounded-2xl border-2 border-contrast-700 m-3 h-[130px]">
+                <div class="relative flex flex-col justify-around bg-primary1-800 rounded-2xl  border-contrast-700 m-3 h-[130px]">
                     <button data-audio-url="{{ sub.demo_file_url }}" data-sub-id="{{ sub.id }}"
                         audio-name="{{ sub.title }}" author="{{ sub.user }}" data-vol-offset="1"
                         class="play-unlistened-btn rounded-xl relative bg-secondary overflow-hidden border-1 mx-4 border-white">
@@ -146,7 +146,7 @@
             
             {% comment %} <lottie-player id="lottie" src="{% static 'animation.json' %}" background="transparent"  speed="1"  style="width: 300px; height: 300px;"></lottie-player> {% endcomment %}
 
-            <script>
+            {% comment %} <script>
                 LottieInteractivity.create({
                   player: '#lottie',
                   mode: 'cursor',
@@ -156,7 +156,7 @@
                     }
                   ]
                 });
-              </script>
+              </script> {% endcomment %}
 
         </section>
     </div>
@@ -168,7 +168,7 @@
         
     
     
-        <div class="transport">
+        <div class="transport"> 
             <p id="current-time"></p>
             <button id="back-btn" class="">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">

@@ -83,9 +83,9 @@ def collab(request, pk):
     else:
         context.update({ 'user_auth' : False })
         
-    print(favourites_subs)
-    print(listened_subs)
-    print(unlistened_subs)
+    # print(favourites_subs)
+    # print(listened_subs)
+    # print(unlistened_subs)
 
     return render(request, 'collabs/collab.html', context)
 
@@ -351,30 +351,24 @@ def del_favourite(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         sub_id = data.get('submission_id')
-        print("""SSSSSUUUB IDDDDDD:   
-              
-                """, sub_id)
-        
+
         if not sub_id:
             return JsonResponse({'error' : 'didnt get sub_id'}, status=400)
         time.sleep(0.38)
         sub = get_object_or_404(CollabSub, id=sub_id)
         favourite = get_object_or_404(Favourite, selection=sub, user=request.user)
-        print("""FAVOURITE:   
-              
-                """, favourite)
-        
+
         favourite.delete()
+        print("""
+              fav with for sub with id: """, sub_id, """ deleted. everything goooooood
+              """)
         
         return JsonResponse({'status' : 'delete: success'}, status = 200)
     else:
         return JsonResponse({'status' : 'invalid method'}, status=405)
 
 
-
-        
-
-        
+ 
 
 def check(request, pk):
     response = get_object_or_404(CollabSub, pk=pk)

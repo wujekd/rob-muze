@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }   
     }
 
-    
 
     addFavActiveBtns.forEach(function(button){
         button.addEventListener('click', function() {
@@ -73,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
             addFavourite(button, playBtn);
         })
     })
-
 
 
 const favEmptyDivCopy = document.getElementById('fav-empty')
@@ -119,8 +117,9 @@ function removeFavourite(x) {
     let favourites = fav_item.parentNode;
     const playBtn = fav_item.querySelector('.play-fav-btn');
     const sub_id = playBtn.getAttribute("data-sub-id");
-    console.log(sub_id)
-  
+    playBtn.classList.remove("play-fav-btn");
+    playBtn.classList.add("play-listened-btn");
+
     axios.post('/collabs/del-fav/', {
         submission_id : sub_id
     }, {
@@ -137,11 +136,6 @@ function removeFavourite(x) {
     .catch(error => {
         console.log("cholibka no nie dziala: ", error)
     })
-
-
-
-
-    
     
 
     console.log("fav item ", fav_item);
@@ -149,17 +143,10 @@ function removeFavourite(x) {
 
     const responses = document.querySelector('.responses');
     const new_response = createListened(playBtn);
-
-
-
     new_response.offsetHeight;
 
 
-
-
     const oldFlexItemsInfo = getFlexItemsInfo(favourites);
-
-
 
     // Force reflow to ensure transition works
     responses.appendChild(new_response);
@@ -182,6 +169,14 @@ function removeFavourite(x) {
 
 
 function addFavourite(button, playBtn){ //button here is the addFavBtn
+    
+    if (!playBtn){
+        parent = button.parentNode;
+        playBtn = parent.querySelector(".play-unlistened-button");
+    }
+    console.log("button: ", button);
+    console.log("playBtn: ", playBtn);
+
     emptyFav = document.querySelector(".fav-empty")
     const emptyFavCopy = emptyFav.cloneNode(true);
     favEmptyActivate(emptyFav);
@@ -253,10 +248,15 @@ function mark_listened(button, item){
                 //activate addFav button
                 addFavBtn = item.querySelector(".addFavUnlistened")
                 addFavBtn.disabled = false;
-                addFavBtn.classList.remove('add-fav-btn-dis')
-                addFavBtn.classList.add("add-fav-btn");
-                addFavBtn.addEventListener("click", function() {
-                        addFavourite(addFavBtn)
+                addFavBtn.classList.remove('add-fav-btn-dis', 'addFavUnlistened')
+                addFavBtn.classList.add("add-fav-btn", "addFav");
+                // addFavBtn.addEventListener("click", function() {
+                //         addFavourite(addFavBtn)
+                // })
+                addFavBtn.addEventListener('click', function() {
+                    const parent = button.parentElement;
+                    const playBtn = parent.querySelector("button");
+                    addFavourite(addFavBtn, playBtn);
                 })
             } else {
                 console.log("not created - ", response.status)
@@ -267,20 +267,51 @@ function mark_listened(button, item){
         })
 }
 
+playButtonsListened.forEach(function(button) {
+    const submissionUrl = button.getAttribute('data-audio-url');
+    // if (nowPlayingButton == null) {
+    //     nowPlayingButton = button
+    // } 
+    button.addEventListener('click', function() {
+        playing_unlistened = false;
+        if(nowPlayingButton !== this) { //new button selected
+            listened_POST = false;
+            if (nowPlayingButton){
+                changeButtonText(nowPlayingButton, 'play');
+            }
+            nowPlayingButton = button;
+            nowPlayingItem = nowPlayingButton.parentNode;
+            audioSubmission.src = submissionUrl;
+            playing = false;
+            audioBacking.currentTime = 0;
+            total_listened = 0;
+            play();
+
+        } else { //same button pressed again
+            console.log('hi mom, same button pressed again');
+            play();
+        }
+    })
+})
 
 
     playButtonsUnlistened.forEach(function(button) {
         const submissionUrl = button.getAttribute('data-audio-url');
-        if (nowPlayingButton == null) {
-            nowPlayingButton = button
-        } 
+
+        // if (nowPlayingButton == null) {
+        //     nowPlayingButton = button
+        // } 
+
         button.addEventListener('click', function() {
             playing_unlistened = true;
             if(nowPlayingButton !== this) { //new button selected
                 listened_POST = false;
-                changeButtonText(nowPlayingButton, 'play');
+                if (nowPlayingButton){
+                    changeButtonText(nowPlayingButton, 'play');
+                    nowPlayingItem.classList.remove('border-2');
+                }
                 nowPlayingButton = button;
-                nowPlayingItem.classList.remove('border-2');
+                
                 nowPlayingItem = nowPlayingButton.parentNode;
                 nowPlayingItem.classList.add("border-2");
                 audioSubmission.src = submissionUrl;
@@ -321,32 +352,6 @@ function mark_listened(button, item){
     });
 
 
-    playButtonsListened.forEach(function(button) {
-        const submissionUrl = button.getAttribute('data-audio-url');
-        if (nowPlayingButton == null) {
-            nowPlayingButton = button
-        } 
-        button.addEventListener('click', function() {
-            playing_unlistened = false;
-            if(nowPlayingButton !== this) { //new button selected
-                listened_POST = false;
-                changeButtonText(nowPlayingButton, 'play');
-                nowPlayingButton = button;
-                nowPlayingItem = nowPlayingButton.parentNode;
-                audioSubmission.src = submissionUrl;
-                playing = false;
-                audioBacking.currentTime = 0;
-                total_listened = 0;
-                play();
-
-            } else { //same button pressed again
-                console.log('hi mom, same button pressed again');
-                play();
-            }
-
-
-        })
-    })
 
     let lastUpdated;
     let listened_POST = false;
@@ -473,10 +478,4 @@ function getFlexItemsInfo(container) {
       );
     }
   }
-  
-
-
-
-
-
 });
